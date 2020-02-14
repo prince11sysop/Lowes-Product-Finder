@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "910344945494",
+    "firebase_url": "https://lowes-product-finder.firebaseio.com",
+    "project_id": "lowes-product-finder",
+    "storage_bucket": "lowes-product-finder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910344945494:android:a3916aa1afb00bd55ce0f7",
+        "android_client_info": {
+          "package_name": "nitjamshedpur.com.lowesproductfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910344945494-ar2kff18nha8249oir1v3actqnd9d5cg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nitjamshedpur.com.lowesproductfinder",
+            "certificate_hash": "18a26f83db08f69d282547d04c1a6ebe61ea45e0"
+          }
+        },
+        {
+          "client_id": "910344945494-on7rldhkltnkq7m2uotrmuu33ffjst2u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFxmExZhTOgCKDjrfuVLzbgMjgI2F3xUs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910344945494-on7rldhkltnkq7m2uotrmuu33ffjst2u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
