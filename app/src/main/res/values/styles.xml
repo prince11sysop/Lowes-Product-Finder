@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/robotoregular</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -16,5 +17,29 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="bebasRegular" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/bebasregular</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">#4b4b4b</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="robotoRegular" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/robotoregular</item>
+        <item name="android:textSize">13dp</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="robotoBold" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/robotobold</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+
 
 </resources>
