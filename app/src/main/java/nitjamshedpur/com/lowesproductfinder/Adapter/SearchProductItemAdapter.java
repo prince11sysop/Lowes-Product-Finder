@@ -37,8 +37,8 @@ public class SearchProductItemAdapter extends RecyclerView.Adapter<SearchProduct
         holder.name.setText(data.get(position).getName());
         holder.subCat.setText(data.get(position).getSubCategory());
         holder.cat.setText(data.get(position).getCategory());
-        holder.price.setText(data.get(position).getPrice());
-        holder.floor.setText(data.get(position).getFloor());
+        holder.price.setText("Rs."+data.get(position).getPrice());
+        holder.floor.setText("Floor-"+data.get(position).getFloor());
 
     }
 

@@ -30,7 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
-import nitjamshedpur.com.lowesproductfinder.ItemModal;
+import nitjamshedpur.com.lowesproductfinder.Modal.ItemModal;
 import nitjamshedpur.com.lowesproductfinder.R;
 import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
 
