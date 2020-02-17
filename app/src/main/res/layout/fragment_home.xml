@@ -17,6 +17,8 @@
         android:layout_height="wrap_content"
         android:hint="Search Product"
         android:background="#fff"
+        android:editable="false"
+        android:focusableInTouchMode="false"
         android:padding="10dp"
         android:maxLines="1"></EditText>
     </RelativeLayout>

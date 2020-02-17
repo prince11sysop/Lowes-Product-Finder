@@ -2,8 +2,9 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_marginLeft="12dp"
-    android:layout_marginRight="12dp"
+    android:background="#fff"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
@@ -22,7 +23,8 @@
         android:id="@+id/search_item_subcat"
         android:textStyle="bold"
         android:text="Pens"
-        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/search_product_floor"
+        android:layout_marginLeft="12dp"
         android:textSize="18sp"
         android:textColor="#000"
         android:paddingLeft="8dp"
@@ -47,7 +49,8 @@
         android:id="@+id/search_item_category"
         android:layout_below="@+id/search_item_subcat"
         android:text="Stationary"
-        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/search_product_floor"
+        android:layout_marginLeft="12dp"
         android:textSize="18sp"
         android:textColor="#000"
         android:paddingLeft="8dp"
@@ -61,7 +64,8 @@
         android:layout_below="@+id/search_item_subcat"
         android:text="Floor-2"
         android:textSize="18sp"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/search_item_name"
         android:textColor="#000"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
@@ -75,4 +79,12 @@
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
+    <ImageView
+        android:src="@drawable/ic_trending_up_black_24dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"
+        android:alpha="0.5"
+        android:layout_centerVertical="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
 </RelativeLayout>

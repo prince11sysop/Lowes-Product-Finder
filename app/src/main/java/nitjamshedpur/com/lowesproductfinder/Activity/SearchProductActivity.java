@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -71,8 +72,29 @@ public class SearchProductActivity extends Activity {
     }
 
     private void filterItemList() {
-        ArrayList<ItemModal> fullList= new ArrayList<>();
-        //fullList=AppConstants.mItemList;
+
+        Log.e("filterItemList: ","filter clicked");
+        currentItemList.clear();
+
+        ArrayList<ItemModal> fullList = new ArrayList<>();
+        fullList = AppConstants.mItemList;
+        String searchText = enterSearchText.getText().toString();
+        if (searchText.equals("")){
+            mAdapter.notifyDataSetChanged();
+            return;
+        }
+
+        for (int i = 0; i < fullList.size(); i++) {
+            if (fullList.get(i).getName().toLowerCase().contains(searchText.toLowerCase())||
+                    fullList.get(i).getCategory().toLowerCase().contains(searchText.toLowerCase())||
+                    fullList.get(i).getSubCategory().toLowerCase().contains(searchText.toLowerCase())||
+                    fullList.get(i).getDescription().toLowerCase().contains(searchText.toLowerCase())
+            ){
+                currentItemList.add(fullList.get(i));
+            }
+        }
+
+        mAdapter.notifyDataSetChanged();
     }
 
     private void init() {
@@ -83,7 +105,7 @@ public class SearchProductActivity extends Activity {
         enterSearchText = findViewById(R.id.edit_search_text);
         search_items_list = findViewById(R.id.search_items_list);
 
-        mAdapter = new SearchProductItemAdapter(this,currentItemList);
+        mAdapter = new SearchProductItemAdapter(this, currentItemList);
         search_items_list.setLayoutManager(new LinearLayoutManager(this));
         search_items_list.setAdapter(mAdapter);
     }
