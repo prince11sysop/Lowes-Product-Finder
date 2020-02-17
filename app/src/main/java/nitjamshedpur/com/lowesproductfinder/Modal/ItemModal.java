@@ -1,4 +1,4 @@
-package nitjamshedpur.com.lowesproductfinder;
+package nitjamshedpur.com.lowesproductfinder.Modal;
 
 public class ItemModal {
     private String category, subCategory, price, floor, shelf, description, name;
@@ -11,6 +11,10 @@ public class ItemModal {
         this.shelf = shelf;
         this.description = description;
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setDescription(String description) {

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e9e9e9"
     tools:context=".Activity.SearchProductActivity"
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
@@ -27,11 +28,13 @@
                 android:id="@+id/edit_search_text"
                 android:layout_marginLeft="20dp"
                 android:background="@null"
+                android:textCursorDrawable="@drawable/cursor_drawable"
                 android:hint="Search your item here"
                 android:layout_toRightOf="@+id/search_product_back"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
             <ImageView
+                android:id="@+id/search_item_mic"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_mic_black_24dp"
@@ -39,11 +42,15 @@
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/items_list"
-        android:padding="8dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_below="@+id/toolbar_sp"
         android:layout_marginTop="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_items_list"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 </RelativeLayout>

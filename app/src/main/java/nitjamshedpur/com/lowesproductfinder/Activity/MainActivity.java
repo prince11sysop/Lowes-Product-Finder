@@ -1,4 +1,4 @@
-package nitjamshedpur.com.lowesproductfinder;
+package nitjamshedpur.com.lowesproductfinder.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
+import nitjamshedpur.com.lowesproductfinder.ItemModal;
+import nitjamshedpur.com.lowesproductfinder.R;
+import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
 
 import android.view.Menu;
 
@@ -66,58 +70,59 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (mSharedPreferences.getBoolean("firstTime", true) == true) {
-            fetchItemList();
+//        if (mSharedPreferences.getBoolean("firstTime", true) == true) {
+//            fetchItemList();
+//        }
+        if(AppConstants.mItemList.size()==0){
+            fetchGoodsItemList();
         }
     }
 
-    private void fetchItemList() {
+    private void fetchGoodsItemList() {
         progressDialog.show();
-        final ArrayList<String> itemArray=new ArrayList<>();
+        //final ArrayList<String> itemArray=new ArrayList<>();
+
+        AppConstants.mItemList.clear();
 
         dref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    String itemString=ds.child("category").getValue().toString()+","+
-                    ds.child("subCategory").getValue().toString()+","+
-                            ds.child("price").getValue().toString()+","+
-                            ds.child("floor").getValue().toString()+","+
-                            ds.child("shelf").getValue().toString()+","+
-                            ds.child("description").getValue().toString()+","+
-                            ds.child("name").getValue().toString();
+//                    String itemString=ds.child("category").getValue().toString()+","+
+//                    ds.child("subCategory").getValue().toString()+","+
+//                            ds.child("price").getValue().toString()+","+
+//                            ds.child("floor").getValue().toString()+","+
+//                            ds.child("shelf").getValue().toString()+","+
+//                            ds.child("description").getValue().toString()+","+
+//                            ds.child("name").getValue().toString();
+//
+//                    itemArray.add(itemString);
 
-                    itemArray.add(itemString);
+                    ItemModal itemModal = new ItemModal(
+                            ds.child("category").getValue().toString(),
+                            ds.child("subCategory").getValue().toString(),
+                            ds.child("price").getValue().toString(),
+                            ds.child("floor").getValue().toString(),
+                            ds.child("shelf").getValue().toString(),
+                            ds.child("description").getValue().toString(),
+                            ds.child("name").getValue().toString()
+                    );
 
-//                    ItemModal itemModal = new ItemModal(
-//                            ds.child("category").getValue().toString(),
-//                            ds.child("subCategory").getValue().toString(),
-//                            ds.child("price").getValue().toString(),
-//                            ds.child("floor").getValue().toString(),
-//                            ds.child("shelf").getValue().toString(),
-//                            ds.child("description").getValue().toString(),
-//                            ds.child("name").getValue().toString()
-//                    );
+                    Log.e("onDataChange: ",ds.child("name").getValue().toString());
+
+                    AppConstants.mItemList.add(itemModal);
                 }
-
-                for (int i=0;i<itemArray.size();i++)
-                {
-                    if(i==itemArray.size()-1){
-
-                    }
-                    else {
-                        itemArray.get(i)=itemArray.get(i)+"|";
-                    }
-                }
-
-                SharedPreferences.Editor editor=mSharedPreferences.edit();
-                editor.putString("itemList",)
+                Log.e("onDataChange: ",AppConstants.mItemList.toString());
+                progressDialog.dismiss();
+//                SharedPreferences.Editor editor=mSharedPreferences.edit();
+//                editor.putBoolean("firstTime",false);
+//                editor.apply();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                progressDialog.dismiss();
             }
         });
     }
