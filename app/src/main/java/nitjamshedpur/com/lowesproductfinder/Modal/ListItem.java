@@ -1,4 +1,4 @@
-package nitjamshedpur.com.lowesproductfinder.Model;
+package nitjamshedpur.com.lowesproductfinder.Modal;
 
 public class ListItem {
     private String itemName;

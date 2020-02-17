@@ -1,35 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e9e9e9"
     tools:context=".Activity.SearchProductActivity"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/toolbar_sp"
+        app:cardCornerRadius="1dp"
+        android:elevation="20dp"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        android:elevation="1dp">
-
-        <EditText
-            android:id="@+id/searchText"
+        android:layout_height="50dp">
+        <RelativeLayout
+            android:padding="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#fff"></EditText>
-    </androidx.appcompat.widget.Toolbar>
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/search_product_back"
+                android:src="@drawable/ic_arrow_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/edit_search_text"
+                android:layout_marginLeft="20dp"
+                android:background="@null"
+                android:textCursorDrawable="@drawable/cursor_drawable"
+                android:hint="Search your item here"
+                android:layout_toRightOf="@+id/search_product_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
+            <ImageView
+                android:id="@+id/search_item_mic"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_mic_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/map"
-        android:scaleType="fitXY"></ImageView>
+        android:layout_below="@+id/toolbar_sp"
+        android:layout_marginTop="2dp"
+        android:layout_height="wrap_content">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_items_list"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-</LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

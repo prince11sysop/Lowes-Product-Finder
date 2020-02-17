@@ -1,13 +1,11 @@
 package nitjamshedpur.com.lowesproductfinder.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -15,10 +13,8 @@ import com.google.gson.Gson;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
-import nitjamshedpur.com.lowesproductfinder.Model.ListItem;
+import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
 
 import static nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity.itemList;

@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import nitjamshedpur.com.lowesproductfinder.Adapter.MyShoppingListAdapter;
-import nitjamshedpur.com.lowesproductfinder.Model.ListItem;
+import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
 
 import android.app.Activity;
