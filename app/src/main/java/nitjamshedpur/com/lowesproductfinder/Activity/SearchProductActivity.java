@@ -25,7 +25,6 @@ public class SearchProductActivity extends Activity {
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
 
-
     }
 
     @Override
