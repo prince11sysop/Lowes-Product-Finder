@@ -29,7 +29,7 @@ public class ListItem {
         this.itemCount = itemCount;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 

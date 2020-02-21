@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CreateShoppingListActivity extends Activity {
@@ -94,6 +95,8 @@ public class CreateShoppingListActivity extends Activity {
                     public void onClick(View v) {
 
                     itemList.add(new ListItem(itemText.getText().toString(),3,false,"Shelf-2"));
+
+                    Collections.reverse(itemList);
 
                         Gson gson = new Gson();
                         String json = gson.toJson(itemList);

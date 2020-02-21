@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.MapCoordinateActivity"></activity>
+        <activity android:name=".Activity.ShowShoppingList"></activity>
+        <activity android:name=".Activity.StartShoppingMapActivity" />
+        <activity android:name=".Activity.MapCoordinateActivity" />
         <activity android:name=".Activity.NavigationActivity" />
         <activity android:name=".Activity.AddItemActivity" />
         <activity android:name=".Activity.CreateShoppingListActivity" />

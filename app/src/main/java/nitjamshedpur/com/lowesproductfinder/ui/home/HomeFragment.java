@@ -19,6 +19,7 @@ import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.MapCoordinateActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.NavigationActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.SearchProductActivity;
+import nitjamshedpur.com.lowesproductfinder.Activity.StartShoppingMapActivity;
 import nitjamshedpur.com.lowesproductfinder.R;
 
 public class HomeFragment extends Fragment {
@@ -27,6 +28,7 @@ public class HomeFragment extends Fragment {
     Button shoppingList;
     Button navigateBtn;
     Button checkPoints;
+    Button startShopping;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class HomeFragment extends Fragment {
         shoppingList=(Button)root.findViewById(R.id.shoppingList);
         navigateBtn=(Button)root.findViewById(R.id.navigateBtn);
         checkPoints=(Button)root.findViewById(R.id.checkPoints);
+        startShopping=(Button)root.findViewById(R.id.startShopping);
 
         searchBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +67,14 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getContext(), MapCoordinateActivity.class));
             }
         });
+
+        startShopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), StartShoppingMapActivity.class));
+            }
+        });
+
         return root;
     }
 }

@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -60,7 +63,7 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
         final ListItem listItem = myItemList.get(position);
 
         myShoppingListViewHolder.mItemName.setText(listItem.getItemName());
-        myShoppingListViewHolder.mItemCOunt.setText(listItem.getItemCount()+"");
+        myShoppingListViewHolder.mItemCount.setText(listItem.getItemCount()+"");
         myShoppingListViewHolder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +80,40 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
                 recyclerView.setAdapter(adapter);
             }
         });
+
+        if(listItem.getStatus()){
+            myShoppingListViewHolder.checkBox.setChecked(true);
+        }
+
+        myShoppingListViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    ListItem listItem1=itemList.get(position);
+                    itemList.remove(position);
+                    listItem1.setStatus(true);
+                    itemList.add(listItem1);
+
+                }else{
+                    ListItem listItem1=itemList.get(position);
+                    itemList.remove(position);
+
+                    listItem1.setStatus(false);
+                    itemList.add(0,listItem1);
+                }
+
+                Gson gson = new Gson();
+                String json = gson.toJson(itemList);
+
+                editor = shref.edit();
+                editor.remove(key).commit();
+                editor.putString(key, json);
+                editor.commit();
+                MyShoppingListAdapter adapter = new MyShoppingListAdapter(myContext, itemList);
+                recyclerView.setAdapter(adapter);
+
+            }
+        });
     }
 
 
@@ -89,15 +126,17 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
     //    public static class MyReportsViewHolder extends RecyclerView.ViewHolder {
     public class MyShoppingListViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mItemName, mItemCOunt;
+        TextView mItemName, mItemCount;
         Button deleteItem;
+        CheckBox checkBox;
 
 
         public MyShoppingListViewHolder(@NonNull final View itemView) {
             super(itemView);
             mItemName = itemView.findViewById(R.id.itemName);
-            mItemCOunt= itemView.findViewById(R.id.itemCount);
+            mItemCount= itemView.findViewById(R.id.itemCount);
             deleteItem=itemView.findViewById(R.id.deleteBtn);
+            checkBox=itemView.findViewById(R.id.checkBox);
 
             itemView.setTag(getAdapterPosition());
 
