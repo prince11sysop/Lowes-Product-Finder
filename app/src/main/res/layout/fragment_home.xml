@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:text="Create Shopping List"
         android:layout_gravity="center"
-        android:layout_marginTop="300dp"></Button>
+        android:layout_marginTop="100dp"></Button>
 
 
     <Button
@@ -45,6 +45,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Check Points"
+        android:layout_gravity="center"></Button>
+
+    <Button
+        android:id="@+id/startShopping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Shopping"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"></Button>
 
 </LinearLayout>
