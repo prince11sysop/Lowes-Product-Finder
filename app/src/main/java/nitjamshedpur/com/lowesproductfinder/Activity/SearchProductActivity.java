@@ -73,8 +73,7 @@ public class SearchProductActivity extends Activity {
         searchMic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(SearchProductActivity.this, "Ruk bhai thoda...", Toast.LENGTH_SHORT).show();
-                promptSpeechInput();
+                Toast.makeText(SearchProductActivity.this, "Ruk bhai thoda...", Toast.LENGTH_SHORT).show();
             }
         });
 

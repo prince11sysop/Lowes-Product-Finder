@@ -32,4 +32,19 @@
         android:layout_gravity="center"
         android:layout_marginTop="300dp"></Button>
 
+
+    <Button
+        android:id="@+id/navigateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mark Points"
+        android:layout_gravity="center"></Button>
+
+    <Button
+        android:id="@+id/checkPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check Points"
+        android:layout_gravity="center"></Button>
+
 </LinearLayout>
