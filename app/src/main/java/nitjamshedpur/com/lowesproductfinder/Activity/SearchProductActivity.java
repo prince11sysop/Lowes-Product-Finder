@@ -56,6 +56,8 @@ public class SearchProductActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_product);
 
+        AppConstants.mSearchProductActivity=SearchProductActivity.this;
+
         init();
         receiveClicks();
     }
