@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import nitjamshedpur.com.lowesproductfinder.Adapter.MyShoppingListAdapter;
+import nitjamshedpur.com.lowesproductfinder.Modal.ItemModal;
 import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
 
@@ -43,7 +45,7 @@ public class StartShoppingMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_shopping_map);
 
-        showShoppingList=(Button)findViewById(R.id.showShoppingList);
+        showShoppingList = (Button) findViewById(R.id.showShoppingList);
 
         showShoppingList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,13 +57,15 @@ public class StartShoppingMapActivity extends AppCompatActivity {
                 dialog.setContentView(view1);
                 dialog.show();
 
-                recyclerView = (RecyclerView)view1.findViewById(R.id.recycler_view);
+                recyclerView = (RecyclerView) view1.findViewById(R.id.recycler_view);
                 shref = getApplicationContext().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
                 Gson gson = new Gson();
-                String response=shref.getString(key , "");
+                String response = shref.getString(key, "");
 
-                if(gson.fromJson(response,new TypeToken<List<ListItem>>(){}.getType())!=null)
-                    itemList = gson.fromJson(response,new TypeToken<List<ListItem>>(){}.getType());
+                if (gson.fromJson(response, new TypeToken<List<ListItem>>() {
+                }.getType()) != null)
+                    itemList = gson.fromJson(response, new TypeToken<List<ListItem>>() {
+                    }.getType());
                 else
                     itemList = new ArrayList<>();
 
@@ -73,7 +77,6 @@ public class StartShoppingMapActivity extends AppCompatActivity {
 
                 MyShoppingListAdapter adapter = new MyShoppingListAdapter(StartShoppingMapActivity.this, itemList);
                 recyclerView.setAdapter(adapter);
-
 
 
             }

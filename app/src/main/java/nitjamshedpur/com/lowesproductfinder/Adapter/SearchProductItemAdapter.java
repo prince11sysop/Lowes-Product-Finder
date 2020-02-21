@@ -34,7 +34,7 @@ public class SearchProductItemAdapter extends RecyclerView.Adapter<SearchProduct
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Viewholder holder, int position) {
+    public void onBindViewHolder(@NonNull Viewholder holder, final int position) {
 
         holder.name.setText(data.get(position).getName());
         holder.subCat.setText(data.get(position).getSubCategory());
@@ -45,7 +45,7 @@ public class SearchProductItemAdapter extends RecyclerView.Adapter<SearchProduct
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppConstants.openAddItemDialog(context);
+                AppConstants.openAddItemDialog(context,data.get(position));
             }
         });
     }

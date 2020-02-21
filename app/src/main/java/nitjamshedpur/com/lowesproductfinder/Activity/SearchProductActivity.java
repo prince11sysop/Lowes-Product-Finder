@@ -39,14 +39,14 @@ public class SearchProductActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(mIsKeyBoardOpen)
+        if (mIsKeyBoardOpen)
             closeKeyboard();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if(mIsKeyBoardOpen)
+        if (mIsKeyBoardOpen)
             closeKeyboard();
     }
 
@@ -55,8 +55,6 @@ public class SearchProductActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_product);
-
-        AppConstants.mSearchProductActivity=SearchProductActivity.this;
 
         init();
         receiveClicks();
@@ -73,7 +71,8 @@ public class SearchProductActivity extends Activity {
         searchMic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SearchProductActivity.this, "Ruk bhai thoda...", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(SearchProductActivity.this, "Ruk bhai thoda...", Toast.LENGTH_SHORT).show();
+                promptSpeechInput();
             }
         });
 
@@ -97,7 +96,7 @@ public class SearchProductActivity extends Activity {
         enterSearchText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(b)
+                if (b)
                     showKeyboard();
                 else
                     closeKeyboard();
@@ -109,23 +108,23 @@ public class SearchProductActivity extends Activity {
 
     private void filterItemList() {
 
-        Log.e("filterItemList: ","filter clicked");
+        Log.e("filterItemList: ", "filter clicked");
         currentItemList.clear();
 
         ArrayList<ItemModal> fullList = new ArrayList<>();
         fullList = AppConstants.mItemList;
         String searchText = enterSearchText.getText().toString().trim();
-        if (searchText.equals("")){
+        if (searchText.equals("")) {
             mAdapter.notifyDataSetChanged();
             return;
         }
 
         for (int i = 0; i < fullList.size(); i++) {
-            if (fullList.get(i).getName().toLowerCase().contains(searchText.toLowerCase())||
-                    fullList.get(i).getCategory().toLowerCase().contains(searchText.toLowerCase())||
-                    fullList.get(i).getSubCategory().toLowerCase().contains(searchText.toLowerCase())||
+            if (fullList.get(i).getName().toLowerCase().contains(searchText.toLowerCase()) ||
+                    fullList.get(i).getCategory().toLowerCase().contains(searchText.toLowerCase()) ||
+                    fullList.get(i).getSubCategory().toLowerCase().contains(searchText.toLowerCase()) ||
                     fullList.get(i).getDescription().toLowerCase().contains(searchText.toLowerCase())
-            ){
+            ) {
                 currentItemList.add(fullList.get(i));
             }
         }
@@ -134,6 +133,8 @@ public class SearchProductActivity extends Activity {
     }
 
     private void init() {
+        AppConstants.mSearchProductActivity = SearchProductActivity.this;
+
         currentItemList = new ArrayList<>();
 
         searchBack = findViewById(R.id.search_product_back);
@@ -150,7 +151,7 @@ public class SearchProductActivity extends Activity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Bol na bhosdike!!");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Bol na bhosdike!!");
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         } catch (Exception e) {
@@ -171,13 +172,13 @@ public class SearchProductActivity extends Activity {
         }
     }
 
-    public void showKeyboard(){
+    public void showKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
         mIsKeyBoardOpen = true;
     }
 
-    public void closeKeyboard(){
+    public void closeKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
         mIsKeyBoardOpen = false;
