@@ -1,6 +1,7 @@
 package nitjamshedpur.com.lowesproductfinder.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,13 @@ public class AppConstants {
             @Override
             public void onClick(View v) {
 
-                //do it
+                //do-things
+
+                SharedPreferences sharedPreferences=AppConstants.mSearchProductActivity
+                        .getSharedPreferences("SharedPref",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+
+
 
                 alertDialogOtp.hide();
             }

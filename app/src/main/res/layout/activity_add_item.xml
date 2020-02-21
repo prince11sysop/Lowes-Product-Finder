@@ -1,53 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.AddItemActivity"
-    >
+    tools:context=".Activity.AddItemActivity">
 
-    <ScrollView
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="30dp"
+        app:cardElevation="2dp"
         android:layout_width="match_parent"
+        android:background="#fff"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:padding="10dp">
-
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <EditText
-                android:id="@+id/addItemText"
+                android:id="@+id/addItemText_ai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="80dp"
                 android:hint="Add Item"
+                android:editable="false"
+                android:focusableInTouchMode="false"
                 android:padding="10dp"
-                android:background="#fff"
                 android:textColor="#000"
                 android:maxLines="2"
                 />
-            </RelativeLayout>
 
-            <Button
+            <androidx.cardview.widget.CardView
                 android:id="@+id/addItemBtn"
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:padding="8dp"
-                android:layout_below="@+id/addItemText"
-                android:layout_marginBottom="20dp"
-                android:text="Add"/>
-        </LinearLayout>
-    </ScrollView>
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/addItemText_ai"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="200dp"
+                app:cardElevation="@dimen/cardview_default_elevation">
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:fontFamily="@font/opensans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="12dp"
+                        android:text="Add"
+                        android:textAllCaps="true"
+                        android:textColor="#fff"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

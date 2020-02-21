@@ -1,6 +1,7 @@
 package nitjamshedpur.com.lowesproductfinder.Activity;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,7 @@ import nitjamshedpur.com.lowesproductfinder.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -34,7 +36,7 @@ public class CreateShoppingListActivity extends Activity {
     public static ArrayList<ListItem> itemList;
 
     EditText itemText;
-    Button addItemBtn;
+    CardView addItemBtn;
 
     String key = "Key";
     private static final String SHARED_PREF = "SharedPref";
@@ -86,8 +88,15 @@ public class CreateShoppingListActivity extends Activity {
                 dialog.show();
 
 
-                addItemBtn = (Button) view1.findViewById(R.id.addItemBtn);
-                itemText = (EditText) view1.findViewById(R.id.addItemText);
+                addItemBtn = (CardView) view1.findViewById(R.id.addItemBtn);
+                itemText = (EditText) view1.findViewById(R.id.addItemText_ai);
+
+                itemText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(CreateShoppingListActivity.this,SearchProductActivity.class));
+                    }
+                });
 
                 addItemBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
