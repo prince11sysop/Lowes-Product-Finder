@@ -9,17 +9,20 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import nitjamshedpur.com.lowesproductfinder.Modal.ItemModal;
 import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
 
+import static nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity.adapter;
 import static nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity.itemList;
 import static nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity.recyclerView;
 
@@ -37,7 +40,7 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
 
 
 
-    public MyShoppingListAdapter(Context myContext, List<ListItem> itemList){
+    public MyShoppingListAdapter(Context myContext, ArrayList<ListItem> itemList){
         this.myContext = myContext;
         this.myItemList = itemList;
 
@@ -62,7 +65,7 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
 
         final ListItem listItem = myItemList.get(position);
 
-        myShoppingListViewHolder.mItemName.setText(listItem.getItemName());
+        myShoppingListViewHolder.mItemName.setText(listItem.getName());
         myShoppingListViewHolder.mItemCount.setText(listItem.getItemCount()+"");
         myShoppingListViewHolder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +79,13 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
                 editor.remove(key).commit();
                 editor.putString(key, json);
                 editor.commit();
+                //adapter.notifyDataSetChanged();
                 MyShoppingListAdapter adapter = new MyShoppingListAdapter(myContext, itemList);
                 recyclerView.setAdapter(adapter);
             }
         });
 
-        if(listItem.getStatus()){
+        if(listItem.isStatus()){
             myShoppingListViewHolder.checkBox.setChecked(true);
         }
 

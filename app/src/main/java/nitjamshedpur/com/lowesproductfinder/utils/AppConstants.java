@@ -1,6 +1,7 @@
 package nitjamshedpur.com.lowesproductfinder.utils;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,17 +12,27 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
-import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.SearchProductActivity;
+import nitjamshedpur.com.lowesproductfinder.Adapter.MyShoppingListAdapter;
 import nitjamshedpur.com.lowesproductfinder.Modal.ItemModal;
+import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
 
 public class AppConstants {
     public static ArrayList<ItemModal> mItemList = new ArrayList<>();
     public static SearchProductActivity mSearchProductActivity;
+    public static CreateShoppingListActivity mCreateShoppingListActivity;
+    public static boolean isCreateShoppingListActivityOpen = false;
 
-    public static void openAddItemDialog(Context context) {
+    public static void openAddItemDialog(final Context context, final ItemModal itemModal) {
         Rect displayRectangle = new Rect();
         Window window = AppConstants.mSearchProductActivity.getWindow();
         window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
@@ -30,9 +41,23 @@ public class AppConstants {
 
         TextView upper_text = dialogView.findViewById(R.id.upper_text);
 
-        TextView sendOtp = dialogView.findViewById(R.id.send_otp);
+        TextView itemName, itemCat, itemSubCat, itemPrice, itemFloor, itemDesc;
+        itemCat = dialogView.findViewById(R.id.details_item_category);
+        itemSubCat = dialogView.findViewById(R.id.details_item_subcat);
+        itemPrice = dialogView.findViewById(R.id.details_item_price);
+        itemFloor = dialogView.findViewById(R.id.details_item_floor);
+        itemDesc = dialogView.findViewById(R.id.details_item_desc);
+        itemName = dialogView.findViewById(R.id.details_item_name);
 
-        //final EditText enterOtp = dialogView.findViewById(R.id.enter_phone_no_et);
+        itemName.setText(itemModal.getName());
+        itemCat.setText(itemModal.getCategory());
+        itemSubCat.setText(itemModal.getSubCategory());
+        itemPrice.setText("Rs." + itemModal.getPrice());
+        itemFloor.setText("Floor-" + itemModal.getFloor());
+        itemDesc.setText(itemModal.getDescription());
+
+        TextView addButton = dialogView.findViewById(R.id.add_item_button);
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
         builder.setView(dialogView);
@@ -42,13 +67,66 @@ public class AppConstants {
         alertDialogOtp.setCancelable(true);
         alertDialogOtp.show();
 
-        sendOtp.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //do it
+                //do-things
+
+                SharedPreferences sharedPreferences = AppConstants.mSearchProductActivity
+                        .getSharedPreferences("SharedPref", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
+                ArrayList<ListItem> myList = new ArrayList<>();
+
+
+                //fetch older item list
+                Gson gson = new Gson();
+                String response = sharedPreferences.getString("ItemList", "");
+
+                if (gson.fromJson(response, new TypeToken<List<ListItem>>() {
+                }.getType()) != null)
+                    myList = gson.fromJson(response, new TypeToken<List<ListItem>>() {
+                    }.getType());
+                else
+                    myList = new ArrayList<>();
+
+
+                //change item list
+                myList.add(new ListItem(
+                        itemModal.getCategory(),
+                        itemModal.getSubCategory(),
+                        itemModal.getPrice(),
+                        itemModal.getFloor(),
+                        itemModal.getShelf(),
+                        itemModal.getDescription(),
+                        itemModal.getName(),
+                        0, false
+                ));
+                Collections.reverse(myList);
+
+                Gson gson2 = new Gson();
+                String json = gson2.toJson(myList);
+
+                editor = sharedPreferences.edit();
+                editor.remove("ItemList").commit();
+                editor.putString("ItemList", json);
+                editor.commit();
 
                 alertDialogOtp.hide();
+
+                mSearchProductActivity.finish();
+
+                if (AppConstants.isCreateShoppingListActivityOpen) {
+                    //AppConstants.mCreateShoppingListActivity.adapter.notifyDataSetChanged();
+
+                    AppConstants.mCreateShoppingListActivity.recyclerView
+                            .setAdapter(new MyShoppingListAdapter(
+                                    context, myList
+                            ));
+                }
+
             }
         });
     }

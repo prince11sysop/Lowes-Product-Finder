@@ -1,15 +1,20 @@
 package nitjamshedpur.com.lowesproductfinder.Activity;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import nitjamshedpur.com.lowesproductfinder.Adapter.MyShoppingListAdapter;
+import nitjamshedpur.com.lowesproductfinder.Modal.ItemModal;
 import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
+import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -35,17 +40,54 @@ public class CreateShoppingListActivity extends Activity {
     public static ArrayList<ListItem> itemList;
 
     EditText itemText;
-    Button addItemBtn;
+    CardView addItemBtn;
 
-    String key = "Key";
+    String key = "ItemList";
     private static final String SHARED_PREF = "SharedPref";
     SharedPreferences shref;
     SharedPreferences.Editor editor;
+    public static MyShoppingListAdapter adapter;
+    private boolean firstTimeFlag = true;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        if (!firstTimeFlag) {
+//            adapter.notifyDataSetChanged();
+//        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppConstants.isCreateShoppingListActivityOpen = false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_shopping_list);
+
+        init();
+        receiveClicks();
+        setUpRecyclerView();
+
+    }
+
+    private void setUpRecyclerView() {
+        layoutManager = new GridLayoutManager(CreateShoppingListActivity.this, 1);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+
+        adapter = new MyShoppingListAdapter(CreateShoppingListActivity.this, itemList);
+        recyclerView.setAdapter(adapter);
+        firstTimeFlag = false;
+        AppConstants.mCreateShoppingListActivity = CreateShoppingListActivity.this;
+        AppConstants.isCreateShoppingListActivityOpen = true;
+    }
+
+    private void init() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,69 +96,71 @@ public class CreateShoppingListActivity extends Activity {
             }
         });
 
-        fab=(FloatingActionButton)findViewById(R.id.fab);
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         //Adding list in local storage
         shref = getApplicationContext().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String response=shref.getString(key , "");
+        String response = shref.getString(key, "");
 
-        if(gson.fromJson(response,new TypeToken<List<ListItem>>(){}.getType())!=null)
-            itemList = gson.fromJson(response,new TypeToken<List<ListItem>>(){}.getType());
+        if (gson.fromJson(response, new TypeToken<List<ListItem>>() {
+        }.getType()) != null)
+            itemList = gson.fromJson(response, new TypeToken<List<ListItem>>() {
+            }.getType());
         else
             itemList = new ArrayList<>();
+    }
 
-
-        layoutManager = new GridLayoutManager(CreateShoppingListActivity.this, 1);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-
-        final MyShoppingListAdapter adapter = new MyShoppingListAdapter(CreateShoppingListActivity.this, itemList);
-        recyclerView.setAdapter(adapter);
+    private void receiveClicks() {
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                View view1 = getLayoutInflater().inflate(R.layout.activity_add_item, null);
-                final BottomSheetDialog dialog = new BottomSheetDialog(CreateShoppingListActivity.this);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.setContentView(view1);
-                dialog.show();
+                startActivity(new Intent(CreateShoppingListActivity.this, SearchProductActivity.class));
 
-
-                addItemBtn = (Button) view1.findViewById(R.id.addItemBtn);
-                itemText = (EditText) view1.findViewById(R.id.addItemText);
-
-                addItemBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    itemList.add(new ListItem(itemText.getText().toString(),3,false,"Shelf-2"));
-
-                    Collections.reverse(itemList);
-
-                        Gson gson = new Gson();
-                        String json = gson.toJson(itemList);
-
-                        editor = shref.edit();
-                        editor.remove(key).commit();
-                        editor.putString(key, json);
-                        editor.commit();
-
-                    MyShoppingListAdapter adapter = new MyShoppingListAdapter(CreateShoppingListActivity.this, itemList);
-                    recyclerView.setAdapter(adapter);
-                    dialog.dismiss();
-                    }
-                });
+//                View view1 = getLayoutInflater().inflate(R.layout.activity_add_item, null);
+//                final BottomSheetDialog dialog = new BottomSheetDialog(CreateShoppingListActivity.this);
+//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                dialog.setContentView(view1);
+//                dialog.show();
+//
+//
+//                addItemBtn = (CardView) view1.findViewById(R.id.addItemBtn);
+//                itemText = (EditText) view1.findViewById(R.id.addItemText_ai);
+//
+//                itemText.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        startActivity(new Intent(CreateShoppingListActivity.this,SearchProductActivity.class));
+//                    }
+//                });
+//
+//                addItemBtn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    itemList.add(new ListItem(itemText.getText().toString(),3,false,"Shelf-2"));
+//
+//                    Collections.reverse(itemList);
+//
+//                        Gson gson = new Gson();
+//                        String json = gson.toJson(itemList);
+//
+//                        editor = shref.edit();
+//                        editor.remove(key).commit();
+//                        editor.putString(key, json);
+//                        editor.commit();
+//
+//                    MyShoppingListAdapter adapter = new MyShoppingListAdapter(CreateShoppingListActivity.this, itemList);
+//                    recyclerView.setAdapter(adapter);
+//                    dialog.dismiss();
+//                    }
+//                });
 
 
             }
         });
-
-
-
     }
 }
