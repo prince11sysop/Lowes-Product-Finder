@@ -22,6 +22,7 @@ import nitjamshedpur.com.lowesproductfinder.Modal.ItemModal;
 import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
 
+import static nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity.adapter;
 import static nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity.itemList;
 import static nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity.recyclerView;
 
@@ -78,6 +79,7 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
                 editor.remove(key).commit();
                 editor.putString(key, json);
                 editor.commit();
+                //adapter.notifyDataSetChanged();
                 MyShoppingListAdapter adapter = new MyShoppingListAdapter(myContext, itemList);
                 recyclerView.setAdapter(adapter);
             }

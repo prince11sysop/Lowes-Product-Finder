@@ -30,9 +30,9 @@ public class AppConstants {
     public static ArrayList<ItemModal> mItemList = new ArrayList<>();
     public static SearchProductActivity mSearchProductActivity;
     public static CreateShoppingListActivity mCreateShoppingListActivity;
-    public static boolean isCreateShoppingListActivityOpen=false;
+    public static boolean isCreateShoppingListActivityOpen = false;
 
-    public static void openAddItemDialog(Context context, final ItemModal itemModal) {
+    public static void openAddItemDialog(final Context context, final ItemModal itemModal) {
         Rect displayRectangle = new Rect();
         Window window = AppConstants.mSearchProductActivity.getWindow();
         window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
@@ -118,8 +118,15 @@ public class AppConstants {
 
                 mSearchProductActivity.finish();
 
-                if (AppConstants.isCreateShoppingListActivityOpen)
-                    AppConstants.mCreateShoppingListActivity.adapter.notifyDataSetChanged();
+                if (AppConstants.isCreateShoppingListActivityOpen) {
+                    //AppConstants.mCreateShoppingListActivity.adapter.notifyDataSetChanged();
+
+                    AppConstants.mCreateShoppingListActivity.recyclerView
+                            .setAdapter(new MyShoppingListAdapter(
+                                    context, myList
+                            ));
+                }
+
             }
         });
     }

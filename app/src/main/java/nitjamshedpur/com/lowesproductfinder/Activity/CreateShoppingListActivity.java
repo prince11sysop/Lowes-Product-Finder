@@ -46,7 +46,7 @@ public class CreateShoppingListActivity extends Activity {
     private static final String SHARED_PREF = "SharedPref";
     SharedPreferences shref;
     SharedPreferences.Editor editor;
-    public MyShoppingListAdapter adapter;
+    public static MyShoppingListAdapter adapter;
     private boolean firstTimeFlag = true;
 
     @Override
