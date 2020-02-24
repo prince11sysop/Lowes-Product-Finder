@@ -43,13 +43,11 @@ public class AppConstants {
         Rect displayRectangle = new Rect();
         ViewGroup viewGroup;
 
-        if(type==1){
+        if (type == 1) {
             Window window = AppConstants.mSearchProductActivity.getWindow();
             window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
             viewGroup = AppConstants.mSearchProductActivity.findViewById(android.R.id.content);
-        }
-
-        else{
+        } else {
             Window window = AppConstants.mCreateShoppingListActivity.getWindow();
             window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
             viewGroup = AppConstants.mCreateShoppingListActivity.findViewById(android.R.id.content);
@@ -75,7 +73,7 @@ public class AppConstants {
         itemDesc.setText(itemModal.getDescription());
 
         TextView addButton = dialogView.findViewById(R.id.add_item_button);
-        if(type==2){
+        if (type == 2) {
             addButton.setText("Got It");
         }
 
@@ -95,7 +93,7 @@ public class AppConstants {
                 //do-things
 
                 //if type ==2
-                if(type==2){
+                if (type == 2) {
                     alertDialogOtp.dismiss();
                     return;
                 }

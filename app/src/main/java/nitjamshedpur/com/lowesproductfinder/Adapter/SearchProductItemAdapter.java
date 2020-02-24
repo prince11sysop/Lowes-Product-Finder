@@ -29,7 +29,7 @@ public class SearchProductItemAdapter extends RecyclerView.Adapter<SearchProduct
     @NonNull
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.search_product_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.search_product_item, parent, false);
         return new Viewholder(view);
     }
 
@@ -39,13 +39,13 @@ public class SearchProductItemAdapter extends RecyclerView.Adapter<SearchProduct
         holder.name.setText(data.get(position).getName());
         holder.subCat.setText(data.get(position).getSubCategory());
         holder.cat.setText(data.get(position).getCategory());
-        holder.price.setText("Rs."+data.get(position).getPrice());
-        holder.floor.setText("Floor-"+data.get(position).getFloor());
+        holder.price.setText("Rs." + data.get(position).getPrice());
+        holder.floor.setText("Floor-" + data.get(position).getFloor());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppConstants.openAddItemDialog(context,data.get(position),1);
+                AppConstants.openAddItemDialog(context, data.get(position), 1);
             }
         });
     }
@@ -56,14 +56,15 @@ public class SearchProductItemAdapter extends RecyclerView.Adapter<SearchProduct
     }
 
     class Viewholder extends RecyclerView.ViewHolder {
-        TextView name,subCat,cat,price,floor;
+        TextView name, subCat, cat, price, floor;
+
         public Viewholder(@NonNull View itemView) {
             super(itemView);
-            name=itemView.findViewById(R.id.search_item_name);
-            subCat=itemView.findViewById(R.id.search_item_subcat);
-            cat=itemView.findViewById(R.id.search_item_category);
-            price=itemView.findViewById(R.id.search_item_price);
-            floor=itemView.findViewById(R.id.search_product_floor);
+            name = itemView.findViewById(R.id.search_item_name);
+            subCat = itemView.findViewById(R.id.search_item_subcat);
+            cat = itemView.findViewById(R.id.search_item_category);
+            price = itemView.findViewById(R.id.search_item_price);
+            floor = itemView.findViewById(R.id.search_product_floor);
         }
     }
 }
