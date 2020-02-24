@@ -85,6 +85,7 @@ public class SearchProductActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                AppConstants.searchKeyWord = enterSearchText.getText().toString().trim();
                 filterItemList();
             }
 
@@ -119,18 +120,25 @@ public class SearchProductActivity extends Activity {
             mAdapter.notifyDataSetChanged();
             return;
         }
+        String temp[] = searchText.split(" ");
 
         for (int i = 0; i < fullList.size(); i++) {
-            if (fullList.get(i).getName().toLowerCase().contains(searchText.toLowerCase()) ||
-                    fullList.get(i).getCategory().toLowerCase().contains(searchText.toLowerCase()) ||
-                    fullList.get(i).getSubCategory().toLowerCase().contains(searchText.toLowerCase()) ||
-                    fullList.get(i).getDescription().toLowerCase().contains(searchText.toLowerCase())
-            ) {
-                currentItemList.add(fullList.get(i));
+            for (int j = 0; j < temp.length; j++) {
+                if (fullList.get(i).getName().toLowerCase().contains(temp[j].toLowerCase()) ||
+                        fullList.get(i).getCategory().toLowerCase().contains(temp[j].toLowerCase()) ||
+                        fullList.get(i).getSubCategory().toLowerCase().contains(temp[j].toLowerCase()) ||
+                        fullList.get(i).getDescription().toLowerCase().contains(temp[j].toLowerCase())
+                ) {
+                    currentItemList.add(fullList.get(i));
+                    break;
+                }
             }
         }
 
         mAdapter.notifyDataSetChanged();
+        mAdapter.nameMap.clear();
+        mAdapter.subCatMap.clear();
+        mAdapter.catMap.clear();
     }
 
     private void init() {

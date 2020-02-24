@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/search_item_name"
+        android:text="Linc Glycer"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:fontFamily="@font/notosans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/search_item_price"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rs.1149"
+        android:background="@drawable/my_button_bg"
+        android:layout_marginRight="12dp"
+        android:fontFamily="@font/notosans"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp"
+        android:textSize="14sp"
+        android:textColor="#fff"/>
+
+    <View
+        android:layout_toLeftOf="@id/search_product_floor"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginLeft="12dp"
+        android:layout_below="@+id/search_item_name"
+        android:background="#a6a6a6"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/search_product_floor"
+        android:layout_below="@+id/search_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:fontFamily="@font/notosans"
+        android:textSize="14sp"
+        android:text="Floor 2, Shelf-21B"/>
+
+    <View
+        android:layout_toRightOf="@id/search_product_floor"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="12dp"
+        android:layout_below="@+id/search_item_name"
+        android:background="#a6a6a6"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"/>
+    <TextView
+        android:id="@+id/search_item_subcat"
+        android:text="Pens"
+        android:layout_below="@+id/search_product_floor"
+        android:textSize="14sp"
+        android:textColor="#000"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:fontFamily="@font/opensans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/add_to_list_sp"
+        android:layout_toLeftOf="@+id/info_sp"
+        android:tint="@color/pshyGreen"
+        android:src="@drawable/ic_add_box_black_24dp"
+        android:layout_below="@+id/search_product_floor"
+        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/info_sp"
+        android:tint="@color/bluishShadeColor"
+        android:src="@drawable/ic_info_black_24dp"
+        android:layout_below="@+id/search_product_floor"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

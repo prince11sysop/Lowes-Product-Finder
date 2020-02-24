@@ -33,6 +33,7 @@ public class AppConstants {
     public static SearchProductActivity mSearchProductActivity;
     public static CreateShoppingListActivity mCreateShoppingListActivity;
     public static boolean isCreateShoppingListActivityOpen = false;
+    public static String searchKeyWord = "";
 
     public static void openAddItemDialog(final Context context, final ItemModal itemModal, final int type) {
 
@@ -151,8 +152,7 @@ public class AppConstants {
                             .setAdapter(new MyShoppingListAdapter(
                                     context, myList
                             ));
-                }
-                else{
+                } else {
                     context.startActivity(new Intent(context, CreateShoppingListActivity.class));
                 }
 
