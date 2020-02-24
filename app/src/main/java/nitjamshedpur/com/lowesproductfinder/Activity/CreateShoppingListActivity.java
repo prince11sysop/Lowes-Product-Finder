@@ -55,6 +55,7 @@ public class CreateShoppingListActivity extends Activity {
 //        if (!firstTimeFlag) {
 //            adapter.notifyDataSetChanged();
 //        }
+        AppConstants.mCreateShoppingListActivity = CreateShoppingListActivity.this;
     }
 
     @Override

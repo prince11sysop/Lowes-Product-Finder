@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#bfbfbf"
     tools:context=".Activity.CreateShoppingListActivity"
     android:orientation="vertical">
 
@@ -12,7 +13,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#fff"
+        android:background="@color/colorPrimary"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:navigationIcon="@drawable/ic_arrow_back"
         android:elevation="1dp"
@@ -20,9 +21,10 @@
 
         <TextView
             android:id="@+id/toolbar_title"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create Shopping List"
+            android:text="My Shopping List"
             android:textSize="16dp"
             android:textAppearance="@style/bebasRegular"
             android:textStyle="bold"/>
@@ -32,7 +34,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="60dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <color name="colorPrimary">#008577</color>-->
+<!--    <color name="colorPrimary">#43A047</color>-->
 <!--    <color name="colorPrimaryDark">#00574B</color>-->
-<!--    <color name="colorAccent">#D81B60</color>-->
-
+<!--    <color name="colorAccent">#2F7D32</color>-->
+    <color name="bluishShadeColor">#1A63A7</color>
+    <color name="burgandyRed">#8d021f</color>
     <color name="blue">#085bae</color>
+    <color name="lightGrey">#bfbfbf</color>
+    <color name="pshyGreen">#43A047</color>
 
-<!--    <color name="colorGradientStart">#1794CC</color>-->
-<!--    <color name="colorGradientCenter">#17589E</color>-->
-<!--    <color name="colorGradientEnd">#042E6B</color>-->
 
     <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#E2E2E2</color>
