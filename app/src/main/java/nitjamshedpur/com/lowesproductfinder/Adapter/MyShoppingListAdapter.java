@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import nitjamshedpur.com.lowesproductfinder.Modal.ItemModal;
 import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
+import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
 
 import static nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity.adapter;
 import static nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity.itemList;
@@ -119,6 +120,22 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
                 recyclerView.setAdapter(adapter);
             }
         });
+
+        myShoppingListViewHolder.itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                ListItem temp=myItemList.get(position);
+                ItemModal tempToOpen=new ItemModal(temp.getCategory(),
+                        temp.getSubCategory(),
+                        temp.getPrice(),
+                        temp.getFloor(),
+                        temp.getShelf(),
+                        temp.getDescription(),
+                        temp.getName());
+                AppConstants.openAddItemDialog(myContext,tempToOpen,2);
+            }
+        });
+
     }
 
 
@@ -144,15 +161,6 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
             checkBox=itemView.findViewById(R.id.checkBox);
 
             itemView.setTag(getAdapterPosition());
-
-            itemView.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-
-//                    myContext.startActivity(new Intent(myContext,PotholeDetails.class));
-//                    startActivity(new Intent(this,PotholeDetails.class));
-                }
-            });
         }
 
     }

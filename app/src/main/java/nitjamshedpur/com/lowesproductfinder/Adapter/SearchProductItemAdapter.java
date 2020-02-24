@@ -45,7 +45,7 @@ public class SearchProductItemAdapter extends RecyclerView.Adapter<SearchProduct
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppConstants.openAddItemDialog(context,data.get(position));
+                AppConstants.openAddItemDialog(context,data.get(position),1);
             }
         });
     }

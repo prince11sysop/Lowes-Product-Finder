@@ -14,8 +14,8 @@
                         android:endColor="@color/bluishShadeColor"
                         android:angle="270" />
                     <size
-                        android:width="20dp"
-                        android:height="20dp" />
+                        android:width="15dp"
+                        android:height="15dp" />
                 </shape>
             </item>
 

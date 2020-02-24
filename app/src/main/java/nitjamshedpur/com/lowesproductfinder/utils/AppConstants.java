@@ -1,5 +1,6 @@
 package nitjamshedpur.com.lowesproductfinder.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -32,11 +33,28 @@ public class AppConstants {
     public static CreateShoppingListActivity mCreateShoppingListActivity;
     public static boolean isCreateShoppingListActivityOpen = false;
 
-    public static void openAddItemDialog(final Context context, final ItemModal itemModal) {
+    public static void openAddItemDialog(final Context context, final ItemModal itemModal, final int type) {
+
+        Activity callingActivity;
+        //type 1 is for search activity
+
+        //type 2 is for my shopping list activity
+
         Rect displayRectangle = new Rect();
-        Window window = AppConstants.mSearchProductActivity.getWindow();
-        window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
-        ViewGroup viewGroup = AppConstants.mSearchProductActivity.findViewById(android.R.id.content);
+        ViewGroup viewGroup;
+
+        if(type==1){
+            Window window = AppConstants.mSearchProductActivity.getWindow();
+            window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
+            viewGroup = AppConstants.mSearchProductActivity.findViewById(android.R.id.content);
+        }
+
+        else{
+            Window window = AppConstants.mCreateShoppingListActivity.getWindow();
+            window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
+            viewGroup = AppConstants.mCreateShoppingListActivity.findViewById(android.R.id.content);
+        }
+
         View dialogView = LayoutInflater.from(context).inflate(R.layout.item_details_dialog, viewGroup, false);
 
         TextView upper_text = dialogView.findViewById(R.id.upper_text);
@@ -57,6 +75,9 @@ public class AppConstants {
         itemDesc.setText(itemModal.getDescription());
 
         TextView addButton = dialogView.findViewById(R.id.add_item_button);
+        if(type==2){
+            addButton.setText("Got It");
+        }
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
@@ -72,6 +93,12 @@ public class AppConstants {
             public void onClick(View v) {
 
                 //do-things
+
+                //if type ==2
+                if(type==2){
+                    alertDialogOtp.dismiss();
+                    return;
+                }
 
                 SharedPreferences sharedPreferences = AppConstants.mSearchProductActivity
                         .getSharedPreferences("SharedPref", Context.MODE_PRIVATE);
@@ -114,7 +141,7 @@ public class AppConstants {
                 editor.putString("ItemList", json);
                 editor.commit();
 
-                alertDialogOtp.hide();
+                alertDialogOtp.dismiss();
 
                 mSearchProductActivity.finish();
 

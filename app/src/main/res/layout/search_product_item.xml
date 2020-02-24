@@ -76,7 +76,7 @@
     <View
         android:layout_marginTop="5dp"
         android:layout_below="@+id/search_product_floor"
-        android:background="@color/colorPrimary"
+        android:background="@color/pshyGreen"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <ImageView
