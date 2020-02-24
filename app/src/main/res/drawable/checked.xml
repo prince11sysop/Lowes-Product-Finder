@@ -9,13 +9,13 @@
                         android:width="1dp"
                         android:color="#777" />
                     <gradient
-                        android:startColor="#990000"
-                        android:centerColor="#990000"
-                        android:endColor="#990000"
+                        android:startColor="@color/bluishShadeColor"
+                        android:centerColor="@color/bluishShadeColor"
+                        android:endColor="@color/bluishShadeColor"
                         android:angle="270" />
                     <size
-                        android:width="30dp"
-                        android:height="30dp" />
+                        android:width="20dp"
+                        android:height="20dp" />
                 </shape>
             </item>
 

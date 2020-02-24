@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -131,14 +132,14 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
     public class MyShoppingListViewHolder extends RecyclerView.ViewHolder {
 
         TextView mItemName, mItemCount;
-        Button deleteItem;
+        ImageView deleteItem;
         CheckBox checkBox;
 
 
         public MyShoppingListViewHolder(@NonNull final View itemView) {
             super(itemView);
             mItemName = itemView.findViewById(R.id.itemName);
-            mItemCount= itemView.findViewById(R.id.itemCount);
+            mItemCount= itemView.findViewById(R.id.count_text_cf);
             deleteItem=itemView.findViewById(R.id.deleteBtn);
             checkBox=itemView.findViewById(R.id.checkBox);
 
