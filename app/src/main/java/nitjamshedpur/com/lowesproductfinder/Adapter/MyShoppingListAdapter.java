@@ -66,6 +66,10 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
 
         final ListItem listItem = myItemList.get(position);
 
+        if(!listItem.isStatus()){
+            myShoppingListViewHolder.checkBox.setButtonDrawable(R.drawable.ic_check_box_outline_blank_black_24dp);
+        }
+
         myShoppingListViewHolder.mItemName.setText(listItem.getName());
 
         myShoppingListViewHolder.itemPrice.setText("Rs."+listItem.getPrice());

@@ -129,7 +129,7 @@
                 android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:button="@drawable/custom_checkbox" />
+                android:button="@drawable/ic_check_box_black_24dp" />
 
             <ImageView
                 android:layout_below="@+id/shelf_no_cf"

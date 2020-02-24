@@ -2,6 +2,7 @@ package nitjamshedpur.com.lowesproductfinder.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.view.LayoutInflater;
@@ -127,7 +128,7 @@ public class AppConstants {
                         itemModal.getShelf(),
                         itemModal.getDescription(),
                         itemModal.getName(),
-                        0, false
+                        1, false
                 ));
                 Collections.reverse(myList);
 
@@ -150,6 +151,9 @@ public class AppConstants {
                             .setAdapter(new MyShoppingListAdapter(
                                     context, myList
                             ));
+                }
+                else{
+                    context.startActivity(new Intent(context, CreateShoppingListActivity.class));
                 }
 
             }

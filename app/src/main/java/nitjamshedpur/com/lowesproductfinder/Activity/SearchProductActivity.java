@@ -1,6 +1,7 @@
 package nitjamshedpur.com.lowesproductfinder.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -143,7 +144,9 @@ public class SearchProductActivity extends Activity {
         search_items_list = findViewById(R.id.search_items_list);
 
         mAdapter = new SearchProductItemAdapter(this, currentItemList);
-        search_items_list.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        search_items_list.setLayoutManager(llm);
+        search_items_list.addItemDecoration(new DividerItemDecoration(this, llm.getOrientation()));
         search_items_list.setAdapter(mAdapter);
     }
 
