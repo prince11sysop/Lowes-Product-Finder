@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nitjamshedpur.com.lowesproductfinder">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.ShowShoppingList"></activity>
+        <activity android:name=".Activity.MLTextRecognition"></activity>
+        <activity android:name=".Activity.WebViewActivity" />
+
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="ocr,model2,model3" />
+
+        <activity android:name=".Activity.ShowShoppingList" />
         <activity android:name=".Activity.StartShoppingMapActivity" />
         <activity android:name=".Activity.MapCoordinateActivity" />
         <activity android:name=".Activity.NavigationActivity" />

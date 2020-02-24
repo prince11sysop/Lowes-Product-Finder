@@ -38,6 +38,8 @@ public class StartShoppingMapActivity extends AppCompatActivity {
     GridLayoutManager layoutManager;
     public static ArrayList<ListItem> itemList;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

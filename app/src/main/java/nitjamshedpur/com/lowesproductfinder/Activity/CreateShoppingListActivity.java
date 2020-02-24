@@ -73,7 +73,7 @@ public class CreateShoppingListActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        MyShoppingListAdapter adapter = new MyShoppingListAdapter(CreateShoppingListActivity.this, itemList);
+        final MyShoppingListAdapter adapter = new MyShoppingListAdapter(CreateShoppingListActivity.this, itemList);
         recyclerView.setAdapter(adapter);
 
         fab.setOnClickListener(new View.OnClickListener() {

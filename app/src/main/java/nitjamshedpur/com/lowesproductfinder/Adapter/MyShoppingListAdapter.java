@@ -109,9 +109,9 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
                 editor.remove(key).commit();
                 editor.putString(key, json);
                 editor.commit();
+
                 MyShoppingListAdapter adapter = new MyShoppingListAdapter(myContext, itemList);
                 recyclerView.setAdapter(adapter);
-
             }
         });
     }
