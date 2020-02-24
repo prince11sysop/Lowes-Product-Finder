@@ -1,13 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#43A047</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#2F7D32</color>
+<!--    <color name="colorPrimary">#43A047</color>-->
+<!--    <color name="colorPrimaryDark">#00574B</color>-->
+<!--    <color name="colorAccent">#2F7D32</color>-->
     <color name="bluishShadeColor">#1A63A7</color>
-    <color name="red">#ff0000</color>
+<!--    <color name="red">#ff0000</color>-->
     <color name="burgandyRed">#8d021f</color>
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
+<!--    <color name="white">#FFFFFF</color>-->
+<!--    <color name="black">#000000</color>-->
     <color name="blue">#085bae</color>
     <color name="lightGrey">#bfbfbf</color>
+
+<!--    <color name="colorGradientStart">#1794CC</color>-->
+<!--    <color name="colorGradientCenter">#17589E</color>-->
+<!--    <color name="colorGradientEnd">#042E6B</color>-->
+
+    <color name="colorPrimary">#fff</color>
+    <color name="colorPrimaryDark">#E2E2E2</color>
+    <color name="colorAccent">#085bae</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000</color>
+<!--    <color name="grey">#4b4b4b</color>-->
+
+<!--    <color name="cyan">#00BCD4</color>-->
+<!--    <color name="green">#4CAF50</color>-->
+<!--    <color name="orange">#FF9800</color>-->
+<!--    <color name="ind">#e0e0e0</color>-->
+<!--    <color name="grey60">#40e0e0e0</color>-->
+<!--    <color name="no">#00000000</color>-->
+<!--    <color name="yellove">#FFA000</color>-->
+<!--    <color name="red">#D32F2F</color>-->
+
+<!--    &lt;!&ndash;    <color name="white">#ffffff</color>&ndash;&gt;-->
+<!--    <color name="white80">#80ffffff</color>-->
+<!--    <color name="cardGreen">#a4c639</color>-->
+
+<!--    <color name="colorGradientStart">#1794CC</color>-->
+<!--    <color name="colorGradientCenter">#17589E</color>-->
+<!--    <color name="colorGradientEnd">#042E6B</color>-->
+
+
+<!--    &lt;!&ndash; intro slider Screens background color&ndash;&gt;-->
+<!--    <color name="bg_screen1">#f64c73</color>-->
+<!--    <color name="bg_screen2">#20d2bb</color>-->
+<!--    <color name="bg_screen3">#3395ff</color>-->
+<!--    <color name="bg_screen4">#c873f4</color>-->
+
+<!--    &lt;!&ndash;intro slider  dots inactive colors &ndash;&gt;-->
+<!--    <color name="dot_dark_screen1">#d1395c</color>-->
+<!--    <color name="dot_dark_screen2">#14a895</color>-->
+<!--    <color name="dot_dark_screen3">#2278d4</color>-->
+<!--    <color name="dot_dark_screen4">#a854d4</color>-->
+
+<!--    &lt;!&ndash;intro slider dots active colors &ndash;&gt;-->
+<!--    <color name="dot_light_screen1">#f98da5</color>-->
+<!--    <color name="dot_light_screen2">#8cf9eb</color>-->
+<!--    <color name="dot_light_screen3">#93c6fd</color>-->
+<!--    <color name="dot_light_screen4">#e4b5fc</color>-->
+
+<!--    <array name="array_dot_active">-->
+<!--        <item>@color/dot_light_screen1</item>-->
+<!--        <item>@color/dot_light_screen2</item>-->
+<!--        <item>@color/dot_light_screen3</item>-->
+<!--        <item>@color/dot_light_screen4</item>-->
+<!--    </array>-->
+
+<!--    <array name="array_dot_inactive">-->
+<!--        <item>@color/dot_dark_screen1</item>-->
+<!--        <item>@color/dot_dark_screen2</item>-->
+<!--        <item>@color/dot_dark_screen3</item>-->
+<!--        <item>@color/dot_dark_screen4</item>-->
+<!--    </array>-->
+
 </resources>
