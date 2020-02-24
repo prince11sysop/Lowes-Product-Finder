@@ -117,6 +117,7 @@ public class SearchProductItemAdapter extends RecyclerView.Adapter<SearchProduct
             @Override
             public void onClick(View v) {
                 context.startActivity(new Intent(context, SearchResultsActivity.class));
+                AppConstants.mSearchProductActivity.finish();
             }
         });
     }

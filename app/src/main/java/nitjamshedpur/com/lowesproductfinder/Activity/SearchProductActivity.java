@@ -51,20 +51,29 @@ public class SearchProductActivity extends Activity {
             closeKeyboard();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        AppConstants.searchKeyWord = "";
+        Log.e("onBackPressed: ", "heyy");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_product);
 
+        Log.e("onCreate: ", AppConstants.searchKeyWord);
         init();
         receiveClicks();
+        enterSearchText.setText(AppConstants.searchKeyWord);
     }
 
     private void receiveClicks() {
         searchBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConstants.searchKeyWord = "";
                 finish();
             }
         });
@@ -190,6 +199,7 @@ public class SearchProductActivity extends Activity {
     }
 
     public void closeKeyboard() {
+        if (!mIsKeyBoardOpen) return;
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
         mIsKeyBoardOpen = false;

@@ -1,12 +1,17 @@
 package nitjamshedpur.com.lowesproductfinder.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -21,15 +26,53 @@ import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
 import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
 
-public class SearchResultsActivity extends AppCompatActivity {
+public class SearchResultsActivity extends Activity {
+
+    ImageView clearButton;
+    RelativeLayout openSearchActivity;
+    RecyclerView searchResultsList;
+    TextView searchText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
+        //remember to implement appconstant keyword clear on click for each item here
+        init();
+        receiveClicks();
+    }
 
-//        holder.addToList.setOnClickListener(new View.OnClickListener() {
+    private void receiveClicks() {
+        openSearchActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchResultsActivity.this, SearchProductActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchResultsActivity.this, SearchProductActivity.class);
+                AppConstants.searchKeyWord = "";
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private void init() {
+        clearButton = findViewById(R.id.clear_button_sr);
+        openSearchActivity = findViewById(R.id.open_search_sr);
+        searchText=findViewById(R.id.search_keyword_sr);
+        searchText.setText(AppConstants.searchKeyWord);
+    }
+
+
+    //        holder.addToList.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //
@@ -99,7 +142,4 @@ public class SearchResultsActivity extends AppCompatActivity {
 //                AppConstants.openAddItemDialog(context, data.get(position), 1);
 //            }
 //        });
-
-
-    }
 }
