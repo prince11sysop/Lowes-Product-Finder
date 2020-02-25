@@ -1,7 +1,6 @@
 package nitjamshedpur.com.lowesproductfinder.ui.home;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -17,12 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 
@@ -40,20 +36,15 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.MLTextRecognition;
-import nitjamshedpur.com.lowesproductfinder.Activity.MapCoordinateActivity;
-import nitjamshedpur.com.lowesproductfinder.Activity.NavigationActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.SearchProductActivity;
+import nitjamshedpur.com.lowesproductfinder.Activity.StartShoppingActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.StartShoppingMapActivity;
+import nitjamshedpur.com.lowesproductfinder.Activity.StoreMapActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.WebViewActivity;
 import nitjamshedpur.com.lowesproductfinder.Carousel.SliderAdapter;
 import nitjamshedpur.com.lowesproductfinder.R;
 
 public class HomeFragment extends Fragment {
-
-    Button shoppingList;
-    Button navigateBtn;
-    Button checkPoints;
-    Button startShopping;
 
     ViewPager viewPager;
     TabLayout indicator;
@@ -74,16 +65,13 @@ public class HomeFragment extends Fragment {
     Task<Uri> result;
     LinearLayout appliances,bath,lighting,tools,flooring,outdoor;
 
+    Button navigateBtn;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-//        searchBox=(EditText)root.findViewById(R.id.searchBox);
-        shoppingList=(Button)root.findViewById(R.id.shoppingList);
-        navigateBtn=(Button)root.findViewById(R.id.navigateBtn);
-        checkPoints=(Button)root.findViewById(R.id.checkPoints);
-        startShopping=(Button)root.findViewById(R.id.startShopping);
 
         mItemFinder=(LinearLayout)root.findViewById(R.id.itemFinder);
         mShoppingList=(LinearLayout)root.findViewById(R.id.myShoppingList);
@@ -95,12 +83,23 @@ public class HomeFragment extends Fragment {
         tools=(LinearLayout)root.findViewById(R.id.tools);
         flooring=(LinearLayout)root.findViewById(R.id.flooring);
         outdoor=(LinearLayout)root.findViewById(R.id.outdoor);
+        navigateBtn=(Button)root.findViewById(R.id.navigateBtn);
 
         //carousel
         viewPager=(ViewPager)root.findViewById(R.id.viewPager);
         indicator=(TabLayout)root.findViewById(R.id.indicator);
         setCarouselViewPager(); //to implement carousel using viewpager
 
+        navigateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+//                        Uri.parse("http://maps.google.com/maps?saddr=22.772938,86.1444722&daddr=28.567892,77.323089"));
+//                startActivity(intent);
+
+                startActivity(new Intent(getContext(), StartShoppingActivity.class));
+            }
+        });
 
         mItemFinder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +118,7 @@ public class HomeFragment extends Fragment {
         mPriceChecker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), MLTextRecognition.class));
+                startActivity(new Intent(getContext(), StoreMapActivity.class));
             }
         });
 
@@ -214,35 +213,6 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-        shoppingList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), CreateShoppingListActivity.class));
-            }
-        });
-
-        navigateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), NavigationActivity.class));
-            }
-        });
-
-        checkPoints.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), MapCoordinateActivity.class));
-            }
-        });
-
-        startShopping.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), StartShoppingMapActivity.class));
-            }
-        });
-
 
         return root;
     }

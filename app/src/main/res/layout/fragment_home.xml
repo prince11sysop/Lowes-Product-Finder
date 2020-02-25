@@ -11,26 +11,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--corousel-->
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="190dp">-->
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="190dp" />
 
-
-<!--        <com.google.android.material.tabs.TabLayout-->
-<!--            android:id="@+id/indicator"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            app:tabBackground="@drawable/indicator_selector"-->
-<!--            app:tabGravity="center"-->
-<!--            app:tabIndicatorHeight="0dp" />-->
-<!--    </RelativeLayout>-->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/indicator"
         android:layout_width="match_parent"
@@ -58,6 +43,19 @@
         android:text="Store Location: NIT Jamshedpur, India"
         android:layout_margin="8dp"
         android:textSize="16sp"></TextView>
+
+    <Button
+        android:id="@+id/navigateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:text="Navigate"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border"></Button>
 
 
     <RelativeLayout
@@ -144,8 +142,9 @@
             android:layout_marginTop="5dp"
             android:textSize="16sp"
             android:textColor="@color/black"
-            android:text="Check Price"/>
+            android:text="Start Shopping"/>
     </LinearLayout>
+
   </LinearLayout>
 
     <LinearLayout
@@ -327,39 +326,6 @@
                 android:text="Outdoor Power Equipment"/>
         </LinearLayout>
     </LinearLayout>
-
-
-    <Button
-        android:id="@+id/shoppingList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="List"></Button>
-
-
-    <Button
-        android:id="@+id/startShopping"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Shopping"></Button>
-
-
-
-    <Button
-        android:id="@+id/navigateBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mark Points"
-        android:layout_gravity="center"></Button>
-
-    <Button
-        android:id="@+id/checkPoints"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Check Points"
-        android:layout_gravity="center"></Button>
-
-
-
 
 </LinearLayout>
     </ScrollView>
