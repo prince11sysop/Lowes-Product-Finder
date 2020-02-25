@@ -16,13 +16,14 @@
         <RelativeLayout
             android:id="@+id/image_layer_sr"
             android:layout_width="140dp"
-            android:layout_height="220dp">
+            android:layout_height="180dp">
 
             <ImageView
                 android:id="@+id/image_sr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/product_item_sample" />
+                android:layout_centerInParent="true"
+                android:src="@drawable/profile_dummy" />
         </RelativeLayout>
 
         <TextView
@@ -93,24 +94,25 @@
             android:layout_centerHorizontal="true"
             android:layout_toRightOf="@+id/search_product_temp3"
             android:fontFamily="@font/notosans"
+            android:paddingLeft="8dp"
             android:paddingTop="5dp"
             android:paddingRight="8dp"
             android:paddingBottom="5dp"
             android:text="Floor 2, Shelf-21B"
-            android:textColor="#000"
-            android:textSize="12sp"
+            android:textColor="@color/pshyGreen"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_below="@+id/search_item_price_sr"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="12dp"
-            android:layout_toRightOf="@id/search_product_floor_sr"
-            android:background="#a6a6a6"
-            android:paddingBottom="5dp" />
+        <!--        <View-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:layout_below="@+id/search_item_price_sr"-->
+        <!--            android:layout_centerVertical="true"-->
+        <!--            android:layout_marginTop="15dp"-->
+        <!--            android:layout_marginRight="12dp"-->
+        <!--            android:layout_toRightOf="@id/search_product_floor_sr"-->
+        <!--            android:background="#a6a6a6"-->
+        <!--            android:paddingBottom="5dp" />-->
 
         <TextView
             android:id="@+id/search_item_description_sr"
@@ -119,14 +121,14 @@
             android:layout_below="@+id/search_product_floor_sr"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/image_layer_sr"
-            android:fontFamily="@font/robotoregular"
+            android:fontFamily="@font/notosans"
             android:inputType="textMultiLine"
-            android:maxLines="4"
+            android:maxLines="3"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="Long description of the product provided by the seller..."
             android:textColor="#000"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/add_to_list_sr"
