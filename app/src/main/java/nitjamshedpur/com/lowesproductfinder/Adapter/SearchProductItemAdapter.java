@@ -34,8 +34,7 @@ public class SearchProductItemAdapter extends RecyclerView.Adapter<SearchProduct
     private Context context;
     private ArrayList<ItemModal> data;
     private String keyWord;
-    public HashMap<String, String> subCatMap = new HashMap<>(),catMap = new HashMap<>()
-            ,nameMap = new HashMap<>();
+    public HashMap<String, String> subCatMap = new HashMap<>(), catMap = new HashMap<>(), nameMap = new HashMap<>();
 
     public SearchProductItemAdapter(Context context, ArrayList<ItemModal> data) {
         this.context = context;
@@ -52,71 +51,86 @@ public class SearchProductItemAdapter extends RecyclerView.Adapter<SearchProduct
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, final int position) {
 
+        String type = "", key = "";
 
         ItemModal currentItem = data.get(position);
         keyWord = AppConstants.searchKeyWord;
-        Log.e("onBindViewHolder: ",keyWord+" level "+currentItem.getName()+" "+position);
-        if (currentItem.getName().toLowerCase().contains(keyWord.toLowerCase())) {
-            if(nameMap.containsKey(currentItem.getName())){
-                holder.itemView.setVisibility(View.GONE);
-                Log.e("onBindViewHolder: ",keyWord+" level 2 "+currentItem.getName()+" "+position);
+        String keyWords[] = keyWord.split(" ");
+        Log.e("onBindViewHolder: ", keyWord + " level " + currentItem.getName() + " " + position);
+        for (int i = 0; i < keyWords.length; i++) {
+            if (currentItem.getName().toLowerCase().contains(keyWords[i].toLowerCase())) {
+                if (nameMap.containsKey(currentItem.getName())) {
+                    holder.itemView.setVisibility(View.GONE);
+                    Log.e("onBindViewHolder: ", keyWords[i] + " level 2 " + currentItem.getName() + " " + position);
 
-                return;
+                    return;
+                } else {
+                    nameMap.put(currentItem.getName(), "true");
+                    holder.name.setText(currentItem.getName());
+                    holder.inText.setText("in " + currentItem.getSubCategory());
+                    type = "name";
+                    key = currentItem.getName();
+                }
+                break;
+            } else if (currentItem.getDescription().toLowerCase().contains(keyWords[i].toLowerCase())) {
+                if (nameMap.containsKey(currentItem.getName())) {
+                    holder.itemView.setVisibility(View.GONE);
+                    Log.e("onBindViewHolder: ", keyWords[i] + " level 5 " + currentItem.getName() + " " + position);
+
+                    return;
+                } else {
+                    nameMap.put(currentItem.getName(), "true");
+                    holder.name.setText(currentItem.getName());
+                    holder.inText.setText("in " + currentItem.getSubCategory());
+                    type = "name";
+                    key = currentItem.getName();
+                }
+                break;
             }
-            else{
-                nameMap.put(currentItem.getName(),"true");
-                holder.name.setText(currentItem.getName());
-                holder.inText.setText("in "+currentItem.getSubCategory());
+
+            if (currentItem.getSubCategory().toLowerCase().contains(keyWords[i].toLowerCase())) {
+                if (subCatMap.containsKey(currentItem.getSubCategory())) {
+                    holder.itemView.setVisibility(View.GONE);
+                    Log.e("onBindViewHolder: ", keyWords[i] + " level 3 " + currentItem.getName() + " " + position);
+
+                    return;
+                } else {
+                    subCatMap.put(currentItem.getSubCategory(), "true");
+                    holder.name.setText(currentItem.getSubCategory());
+                    holder.inText.setText("in " + currentItem.getCategory());
+                    type = "subcat";
+                    key = currentItem.getSubCategory();
+                }
+                break;
+            }
+
+            if (currentItem.getCategory().toLowerCase().contains(keyWords[i].toLowerCase())) {
+                if (catMap.containsKey(currentItem.getCategory())) {
+                    holder.itemView.setVisibility(View.GONE);
+                    Log.e("onBindViewHolder: ", keyWords[i] + " level 4 " + currentItem.getName() + " " + position);
+
+                    return;
+                } else {
+                    catMap.put(currentItem.getCategory(), "true");
+                    holder.name.setText(currentItem.getCategory());
+                    holder.inText.setVisibility(View.GONE);
+                    type = "cat";
+                    key = currentItem.getCategory();
+                }
+                break;
             }
         }
-        else if (currentItem.getDescription().toLowerCase().contains(keyWord.toLowerCase())) {
-            if(nameMap.containsKey(currentItem.getName())){
-                holder.itemView.setVisibility(View.GONE);
-                Log.e("onBindViewHolder: ",keyWord+" level 5 "+currentItem.getName()+" "+position);
-
-                return;
-            }
-            else{
-                nameMap.put(currentItem.getName(),"true");
-                holder.name.setText(currentItem.getName());
-                holder.inText.setText("in "+currentItem.getSubCategory());
-            }
-        }
-
-        if (currentItem.getSubCategory().toLowerCase().contains(keyWord.toLowerCase())) {
-            if(subCatMap.containsKey(currentItem.getSubCategory())){
-                holder.itemView.setVisibility(View.GONE);
-                Log.e("onBindViewHolder: ",keyWord+" level 3 "+currentItem.getName()+" "+position);
-
-                return;
-            }
-            else{
-                subCatMap.put(currentItem.getSubCategory(),"true");
-                holder.name.setText(currentItem.getSubCategory());
-                holder.inText.setText("in "+currentItem.getCategory());
-            }
-        }
-
-        if (currentItem.getCategory().toLowerCase().contains(keyWord.toLowerCase())) {
-            if(catMap.containsKey(currentItem.getCategory())){
-                holder.itemView.setVisibility(View.GONE);
-                Log.e("onBindViewHolder: ",keyWord+" level 4 "+currentItem.getName()+" "+position);
-
-                return;
-            }
-            else{
-                catMap.put(currentItem.getCategory(),"true");
-                holder.name.setText(currentItem.getCategory());
-                holder.inText.setVisibility(View.GONE);
-            }
-        }
 
 
-
+        final String finalType = type;
+        final String finalKey = key;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, SearchResultsActivity.class));
+                Intent intent = new Intent(context, SearchResultsActivity.class);
+                intent.putExtra("type", finalType);
+                intent.putExtra("key", finalKey);
+                context.startActivity(intent);
                 AppConstants.mSearchProductActivity.finish();
             }
         });

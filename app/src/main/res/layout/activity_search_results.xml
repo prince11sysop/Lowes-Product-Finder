@@ -4,44 +4,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".Activity.SearchResultsActivity">
-    <RelativeLayout
-        android:id="@+id/open_search_sr"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/temp_toolbar_sr"
         android:layout_width="match_parent"
-        android:background="@color/white"
+        app:cardElevation="25dp"
         android:layout_height="50dp">
-        <ImageView
-            android:id="@+id/back_button_sr"
-            android:src="@drawable/ic_search_black_24dp"
-            android:layout_width="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/search_keyword_sr"
-            android:textSize="18sp"
-            android:text="Search Keyword"
-            android:layout_marginLeft="12dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/notosans"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/back_button_sr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <ImageView
-            android:id="@+id/clear_button_sr"
-            android:src="@drawable/ic_close_black_24dp"
-            android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/open_search_sr"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/back_button_sr"
+                android:src="@drawable/ic_search_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/search_keyword_sr"
+                android:textSize="18sp"
+                android:text="Search Keyword"
+                android:layout_marginLeft="12dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/notosans"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/back_button_sr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/clear_button_sr"
+                android:src="@drawable/ic_close_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_results_list"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_below="@+id/open_search_sr"
+        android:layout_below="@+id/temp_toolbar_sr"
         android:layout_height="wrap_content"/>
 </RelativeLayout>

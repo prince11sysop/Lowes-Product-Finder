@@ -12,7 +12,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/toolbar_sp"
         app:cardCornerRadius="1dp"
-        android:elevation="20dp"
+        app:cardElevation="25dp"
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <RelativeLayout
