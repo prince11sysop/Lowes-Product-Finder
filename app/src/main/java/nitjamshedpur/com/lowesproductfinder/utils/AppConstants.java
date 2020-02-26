@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
@@ -35,6 +36,32 @@ public class AppConstants {
     public static boolean isCreateShoppingListActivityOpen = false;
     public static String searchKeyWord = "";
     public static String listFromScan = "";
+
+    public static ArrayList<ListItem> sortItemList(ArrayList<ListItem> dataList) {
+        Collections.sort(dataList, new Comparator<ListItem>() {
+            @Override
+            public int compare(ListItem o1, ListItem o2) {
+                if (o1.getFloor().equalsIgnoreCase("gf")) {
+                    o1.setFloor("0");
+                }
+                if (o2.getFloor().equalsIgnoreCase("gf")) {
+                    o2.setFloor("0");
+                }
+
+                try {
+                    if (o1.getFloor().equalsIgnoreCase(o2.getFloor())) {
+                        return (int) o1.getShelf().toLowerCase().compareTo(o2.getShelf().toLowerCase());
+                    } else{
+                        return Integer.parseInt(o1.getFloor()) - Integer.parseInt(o2.getFloor());
+                    }
+                } catch (Exception e) {
+                }
+
+                return 0;
+            }
+        });
+        return dataList;
+    }
 
     public static void openAddItemDialog(final Context context, final ItemModal itemModal, final int type) {
 
@@ -133,6 +160,7 @@ public class AppConstants {
                         1, false
                 ));
                 Collections.reverse(myList);
+                myList=AppConstants.sortItemList(myList);
 
                 Gson gson2 = new Gson();
                 String json = gson2.toJson(myList);

@@ -100,6 +100,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                         1, false
                 ));
                 Collections.reverse(myList);
+                myList=AppConstants.sortItemList(myList);
 
                 Gson gson2 = new Gson();
                 String json = gson2.toJson(myList);
@@ -115,6 +116,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 if (AppConstants.isCreateShoppingListActivityOpen) {
                     //AppConstants.mCreateShoppingListActivity.adapter.notifyDataSetChanged();
 
+                    //myList=AppConstants.sortItemList(myList);
                     AppConstants.mCreateShoppingListActivity.recyclerView
                             .setAdapter(new MyShoppingListAdapter(
                                     context, myList

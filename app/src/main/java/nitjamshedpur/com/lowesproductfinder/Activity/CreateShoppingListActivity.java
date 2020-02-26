@@ -92,6 +92,7 @@ public class CreateShoppingListActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
+        itemList=AppConstants.sortItemList(itemList);
         adapter = new MyShoppingListAdapter(CreateShoppingListActivity.this, itemList);
         recyclerView.setAdapter(adapter);
         firstTimeFlag = false;
@@ -179,6 +180,11 @@ public class CreateShoppingListActivity extends Activity {
         clearListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                if (itemList.size()==0){
+//                    Toast.makeText(CreateShoppingListActivity.this, "Item List is Empty...", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 
                 AlertDialog alertDialog = new AlertDialog.Builder(CreateShoppingListActivity.this).create();
                 alertDialog.setTitle("Clear List");
