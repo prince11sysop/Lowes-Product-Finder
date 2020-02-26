@@ -3,6 +3,7 @@ package nitjamshedpur.com.lowesproductfinder.Adapter;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
     SharedPreferences.Editor editor;
     Gson gson;
     String response;
+    public static  RelativeLayout viewBackground,viewBackground1;
 
 
 
@@ -51,10 +53,11 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
     @Override
     public ShoppingInStoreAdapter.MyShoppingListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        LayoutInflater layoutInflater = LayoutInflater.from(myContext);
-        View view = layoutInflater.inflate(R.layout.shopping_card_format, null);
+            LayoutInflater layoutInflater = LayoutInflater.from(myContext);
+            View view = layoutInflater.inflate(R.layout.shopping_card_format, null);
+//            view.findViewById(R.id.view_background).setVisibility(View.GONE);
 
-        return new MyShoppingListViewHolder(view);
+            return new MyShoppingListViewHolder(view);
     }
 
     @Override
@@ -67,25 +70,29 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
         myShoppingListViewHolder.mItemLocation.setText(listItem.getFloor()+"-"+listItem.getShelf());
 
 
-//        myShoppingListViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if(isChecked){
-//                    ListItem listItem1=itemList.get(position);
-//                    itemList.remove(position);
+        if(listItem.isStatus()){
+            myShoppingListViewHolder.checkBox.setChecked(true);
+        }
+
+        myShoppingListViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    ListItem listItem1=myItemList.get(position);
+                    myItemList.remove(position);
 //                    listItem1.setStatus(true);
-//                    itemList.add(listItem1);
-//
-//                }else{
-//                    ListItem listItem1=itemList.get(position);
-//                    itemList.remove(position);
-//
+//                    myItemList.add(listItem1);
+
+                }else{
+                    ListItem listItem1=myItemList.get(position);
+                    myItemList.remove(position);
+
 //                    listItem1.setStatus(false);
-//                    itemList.add(0,listItem1);
-//                }
-//
-//            }
-//        });
+//                    myItemList.add(0,listItem1);
+                }
+
+            }
+        });
     }
 
 
@@ -126,6 +133,7 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
             checkBox=itemView.findViewById(R.id.checkBox);
             viewBackground=itemView.findViewById(R.id.view_background);
             viewForeground=itemView.findViewById(R.id.view_foreground);
+//            viewBackground1=itemView.findViewById(R.id.view_background_1);
 
         }
 

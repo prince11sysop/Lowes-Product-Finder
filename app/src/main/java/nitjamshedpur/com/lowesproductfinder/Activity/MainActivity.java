@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         dref = FirebaseDatabase.getInstance().getReference("shopName").child("items");
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("One moment, please.");
+        progressDialog.setTitle("Please Wait");
         progressDialog.setMessage("Initialising App Data...");
         progressDialog.setCancelable(false);
 

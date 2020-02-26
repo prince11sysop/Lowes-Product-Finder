@@ -7,11 +7,6 @@
     tools:context=".Activity.MLTextRecognition"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/image_view"
-        android:layout_width="200dp"
-        android:layout_height="300dp"
-        android:scaleType="centerCrop"></ImageView>
 
     <TextView
         android:id="@+id/text_display"
@@ -19,7 +14,6 @@
         android:layout_height="wrap_content"
         android:text="Detected Text"
         android:textAlignment="center"
-        android:layout_below="@id/image_view"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="50dp"
         android:textSize="20sp"></TextView>
@@ -29,15 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Capture Image"
-        android:textAllCaps="false"
-        android:layout_above="@id/detect_text_image"></Button>
-
-    <Button
-        android:id="@+id/detect_text_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Detect Text"
         android:textAllCaps="false"></Button>
+
 
 </LinearLayout>

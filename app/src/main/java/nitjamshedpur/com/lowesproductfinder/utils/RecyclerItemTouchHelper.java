@@ -1,6 +1,7 @@
 package nitjamshedpur.com.lowesproductfinder.utils;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.view.View;
 
 import androidx.recyclerview.widget.ItemTouchHelper;

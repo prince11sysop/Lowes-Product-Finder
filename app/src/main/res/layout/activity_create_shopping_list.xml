@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#bfbfbf"
+    android:background="#C0DFFA"
     tools:context=".Activity.CreateShoppingListActivity"
     android:orientation="vertical">
 
@@ -24,7 +24,7 @@
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Shopping List"
+            android:text="Shopping List"
             android:textSize="16dp"
             android:textAppearance="@style/bebasRegular"
             android:textStyle="bold"/>
