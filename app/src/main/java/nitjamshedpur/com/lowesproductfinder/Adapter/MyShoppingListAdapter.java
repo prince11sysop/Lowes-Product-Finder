@@ -172,13 +172,21 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
             @Override
             public void onClick(View v) {
                 ListItem temp = myItemList.get(position);
-                ItemModal tempToOpen = new ItemModal(temp.getCategory(),
-                        temp.getSubCategory(),
-                        temp.getPrice(),
-                        temp.getFloor(),
-                        temp.getShelf(),
-                        temp.getDescription(),
-                        temp.getName());
+                ItemModal tempToOpen=AppConstants.mItemList.get(0);
+                for (ItemModal im:AppConstants.mItemList){
+                    if(im.getName().equals(temp.getName()) &&
+                            im.getDescription().equals(temp.getDescription())){
+                        tempToOpen=im;
+                        break;
+                    }
+                }
+//                ItemModal tempToOpen = new ItemModal(temp.getCategory(),
+//                        temp.getSubCategory(),
+//                        temp.getPrice(),
+//                        temp.getFloor(),
+//                        temp.getShelf(),
+//                        temp.getDescription(),
+//                        temp.getName(),"");
                 AppConstants.openAddItemDialog(myContext, tempToOpen, 2);
             }
         });

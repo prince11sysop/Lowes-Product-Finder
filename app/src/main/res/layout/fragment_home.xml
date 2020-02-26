@@ -54,9 +54,7 @@
             android:paddingTop="4dp"
             android:paddingRight="12dp"
             android:paddingBottom="6dp"
-            android:text="Navigate"
-            android:textColor="@color/blue"
-            android:textStyle="bold"></Button>
+            android:text="Navigate"></Button>
 
 
         <RelativeLayout

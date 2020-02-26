@@ -100,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
                             ds.child("floor").getValue().toString(),
                             ds.child("shelf").getValue().toString(),
                             ds.child("description").getValue().toString(),
-                            ds.child("name").getValue().toString()
+                            ds.child("name").getValue().toString(),
+                            ds.child("imageUrl").getValue().toString()
                     );
 
                     Log.e("onDataChange: ",ds.child("name").getValue().toString());
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("One moment, please.");
         progressDialog.setMessage("Initialising App Data...");
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
