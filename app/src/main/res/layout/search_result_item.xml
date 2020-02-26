@@ -115,10 +115,25 @@
         <!--            android:paddingBottom="5dp" />-->
 
         <TextView
-            android:id="@+id/search_item_description_sr"
+            android:id="@+id/description_sr_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/search_product_floor_sr"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/image_layer_sr"
+            android:fontFamily="@font/notosans"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="Description-"
+            android:textAllCaps="false"
+            android:textColor="#000"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/search_item_description_sr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/description_sr_text"
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/image_layer_sr"
             android:fontFamily="@font/notosans"

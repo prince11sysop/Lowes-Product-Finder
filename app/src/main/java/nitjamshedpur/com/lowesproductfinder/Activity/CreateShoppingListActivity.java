@@ -94,7 +94,7 @@ public class CreateShoppingListActivity extends Activity {
 
     private void init() {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Please wait");
+        progressDialog.setTitle("Please Wait");
         progressDialog.setMessage("Fetching shopping list...");
         progressDialog.setCancelable(false);
 
@@ -160,11 +160,9 @@ public class CreateShoppingListActivity extends Activity {
     }
 
     private void receiveClicks() {
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(CreateShoppingListActivity.this, SearchProductActivity.class));
             }
         });

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
@@ -57,7 +58,7 @@ public class HomeFragment extends Fragment {
     String sliderText5 = "";
 
     LinearLayout mItemFinder, mShoppingList, mPriceChecker;
-    LinearLayout mCaptureShoppingList;
+    RelativeLayout mCaptureShoppingList;
 
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     public static final String ALLOW_KEY = "ALLOWED";
@@ -77,7 +78,7 @@ public class HomeFragment extends Fragment {
         mItemFinder = (LinearLayout) root.findViewById(R.id.itemFinder);
         mShoppingList = (LinearLayout) root.findViewById(R.id.myShoppingList);
         mPriceChecker = (LinearLayout) root.findViewById(R.id.checkPrice);
-        mCaptureShoppingList = (LinearLayout) root.findViewById(R.id.captureShoppingList);
+        mCaptureShoppingList = root.findViewById(R.id.captureShoppingList);
         appliances = (LinearLayout) root.findViewById(R.id.appliances);
         bath = (LinearLayout) root.findViewById(R.id.bath);
         lighting = (LinearLayout) root.findViewById(R.id.lighting);
