@@ -34,6 +34,7 @@ public class AppConstants {
     public static CreateShoppingListActivity mCreateShoppingListActivity;
     public static boolean isCreateShoppingListActivityOpen = false;
     public static String searchKeyWord = "";
+    public static String listFromScan = "";
 
     public static void openAddItemDialog(final Context context, final ItemModal itemModal, final int type) {
 

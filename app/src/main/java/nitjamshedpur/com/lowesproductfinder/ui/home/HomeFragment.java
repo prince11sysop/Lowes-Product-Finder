@@ -34,6 +34,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+
 import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.MLTextRecognition;
 import nitjamshedpur.com.lowesproductfinder.Activity.SearchProductActivity;
@@ -50,12 +51,12 @@ public class HomeFragment extends Fragment {
     TabLayout indicator;
     List<Integer> sliderImages;
     List<String> sliderText;
-    String sliderText1="";
-    String sliderText2="";
-    String sliderText4="";
-    String sliderText5="";
+    String sliderText1 = "";
+    String sliderText2 = "";
+    String sliderText4 = "";
+    String sliderText5 = "";
 
-    LinearLayout mItemFinder,mShoppingList, mPriceChecker;
+    LinearLayout mItemFinder, mShoppingList, mPriceChecker;
     LinearLayout mCaptureShoppingList;
 
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
@@ -63,7 +64,7 @@ public class HomeFragment extends Fragment {
     public static final String CAMERA_PREF = "camera_pref";
 
     Task<Uri> result;
-    LinearLayout appliances,bath,lighting,tools,flooring,outdoor;
+    LinearLayout appliances, bath, lighting, tools, flooring, outdoor;
 
     Button navigateBtn;
 
@@ -73,21 +74,21 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        mItemFinder=(LinearLayout)root.findViewById(R.id.itemFinder);
-        mShoppingList=(LinearLayout)root.findViewById(R.id.myShoppingList);
-        mPriceChecker=(LinearLayout)root.findViewById(R.id.checkPrice);
-        mCaptureShoppingList=(LinearLayout)root.findViewById(R.id.captureShoppingList);
-        appliances=(LinearLayout)root.findViewById(R.id.appliances);
-        bath=(LinearLayout)root.findViewById(R.id.bath);
-        lighting=(LinearLayout)root.findViewById(R.id.lighting);
-        tools=(LinearLayout)root.findViewById(R.id.tools);
-        flooring=(LinearLayout)root.findViewById(R.id.flooring);
-        outdoor=(LinearLayout)root.findViewById(R.id.outdoor);
-        navigateBtn=(Button)root.findViewById(R.id.navigateBtn);
+        mItemFinder = (LinearLayout) root.findViewById(R.id.itemFinder);
+        mShoppingList = (LinearLayout) root.findViewById(R.id.myShoppingList);
+        mPriceChecker = (LinearLayout) root.findViewById(R.id.checkPrice);
+        mCaptureShoppingList = (LinearLayout) root.findViewById(R.id.captureShoppingList);
+        appliances = (LinearLayout) root.findViewById(R.id.appliances);
+        bath = (LinearLayout) root.findViewById(R.id.bath);
+        lighting = (LinearLayout) root.findViewById(R.id.lighting);
+        tools = (LinearLayout) root.findViewById(R.id.tools);
+        flooring = (LinearLayout) root.findViewById(R.id.flooring);
+        outdoor = (LinearLayout) root.findViewById(R.id.outdoor);
+        navigateBtn = (Button) root.findViewById(R.id.navigateBtn);
 
         //carousel
-        viewPager=(ViewPager)root.findViewById(R.id.viewPager);
-        indicator=(TabLayout)root.findViewById(R.id.indicator);
+        viewPager = (ViewPager) root.findViewById(R.id.viewPager);
+        indicator = (TabLayout) root.findViewById(R.id.indicator);
         setCarouselViewPager(); //to implement carousel using viewpager
 
         navigateBtn.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +98,8 @@ public class HomeFragment extends Fragment {
 //                        Uri.parse("http://maps.google.com/maps?saddr=22.772938,86.1444722&daddr=28.567892,77.323089"));
 //                startActivity(intent);
 
-                startActivity(new Intent(getContext(), StartShoppingActivity.class));
+                startActivity(new Intent(getActivity(), MLTextRecognition.class));
+                //startActivity(new Intent(getContext(), StartShoppingActivity.class));
             }
         });
 
@@ -151,10 +153,10 @@ public class HomeFragment extends Fragment {
         appliances.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="https://www.lowes.com/c/Appliances?int_cmp=Home%3AA2%3AMajorAppliances%3AOther%3APC_Appliances";
+                String url = "https://www.lowes.com/c/Appliances?int_cmp=Home%3AA2%3AMajorAppliances%3AOther%3APC_Appliances";
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title","Appliances");
+                intent.putExtra("title", "Appliances");
                 startActivity(intent);
             }
         });
@@ -162,10 +164,10 @@ public class HomeFragment extends Fragment {
         bath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="https://www.lowes.com/l/bath-event.html?int_cmp=Home%3AA2%3AFashionFixtures%3AOther%3APC_Bath";
+                String url = "https://www.lowes.com/l/bath-event.html?int_cmp=Home%3AA2%3AFashionFixtures%3AOther%3APC_Bath";
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title","Bath");
+                intent.putExtra("title", "Bath");
                 startActivity(intent);
             }
         });
@@ -173,10 +175,10 @@ public class HomeFragment extends Fragment {
         lighting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="https://www.lowes.com/c/Lighting-ceiling-fans?int_cmp=Home%3AA2%3ALighting%3APct_Off%3APC_Lighting";
+                String url = "https://www.lowes.com/c/Lighting-ceiling-fans?int_cmp=Home%3AA2%3ALighting%3APct_Off%3APC_Lighting";
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title","Lighting");
+                intent.putExtra("title", "Lighting");
                 startActivity(intent);
             }
         });
@@ -184,10 +186,10 @@ public class HomeFragment extends Fragment {
         tools.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="https://www.lowes.com/c/Tools?int_cmp=Home%3AA2%3AToolsHardware%3AOther%3APC_Tools";
+                String url = "https://www.lowes.com/c/Tools?int_cmp=Home%3AA2%3AToolsHardware%3AOther%3APC_Tools";
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title","Tools");
+                intent.putExtra("title", "Tools");
                 startActivity(intent);
             }
         });
@@ -195,10 +197,10 @@ public class HomeFragment extends Fragment {
         flooring.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="https://www.lowes.com/c/Flooring?int_cmp=Home%3AA2%3AFlooring%3AOther%3APC_Flooring";
+                String url = "https://www.lowes.com/c/Flooring?int_cmp=Home%3AA2%3AFlooring%3AOther%3APC_Flooring";
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title","Flooring");
+                intent.putExtra("title", "Flooring");
                 startActivity(intent);
             }
         });
@@ -206,10 +208,10 @@ public class HomeFragment extends Fragment {
         outdoor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="https://www.lowes.com/l/Outdoor-tools-equipment-Outdoors?int_cmp=Home%3AA2%3AOutdoors%3AOther%3APC_OPE";
+                String url = "https://www.lowes.com/l/Outdoor-tools-equipment-Outdoors?int_cmp=Home%3AA2%3AOutdoors%3AOther%3APC_OPE";
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title","Outdoor");
+                intent.putExtra("title", "Outdoor");
                 startActivity(intent);
             }
         });
@@ -225,7 +227,7 @@ public class HomeFragment extends Fragment {
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DONT ALLOW",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity() , "Cannot report Without Camera Permissions" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Cannot report Without Camera Permissions", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                         getActivity().finish();
                     }
@@ -271,7 +273,7 @@ public class HomeFragment extends Fragment {
         alertDialog.show();
     }
 
-    public static Boolean getFromPref(Context context, String key){
+    public static Boolean getFromPref(Context context, String key) {
         SharedPreferences myPrefs = context.getSharedPreferences(CAMERA_PREF, Context.MODE_PRIVATE);
         return (myPrefs.getBoolean(key, false));
     }
@@ -293,9 +295,8 @@ public class HomeFragment extends Fragment {
 
     private void openCamera() {
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        startActivityForResult(intent,MY_PERMISSIONS_REQUEST_CAMERA);
+        startActivityForResult(intent, MY_PERMISSIONS_REQUEST_CAMERA);
     }
-
 
 
     @Override
@@ -305,7 +306,7 @@ public class HomeFragment extends Fragment {
 
         if (requestCode == MY_PERMISSIONS_REQUEST_CAMERA) {
 
-            if(resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK) {
                 bitmap = (Bitmap) data.getExtras().get("data");
 //                img.setImageBitmap(bitmap);
                 final ProgressDialog progressDialog = new ProgressDialog(getContext());
@@ -318,24 +319,17 @@ public class HomeFragment extends Fragment {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] images = baos.toByteArray();
 
-                final String filename = System.currentTimeMillis()+" ";
+                final String filename = System.currentTimeMillis() + " ";
 
             } else {
-                Toast.makeText(getContext() , "Photo not Taken." , Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Photo not Taken.", Toast.LENGTH_LONG).show();
             }
         }
     }
 
 
-
-
-
-
-
-
-
     //carousel/slider implementation function
-    public  void setCarouselViewPager(){
+    public void setCarouselViewPager() {
 
         sliderText = new ArrayList<>();
         sliderText.add(sliderText1);
@@ -343,7 +337,7 @@ public class HomeFragment extends Fragment {
         sliderText.add(sliderText4);
         sliderText.add(sliderText5);
 
-        sliderImages=new ArrayList<Integer>();
+        sliderImages = new ArrayList<Integer>();
         sliderImages.add(R.drawable.image_5);
         sliderImages.add(R.drawable.image_2);
         sliderImages.add(R.drawable.image_3);
@@ -361,7 +355,7 @@ public class HomeFragment extends Fragment {
         @Override
         public void run() {
 
-            if(getActivity()!=null) {
+            if (getActivity() != null) {
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -373,8 +367,9 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
-            }else
-                return;;
+            } else
+                return;
+            ;
         }
     }
 
