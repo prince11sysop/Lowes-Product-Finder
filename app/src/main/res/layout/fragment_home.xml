@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/opensans"
-                    android:text="Find Product"
+                    android:text="Find Product\nLocation"
                     android:textAlignment="center"
                     android:textColor="@color/blue"
                     android:textSize="15sp"
@@ -193,7 +193,7 @@
         <RelativeLayout
             android:id="@+id/captureShoppingList"
             android:layout_width="match_parent"
-            android:layout_height="90dp">
+            android:layout_height="150dp">
 
             <ImageView
                 android:layout_width="30dp"
@@ -203,8 +203,9 @@
                 android:tint="@color/blue" />
 
             <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieScan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:padding="5dp"
                 android:rotation="90"

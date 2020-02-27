@@ -16,6 +16,7 @@
         android:elevation="2dp">
 
         <RelativeLayout
+            android:id="@+id/view_foreground"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

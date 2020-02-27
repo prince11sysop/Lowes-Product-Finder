@@ -1,5 +1,6 @@
 package nitjamshedpur.com.lowesproductfinder.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -16,7 +17,9 @@ import nitjamshedpur.com.lowesproductfinder.utils.RecyclerItemTouchHelper;
 import android.content.ClipData;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -50,9 +53,11 @@ public class StartShoppingActivity extends AppCompatActivity implements Recycler
         adapter = new ShoppingInStoreAdapter(StartShoppingActivity.this, itemList);
         recyclerView.setAdapter(adapter);
 
+
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new
                 RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
 
     }
 
@@ -60,6 +65,8 @@ public class StartShoppingActivity extends AppCompatActivity implements Recycler
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (direction == ItemTouchHelper.LEFT) {
             if (viewHolder instanceof ShoppingInStoreAdapter.MyShoppingListViewHolder) {
+
+
                 // get the removed item name to display it in snack bar
                 String name = itemList.get(viewHolder.getAdapterPosition()).getName();
 

@@ -11,5 +11,16 @@
     android:layout_height="match_parent"
     tools:context=".Activity.StoreMapActivity" />
 
+    <Button
+        android:id="@+id/showShoppingList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Sopping List"
+        android:layout_alignParentBottom="true"
+        android:background="@color/blue"
+        android:layout_above="@+id/map"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        ></Button>
 
 </RelativeLayout>

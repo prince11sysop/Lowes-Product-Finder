@@ -4,12 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import nitjamshedpur.com.lowesproductfinder.R;
 import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +24,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -53,10 +61,22 @@ public class MLTextRecognition extends Activity {
     private Uri filePath;
     private boolean ifImageAdded=false;
 
+    public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
+    public static final String ALLOW_KEY = "ALLOWED";
+    public static final String CAMERA_PREF = "camera_pref";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mltext_recognition);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         captureImageBtn = findViewById(R.id.capture_image);
         detectTextBtn = (Button) findViewById(R.id.detect_text_image);
@@ -88,15 +108,34 @@ public class MLTextRecognition extends Activity {
     private void selectImage() {
         final CharSequence[] options = {"Take a Photo", "Choose from Gallery", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Add your Shopping List!");
+        builder.setTitle("Upload your Shopping List");
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 if (options[item].equals("Take a Photo")) {
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+                    if (ContextCompat.checkSelfPermission(MLTextRecognition.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        if (getFromPref(getApplicationContext(), ALLOW_KEY)) {
+                            showSettingsAlert();
+
+                        } else if (ContextCompat.checkSelfPermission(MLTextRecognition.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+
+                            if (ActivityCompat.shouldShowRequestPermissionRationale(MLTextRecognition.this, Manifest.permission.CAMERA)) {
+                                showAlert();
+
+                            } else {
+                                // No explanation needed, we can request the permission.
+                                ActivityCompat.requestPermissions(MLTextRecognition.this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
+                            }
+                        }
+                    } else {
+                        openCamera();
                     }
+
+//                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//                    }
                 } else if (options[item].equals("Choose from Gallery")) {
                     Intent intent = new Intent();
                     intent.setType("image/*");
@@ -110,6 +149,90 @@ public class MLTextRecognition extends Activity {
         builder.show();
     }
 
+    public void openCamera(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    private void showAlert() {
+        AlertDialog alertDialog = new AlertDialog.Builder(MLTextRecognition.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("App needs to access the Camera.");
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DONT ALLOW",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MLTextRecognition.this, "Cannot report Without Camera Permissions", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "ALLOW",
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        ActivityCompat.requestPermissions(MLTextRecognition.this,
+                                new String[]{Manifest.permission.CAMERA},
+                                MY_PERMISSIONS_REQUEST_CAMERA);
+//                        openCamera();
+                    }
+                });
+        alertDialog.show();
+    }
+
+    private void showSettingsAlert() {
+        AlertDialog alertDialog = new AlertDialog.Builder(MLTextRecognition.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("App needs to access the Camera.");
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DONT ALLOW",
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "SETTINGS",
+                new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+//                        openCamera();
+                        startInstalledAppDetailsActivity(MLTextRecognition.this);
+                    }
+                });
+        alertDialog.show();
+    }
+
+    public static Boolean getFromPref(Context context, String key) {
+        SharedPreferences myPrefs = context.getSharedPreferences(CAMERA_PREF, Context.MODE_PRIVATE);
+        return (myPrefs.getBoolean(key, false));
+    }
+
+
+    public static void startInstalledAppDetailsActivity(final Activity context) {
+        if (context == null)
+            return;
+
+        final Intent i = new Intent();
+        i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        i.addCategory(Intent.CATEGORY_DEFAULT);
+        i.setData(Uri.parse("package:" + context.getPackageName()));
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        context.startActivity(i);
+    }
+
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -117,6 +240,7 @@ public class MLTextRecognition extends Activity {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
             imageView.setImageBitmap(imageBitmap);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             ifImageAdded=true;
 
         } else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/captureShoppingList"
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieScan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="5dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_speed="2.5"
+                app:lottie_rawRes="@raw/list_scan" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan Shopping List"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/slide_title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="@dimen/desc_padding"
+            android:paddingRight="@dimen/desc_padding"
+            android:text="Simply scan or import your shopping list from the gallery. We'll handle the rest."
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/slide_desc" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

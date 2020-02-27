@@ -3,6 +3,7 @@ package nitjamshedpur.com.lowesproductfinder.Activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -90,7 +91,8 @@ public class CreateShoppingListActivity extends Activity {
         layoutManager = new GridLayoutManager(CreateShoppingListActivity.this, 1);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+//        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         itemList = AppConstants.sortItemList(itemList);
         adapter = new MyShoppingListAdapter(CreateShoppingListActivity.this, itemList);
