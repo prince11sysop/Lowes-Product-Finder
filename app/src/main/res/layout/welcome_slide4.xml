@@ -43,7 +43,7 @@
             android:layout_marginTop="20dp"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
-            android:text="@string/slide_4_desc"
+            android:text="Use the store's map to find shelf location in the store."
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="@dimen/slide_desc" />

@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/opensans"
-                    android:text="Find Product"
+                    android:text="Find Product\nLocation"
                     android:textAlignment="center"
                     android:textColor="@color/blue"
                     android:textSize="15sp"

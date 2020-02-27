@@ -11,24 +11,21 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieComposition;
+import com.airbnb.lottie.LottieDrawable;
+import com.airbnb.lottie.OnCompositionLoadedListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.ml.vision.FirebaseVision;
-import com.google.firebase.ml.vision.common.FirebaseVisionImage;
-import com.google.firebase.ml.vision.text.FirebaseVisionText;
-import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -37,14 +34,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+
 import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.MLTextRecognition;
-import nitjamshedpur.com.lowesproductfinder.Activity.MainActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.SearchProductActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.StartShoppingActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.StartShoppingMapActivity;
@@ -52,9 +50,6 @@ import nitjamshedpur.com.lowesproductfinder.Activity.StoreMapActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.WebViewActivity;
 import nitjamshedpur.com.lowesproductfinder.Carousel.SliderAdapter;
 import nitjamshedpur.com.lowesproductfinder.R;
-import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
-
-import static android.app.Activity.RESULT_OK;
 
 public class HomeFragment extends Fragment {
 
@@ -62,10 +57,10 @@ public class HomeFragment extends Fragment {
     TabLayout indicator;
     List<Integer> sliderImages;
     List<String> sliderText;
-    String sliderText1="";
-    String sliderText2="";
-    String sliderText4="";
-    String sliderText5="";
+    String sliderText1 = "";
+    String sliderText2 = "";
+    String sliderText4 = "";
+    String sliderText5 = "";
 
     LinearLayout mItemFinder,mShoppingList, mPriceChecker;
     LinearLayout mCaptureShoppingList;
@@ -104,8 +99,10 @@ public class HomeFragment extends Fragment {
         navigateBtn=(Button)root.findViewById(R.id.navigateBtn);
 
         //carousel
-        viewPager=(ViewPager)root.findViewById(R.id.viewPager);
-        indicator=(TabLayout)root.findViewById(R.id.indicator);
+        viewPager = (ViewPager) root.findViewById(R.id.viewPager);
+        indicator = (TabLayout) root.findViewById(R.id.indicator);
+
+
         setCarouselViewPager(); //to implement carousel using viewpager
 
         navigateBtn.setOnClickListener(new View.OnClickListener() {
@@ -176,10 +173,10 @@ public class HomeFragment extends Fragment {
         appliances.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="https://www.lowes.com/c/Appliances?int_cmp=Home%3AA2%3AMajorAppliances%3AOther%3APC_Appliances";
+                String url = "https://www.lowes.com/c/Appliances?int_cmp=Home%3AA2%3AMajorAppliances%3AOther%3APC_Appliances";
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title","Appliances");
+                intent.putExtra("title", "Appliances");
                 startActivity(intent);
             }
         });
@@ -187,10 +184,10 @@ public class HomeFragment extends Fragment {
         bath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="https://www.lowes.com/l/bath-event.html?int_cmp=Home%3AA2%3AFashionFixtures%3AOther%3APC_Bath";
+                String url = "https://www.lowes.com/l/bath-event.html?int_cmp=Home%3AA2%3AFashionFixtures%3AOther%3APC_Bath";
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title","Bath");
+                intent.putExtra("title", "Bath");
                 startActivity(intent);
             }
         });
@@ -198,10 +195,10 @@ public class HomeFragment extends Fragment {
         lighting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="https://www.lowes.com/c/Lighting-ceiling-fans?int_cmp=Home%3AA2%3ALighting%3APct_Off%3APC_Lighting";
+                String url = "https://www.lowes.com/c/Lighting-ceiling-fans?int_cmp=Home%3AA2%3ALighting%3APct_Off%3APC_Lighting";
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title","Lighting");
+                intent.putExtra("title", "Lighting");
                 startActivity(intent);
             }
         });
@@ -209,10 +206,10 @@ public class HomeFragment extends Fragment {
         tools.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="https://www.lowes.com/c/Tools?int_cmp=Home%3AA2%3AToolsHardware%3AOther%3APC_Tools";
+                String url = "https://www.lowes.com/c/Tools?int_cmp=Home%3AA2%3AToolsHardware%3AOther%3APC_Tools";
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title","Tools");
+                intent.putExtra("title", "Tools");
                 startActivity(intent);
             }
         });
@@ -220,10 +217,10 @@ public class HomeFragment extends Fragment {
         flooring.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="https://www.lowes.com/c/Flooring?int_cmp=Home%3AA2%3AFlooring%3AOther%3APC_Flooring";
+                String url = "https://www.lowes.com/c/Flooring?int_cmp=Home%3AA2%3AFlooring%3AOther%3APC_Flooring";
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title","Flooring");
+                intent.putExtra("title", "Flooring");
                 startActivity(intent);
             }
         });
@@ -231,10 +228,10 @@ public class HomeFragment extends Fragment {
         outdoor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url="https://www.lowes.com/l/Outdoor-tools-equipment-Outdoors?int_cmp=Home%3AA2%3AOutdoors%3AOther%3APC_OPE";
+                String url = "https://www.lowes.com/l/Outdoor-tools-equipment-Outdoors?int_cmp=Home%3AA2%3AOutdoors%3AOther%3APC_OPE";
                 Intent intent = new Intent(getContext(), WebViewActivity.class);
                 intent.putExtra("url", url);
-                intent.putExtra("title","Outdoor");
+                intent.putExtra("title", "Outdoor");
                 startActivity(intent);
             }
         });
@@ -422,7 +419,7 @@ public class HomeFragment extends Fragment {
 
 
     //carousel/slider implementation function
-    public  void setCarouselViewPager(){
+    public void setCarouselViewPager() {
 
         sliderText = new ArrayList<>();
         sliderText.add(sliderText1);
@@ -448,7 +445,7 @@ public class HomeFragment extends Fragment {
         @Override
         public void run() {
 
-            if(getActivity()!=null) {
+            if (getActivity() != null) {
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override

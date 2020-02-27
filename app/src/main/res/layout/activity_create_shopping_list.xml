@@ -67,12 +67,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingBottom="70dp"></androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="70dp"></androidx.recyclerview.widget.RecyclerView>
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

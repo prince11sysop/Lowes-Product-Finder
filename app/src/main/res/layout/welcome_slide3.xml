@@ -42,7 +42,7 @@
             android:layout_marginTop="20dp"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
-            android:text="@string/slide_3_desc"
+            android:text="Search any item in search bar to find their shelf location, availablity or price."
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="@dimen/slide_desc" />

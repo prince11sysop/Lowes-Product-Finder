@@ -45,7 +45,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:background="@null"
-        android:text="Skip"
+        android:text=""
         android:textColor="@android:color/darker_gray" />
 
 </RelativeLayout>

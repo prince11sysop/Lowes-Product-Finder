@@ -3,9 +3,12 @@ package nitjamshedpur.com.lowesproductfinder.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import nitjamshedpur.com.lowesproductfinder.R;
+import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
 
 import android.Manifest;
 import android.app.Activity;
@@ -49,11 +52,14 @@ import java.util.List;
 
 public class MLTextRecognition extends Activity {
 
-    Button captureImageBtn;
+    Button detectTextBtn;
+    ImageView imageView,captureImageBtn;
+    TextView textView;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    private final int PICK_IMAGE_REQUEST=71;
+    private final int PICK_IMAGE_REQUEST = 71;
     Bitmap imageBitmap;
     private Uri filePath;
+    private boolean ifImageAdded=false;
 
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     public static final String ALLOW_KEY = "ALLOWED";
@@ -64,100 +70,101 @@ public class MLTextRecognition extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mltext_recognition);
 
-        captureImageBtn=(Button)findViewById(R.id.capture_image);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        captureImageBtn = findViewById(R.id.capture_image);
+        detectTextBtn = (Button) findViewById(R.id.detect_text_image);
+        imageView = (ImageView) findViewById(R.id.image_view);
+        textView = (TextView) findViewById(R.id.text_display);
 
         captureImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    if (getFromPref(getApplicationContext().getApplicationContext(), ALLOW_KEY)) {
-                        showSettingsAlert();
+                selectImage();
+                textView.setText("");
+            }
+        });
 
-                    } else if (ContextCompat.checkSelfPermission(MLTextRecognition.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(MLTextRecognition.this, Manifest.permission.CAMERA)) {
-                            showAlert();
-                            Toast.makeText(MLTextRecognition.this, "Hey", Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            // No explanation needed, we can request the permission.
-                            ActivityCompat.requestPermissions(MLTextRecognition.this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
-                        }
-                    }
-                } else {
-                    selectImage();
+        detectTextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!ifImageAdded){
+                    Toast.makeText(MLTextRecognition.this, "Add an Image", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+                detectTextFromImage();
             }
         });
 
     }
 
-    private  void selectImage() {
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+    private void selectImage() {
+        final CharSequence[] options = {"Take a Photo", "Choose from Gallery", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Add your Shopping List!");
+        builder.setTitle("Upload your Shopping List");
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Take Photo")){
+                if (options[item].equals("Take a Photo")) {
 
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                    if (ContextCompat.checkSelfPermission(MLTextRecognition.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        if (getFromPref(getApplicationContext(), ALLOW_KEY)) {
+                            showSettingsAlert();
+
+                        } else if (ContextCompat.checkSelfPermission(MLTextRecognition.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+
+                            if (ActivityCompat.shouldShowRequestPermissionRationale(MLTextRecognition.this, Manifest.permission.CAMERA)) {
+                                showAlert();
+
+                            } else {
+                                // No explanation needed, we can request the permission.
+                                ActivityCompat.requestPermissions(MLTextRecognition.this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
+                            }
+                        }
+                    } else {
+                        openCamera();
                     }
 
-                } else if (options[item].equals("Choose from Gallery")){
-
-                    Intent intent =new Intent();
+//                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//                    }
+                } else if (options[item].equals("Choose from Gallery")) {
+                    Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent,"Select Picture"),PICK_IMAGE_REQUEST);
-
+                    startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
                 } else if (options[item].equals("Cancel")) {
                     dialog.dismiss();
-
                 }
             }
         });
         builder.show();
-
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-            if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-                Bundle extras = data.getExtras();
-                imageBitmap = (Bitmap) extras.get("data");
-                detectTextFromImage();
-
-            } else if(requestCode==PICK_IMAGE_REQUEST && resultCode==RESULT_OK && data!=null&& data.getData()!=null ){
-                filePath=data.getData();
-                try {
-                    imageBitmap=MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
-                    detectTextFromImage();
-
-                }catch(Exception e){
-
-                }
-            }
-    }
-
-    public static Boolean getFromPref(Context context, String key){
-        SharedPreferences myPrefs = context.getSharedPreferences(CAMERA_PREF, Context.MODE_PRIVATE);
-        return (myPrefs.getBoolean(key, false));
+    public void openCamera(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
     }
 
     private void showAlert() {
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(MLTextRecognition.this).create();
         alertDialog.setTitle("Alert");
-        alertDialog.setMessage("App needs to access the device Camera to proceed.");
+        alertDialog.setMessage("App needs to access the Camera.");
 
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DON'T ALLOW",
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DONT ALLOW",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MLTextRecognition.this , "Cannot proceed Without Camera Permissions" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(MLTextRecognition.this, "Cannot report Without Camera Permissions", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                         finish();
                     }
@@ -168,9 +175,9 @@ public class MLTextRecognition extends Activity {
 
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        ActivityCompat.requestPermissions(MLTextRecognition.this,new String[]{Manifest.permission.CAMERA},
+                        ActivityCompat.requestPermissions(MLTextRecognition.this,
+                                new String[]{Manifest.permission.CAMERA},
                                 MY_PERMISSIONS_REQUEST_CAMERA);
-
 //                        openCamera();
                     }
                 });
@@ -178,7 +185,7 @@ public class MLTextRecognition extends Activity {
     }
 
     private void showSettingsAlert() {
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(MLTextRecognition.this).create();
         alertDialog.setTitle("Alert");
         alertDialog.setMessage("App needs to access the Camera.");
 
@@ -203,6 +210,12 @@ public class MLTextRecognition extends Activity {
         alertDialog.show();
     }
 
+    public static Boolean getFromPref(Context context, String key) {
+        SharedPreferences myPrefs = context.getSharedPreferences(CAMERA_PREF, Context.MODE_PRIVATE);
+        return (myPrefs.getBoolean(key, false));
+    }
+
+
     public static void startInstalledAppDetailsActivity(final Activity context) {
         if (context == null)
             return;
@@ -219,10 +232,39 @@ public class MLTextRecognition extends Activity {
 
 
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            imageBitmap = (Bitmap) extras.get("data");
+            imageView.setImageBitmap(imageBitmap);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            ifImageAdded=true;
+
+        } else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
+            try {
+                imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                imageView.setImageBitmap(imageBitmap);
+                ifImageAdded=true;
+            } catch (Exception e) {
+
+            }
+        }
+
+        if(ifImageAdded){
+            detectTextBtn.setEnabled(true);
+            detectTextBtn.setAlpha(0.9f);
+        }
+    }
+
+
     private void detectTextFromImage() {
 
-        FirebaseVisionImage firebaseVisionImage=FirebaseVisionImage.fromBitmap(imageBitmap);
-        FirebaseVisionTextRecognizer firebaseVisionTextRecognizer= FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(imageBitmap);
+        FirebaseVisionTextRecognizer firebaseVisionTextRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
 
         firebaseVisionTextRecognizer.processImage(firebaseVisionImage).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
             @Override
@@ -233,38 +275,40 @@ public class MLTextRecognition extends Activity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MLTextRecognition.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e("Error: ",e.getMessage());
+                Toast.makeText(MLTextRecognition.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("Error: ", e.getMessage());
             }
         });
     }
 
     private void displayTextFromImage(FirebaseVisionText firebaseVisionText) {
 
-        List<FirebaseVisionText.TextBlock> blockList=firebaseVisionText.getTextBlocks();
-        if(blockList.size()==0){
+        List<FirebaseVisionText.TextBlock> blockList = firebaseVisionText.getTextBlocks();
+        if (blockList.size() == 0) {
             Toast.makeText(this, "No Text Found!", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
 //            for(FirebaseVisionText.TextBlock block: firebaseVisionText.getTextBlocks() ){
 //
 //                String text=block.getText();
 //                textView.setText(text);
 //            }
 
-            String detectedText="";
+            String s = "";
             for (int i = 0; i < blockList.size(); i++) {
                 List<FirebaseVisionText.Line> lines = blockList.get(i).getLines();
                 for (int j = 0; j < lines.size(); j++) {
                     List<FirebaseVisionText.Element> elements = lines.get(j).getElements();
-                    detectedText+="\n";
+                    s += "\n";
                     for (int k = 0; k < elements.size(); k++) {
-                        detectedText +=elements.get(k).getText()+" ";
+                        s += elements.get(k).getText() + " ";
                     }
                 }
             }
-            Toast.makeText(this, detectedText, Toast.LENGTH_SHORT).show();
-//            textView.setText(detectedText);
-
+            textView.setText(s);
+            Log.e("displayTextFromImage: ",s);
+            AppConstants.listFromScan = s;
+            startActivity(new Intent(this, CreateShoppingListActivity.class));
+            finish();
         }
     }
 
