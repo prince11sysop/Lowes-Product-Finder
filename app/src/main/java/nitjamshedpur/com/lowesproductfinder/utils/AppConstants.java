@@ -75,7 +75,7 @@ public class AppConstants {
 
         final ProgressDialog progressDialog;
         progressDialog = new ProgressDialog(context);
-        progressDialog.setTitle("One moment, please.");
+        progressDialog.setTitle("Please Wait");
         progressDialog.setMessage("Initialising App Data...");
         progressDialog.setCancelable(false);
 

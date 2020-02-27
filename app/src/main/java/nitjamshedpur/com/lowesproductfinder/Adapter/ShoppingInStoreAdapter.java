@@ -24,18 +24,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
 
+
 public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStoreAdapter.MyShoppingListViewHolder> {
 
     private Context myContext;
-    private List<ListItem> myItemList;
+    private ArrayList<ListItem> myItemList;
 
-    String key = "Key";
+    String key = "ItemList";
     private static final String SHARED_PREF = "SharedPref";
     SharedPreferences shref;
     SharedPreferences.Editor editor;
     Gson gson;
     String response;
-    public static  RelativeLayout viewBackground,viewBackground1;
 
 
 
@@ -77,20 +77,29 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
         myShoppingListViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    ListItem listItem1=myItemList.get(position);
-                    myItemList.remove(position);
-//                    listItem1.setStatus(true);
-//                    myItemList.add(listItem1);
 
-                }else{
-                    ListItem listItem1=myItemList.get(position);
+                if (isChecked) {
+                    ListItem listItem1 = myItemList.get(position);
+                    listItem1.setStatus(true);
                     myItemList.remove(position);
+                    notifyItemRemoved(position);
+                    myItemList.add(listItem1);
 
-//                    listItem1.setStatus(false);
-//                    myItemList.add(0,listItem1);
+                } else {
+                    ListItem listItem1 = myItemList.get(position);
+                    listItem1.setStatus(false);
+                    myItemList.remove(position);
+                    notifyItemRemoved(position);
+                    myItemList.add(0, listItem1);
                 }
 
+                Gson gson = new Gson();
+                String json = gson.toJson(myItemList);
+
+                editor = shref.edit();
+                editor.remove(key).commit();
+                editor.putString(key, json);
+                editor.commit();
             }
         });
     }

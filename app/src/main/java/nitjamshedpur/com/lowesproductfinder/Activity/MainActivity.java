@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private SharedPreferences mSharedPreferences;
 
 
     @Override

@@ -210,48 +210,13 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (direction == ItemTouchHelper.LEFT) {
+        if (direction == ItemTouchHelper.RIGHT) {
             if (viewHolder instanceof ShoppingInStoreAdapter.MyShoppingListViewHolder) {
 
-
-                // get the removed item name to display it in snack bar
-                String name = itemList.get(viewHolder.getAdapterPosition()).getName();
-
-                // backup of removed item for undo purpose
-                final ListItem deletedItem = itemList.get(viewHolder.getAdapterPosition());
-                final int deletedIndex = viewHolder.getAdapterPosition();
-
-                // remove the item from recycler view
                 adapter.removeItem(viewHolder.getAdapterPosition());
 
-                // showing snack bar with Undo option
-//            Snackbar snackbar = Snackbar
-//                    .make(this, name + " removed from cart!", Snackbar.LENGTH_LONG);
-//            snackbar.setAction("UNDO", new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//                    // undo is selected, restore the deleted item
-//                    adapter.restoreItem(deletedItem, deletedIndex);
-//                }
-//            });
-//            snackbar.setActionTextColor(Color.YELLOW);
-//            snackbar.show();
-                Toast.makeText(this, name + "removed!", Toast.LENGTH_SHORT).show();
             }
-        } else if (direction == ItemTouchHelper.RIGHT) {
-//            Gson gson = new Gson();
-//            SharedPreferences.Editor editor;
-//            SharedPreferences shref=getApplicationContext().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
 
-            itemList.get(viewHolder.getAdapterPosition()).setStatus(true);
-//            String json = gson.toJson(itemList);
-//
-//            editor = shref.edit();
-//            editor.remove(key).commit();
-//            editor.putString(key, json);
-//            editor.commit();
-            adapter.removeItem(viewHolder.getAdapterPosition());
         }
     }
 }
