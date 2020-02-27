@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -56,7 +57,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.location.setText("Floor " + currentItem.getFloor() + ", Shelf-" + currentItem.getShelf());
         holder.description.setText(currentItem.getDescription() + " Category-" + currentItem.getCategory());
 
-        Glide.with(context).load(currentItem.getImageUrl().toString()).into(holder.itemImage);
+        Glide.with(context)
+                .load(currentItem.getImageUrl().toString())
+                //.apply(new RequestOptions().placeholder(R.drawable.ic_image_black_24dp).error(R.drawable.ic_image_black_24dp))
+                .into(holder.itemImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
