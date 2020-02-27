@@ -196,8 +196,8 @@ public class CreateShoppingListActivity extends Activity {
                         AppConstants.fetchGoodsItemList(CreateShoppingListActivity.this);
                     } else {
                         Toast.makeText(CreateShoppingListActivity.this, "Please make sure you have a secure internet connection.", Toast.LENGTH_SHORT).show();
-                        return;
                     }
+                    return;
                 }
 
                 startActivity(new Intent(CreateShoppingListActivity.this, SearchProductActivity.class));

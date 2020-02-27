@@ -163,7 +163,7 @@ public class SearchProductActivity extends Activity {
         mAdapter = new SearchProductItemAdapter(this, currentItemList);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         search_items_list.setLayoutManager(llm);
-        search_items_list.addItemDecoration(new DividerItemDecoration(this, llm.getOrientation()));
+        //search_items_list.addItemDecoration(new DividerItemDecoration(this, llm.getOrientation()));
         search_items_list.setAdapter(mAdapter);
     }
 
