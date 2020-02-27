@@ -1,9 +1,10 @@
 package nitjamshedpur.com.lowesproductfinder.Modal;
 
 public class ItemModal {
-    private String category, subCategory, price, floor, shelf, description, name;
+    private String category, subCategory, price, floor, shelf, description, name, imageUrl;
 
-    public ItemModal(String category, String subCategory, String price, String floor, String shelf, String description, String name) {
+
+    public ItemModal(String category, String subCategory, String price, String floor, String shelf, String description, String name, String imageUrl) {
         this.category = category;
         this.subCategory = subCategory;
         this.price = price;
@@ -11,6 +12,19 @@ public class ItemModal {
         this.shelf = shelf;
         this.description = description;
         this.name = name;
+        this.imageUrl = imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public String getName() {

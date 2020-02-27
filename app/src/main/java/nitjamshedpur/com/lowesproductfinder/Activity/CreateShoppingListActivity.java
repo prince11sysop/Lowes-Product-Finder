@@ -1,8 +1,10 @@
 package nitjamshedpur.com.lowesproductfinder.Activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,9 +15,11 @@ import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
 import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -24,6 +28,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,6 +55,7 @@ public class CreateShoppingListActivity extends Activity {
     private boolean firstTimeFlag = true;
 
     private ProgressDialog progressDialog;
+    private ImageView backButton, clearListButton;
 
     @Override
     protected void onResume() {
@@ -87,6 +94,7 @@ public class CreateShoppingListActivity extends Activity {
 //        recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        itemList = AppConstants.sortItemList(itemList);
         adapter = new MyShoppingListAdapter(CreateShoppingListActivity.this, itemList);
         recyclerView.setAdapter(adapter);
         firstTimeFlag = false;
@@ -95,18 +103,13 @@ public class CreateShoppingListActivity extends Activity {
     }
 
     private void init() {
+        backButton = findViewById(R.id.back_button_crl);
+        clearListButton = findViewById(R.id.clear_my_list);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please Wait");
         progressDialog.setMessage("Fetching shopping list...");
         progressDialog.setCancelable(false);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -165,7 +168,72 @@ public class CreateShoppingListActivity extends Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (AppConstants.mItemList.size() == 0) {
+                    if (AppConstants.isNetworkAvailable(CreateShoppingListActivity.this)) {
+                        AppConstants.fetchGoodsItemList(CreateShoppingListActivity.this);
+                    } else {
+                        Toast.makeText(CreateShoppingListActivity.this, "Please make sure you have a secure internet connection.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
                 startActivity(new Intent(CreateShoppingListActivity.this, SearchProductActivity.class));
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        clearListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                shref = getApplicationContext().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
+                Gson gson = new Gson();
+                String response = shref.getString(key, "");
+
+                if (gson.fromJson(response, new TypeToken<List<ListItem>>() {
+                }.getType()) != null)
+                    itemList = gson.fromJson(response, new TypeToken<List<ListItem>>() {
+                    }.getType());
+
+                if (itemList.size() == 0) {
+                    Toast.makeText(CreateShoppingListActivity.this, "Item List is Empty...", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                AlertDialog alertDialog = new AlertDialog.Builder(CreateShoppingListActivity.this).create();
+                alertDialog.setTitle("Clear List");
+                alertDialog.setMessage("Proceed to Clear ?");
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "CLEAR",
+                        new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                                shref = getApplicationContext().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
+                                editor = shref.edit();
+                                editor.remove("ItemList").commit();
+                                itemList.clear();
+                                adapter = new MyShoppingListAdapter(CreateShoppingListActivity.this, itemList);
+                                recyclerView.setAdapter(adapter);
+
+                            }
+                        });
+                alertDialog.show();
             }
         });
     }

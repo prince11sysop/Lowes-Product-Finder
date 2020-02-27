@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,10 +8,42 @@
     tools:context=".Activity.CreateShoppingListActivity"
     android:orientation="vertical">
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        app:cardElevation="25dp"
+        android:layout_height="60dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="50dp">
+            <ImageView
+                android:id="@+id/back_button_crl"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_back"/>
+            <TextView
+                android:layout_toRightOf="@+id/back_button_crl"
+                android:layout_marginLeft="18dp"
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Shopping List"
+                android:textSize="16dp"
+                android:textAppearance="@style/bebasRegular"
+                android:textStyle="bold"/>
+            <ImageView
+                android:id="@+id/clear_my_list"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_clear_all_black_24dp"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:popupTheme="@style/AppTheme.PopupOverlay"
@@ -28,7 +60,6 @@
             android:textSize="16dp"
             android:textAppearance="@style/bebasRegular"
             android:textStyle="bold"/>
-    </androidx.appcompat.widget.Toolbar>
 
 
     <RelativeLayout
@@ -51,4 +82,4 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_input_add" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>

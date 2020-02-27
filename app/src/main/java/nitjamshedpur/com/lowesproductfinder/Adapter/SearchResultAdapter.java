@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -52,6 +53,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.price.setText(currentItem.getPrice());
         holder.location.setText("Floor " + currentItem.getFloor() + ", Shelf-" + currentItem.getShelf());
         holder.description.setText(currentItem.getDescription() + " Category-" + currentItem.getCategory());
+
+        Glide.with(context).load(currentItem.getImageUrl().toString()).into(holder.itemImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +100,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                         1, false
                 ));
                 Collections.reverse(myList);
+                myList=AppConstants.sortItemList(myList);
 
                 Gson gson2 = new Gson();
                 String json = gson2.toJson(myList);
@@ -112,6 +116,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 if (AppConstants.isCreateShoppingListActivityOpen) {
                     //AppConstants.mCreateShoppingListActivity.adapter.notifyDataSetChanged();
 
+                    //myList=AppConstants.sortItemList(myList);
                     AppConstants.mCreateShoppingListActivity.recyclerView
                             .setAdapter(new MyShoppingListAdapter(
                                     context, myList

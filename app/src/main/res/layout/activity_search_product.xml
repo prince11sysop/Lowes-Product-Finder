@@ -30,6 +30,8 @@
                 android:id="@+id/edit_search_text"
                 android:layout_marginLeft="20dp"
                 android:background="@null"
+                android:maxLines="1"
+                android:inputType="textWebEditText"
                 android:textCursorDrawable="@drawable/cursor_drawable"
                 android:hint="Search your item here"
                 android:layout_toRightOf="@+id/search_product_back"

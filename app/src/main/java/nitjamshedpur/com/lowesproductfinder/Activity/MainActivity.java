@@ -31,6 +31,9 @@ import nitjamshedpur.com.lowesproductfinder.R;
 import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
 
 import android.view.Menu;
+import android.widget.Toast;
+
+import static nitjamshedpur.com.lowesproductfinder.utils.AppConstants.fetchGoodsItemList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,9 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private ProgressDialog progressDialog;
     private SharedPreferences mSharedPreferences;
-    private DatabaseReference dref;
 
 
     @Override
@@ -67,68 +68,12 @@ public class MainActivity extends AppCompatActivity {
 //        if (mSharedPreferences.getBoolean("firstTime", true) == true) {
 //            fetchItemList();
 //        }
-        if(AppConstants.mItemList.size()==0){
-            fetchGoodsItemList();
+        if (AppConstants.mItemList.size() == 0) {
+            fetchGoodsItemList(MainActivity.this);
         }
     }
 
-    private void fetchGoodsItemList() {
-        progressDialog.show();
-        //final ArrayList<String> itemArray=new ArrayList<>();
-
-        AppConstants.mItemList.clear();
-
-        dref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-//                    String itemString=ds.child("category").getValue().toString()+","+
-//                    ds.child("subCategory").getValue().toString()+","+
-//                            ds.child("price").getValue().toString()+","+
-//                            ds.child("floor").getValue().toString()+","+
-//                            ds.child("shelf").getValue().toString()+","+
-//                            ds.child("description").getValue().toString()+","+
-//                            ds.child("name").getValue().toString();
-//
-//                    itemArray.add(itemString);
-
-                    ItemModal itemModal = new ItemModal(
-                            ds.child("category").getValue().toString(),
-                            ds.child("subCategory").getValue().toString(),
-                            ds.child("price").getValue().toString(),
-                            ds.child("floor").getValue().toString(),
-                            ds.child("shelf").getValue().toString(),
-                            ds.child("description").getValue().toString(),
-                            ds.child("name").getValue().toString()
-                    );
-
-                    Log.e("onDataChange: ",ds.child("name").getValue().toString());
-
-                    AppConstants.mItemList.add(itemModal);
-                }
-                Log.e("onDataChange: ",AppConstants.mItemList.toString());
-                progressDialog.dismiss();
-//                SharedPreferences.Editor editor=mSharedPreferences.edit();
-//                editor.putBoolean("firstTime",false);
-//                editor.apply();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                progressDialog.dismiss();
-            }
-        });
-    }
-
     private void init() {
-        dref = FirebaseDatabase.getInstance().getReference("shopName").child("items");
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Please Wait");
-        progressDialog.setMessage("Initialising App Data...");
-        progressDialog.setCancelable(false);
-
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
