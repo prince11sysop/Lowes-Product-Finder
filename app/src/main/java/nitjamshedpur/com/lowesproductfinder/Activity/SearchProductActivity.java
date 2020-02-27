@@ -51,20 +51,29 @@ public class SearchProductActivity extends Activity {
             closeKeyboard();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        AppConstants.searchKeyWord = "";
+        Log.e("onBackPressed: ", "heyy");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_product);
 
+        Log.e("onCreate: ", AppConstants.searchKeyWord);
         init();
         receiveClicks();
+        enterSearchText.setText(AppConstants.searchKeyWord);
     }
 
     private void receiveClicks() {
         searchBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConstants.searchKeyWord = "";
                 finish();
             }
         });
@@ -85,6 +94,7 @@ public class SearchProductActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                AppConstants.searchKeyWord = enterSearchText.getText().toString().trim();
                 filterItemList();
             }
 
@@ -119,18 +129,25 @@ public class SearchProductActivity extends Activity {
             mAdapter.notifyDataSetChanged();
             return;
         }
+        String temp[] = searchText.split(" ");
 
         for (int i = 0; i < fullList.size(); i++) {
-            if (fullList.get(i).getName().toLowerCase().contains(searchText.toLowerCase()) ||
-                    fullList.get(i).getCategory().toLowerCase().contains(searchText.toLowerCase()) ||
-                    fullList.get(i).getSubCategory().toLowerCase().contains(searchText.toLowerCase()) ||
-                    fullList.get(i).getDescription().toLowerCase().contains(searchText.toLowerCase())
-            ) {
-                currentItemList.add(fullList.get(i));
+            for (int j = 0; j < temp.length; j++) {
+                if (fullList.get(i).getName().toLowerCase().contains(temp[j].toLowerCase()) ||
+                        fullList.get(i).getCategory().toLowerCase().contains(temp[j].toLowerCase()) ||
+                        fullList.get(i).getSubCategory().toLowerCase().contains(temp[j].toLowerCase()) ||
+                        fullList.get(i).getDescription().toLowerCase().contains(temp[j].toLowerCase())
+                ) {
+                    currentItemList.add(fullList.get(i));
+                    break;
+                }
             }
         }
 
         mAdapter.notifyDataSetChanged();
+        mAdapter.nameMap.clear();
+        mAdapter.subCatMap.clear();
+        mAdapter.catMap.clear();
     }
 
     private void init() {
@@ -182,6 +199,7 @@ public class SearchProductActivity extends Activity {
     }
 
     public void closeKeyboard() {
+        if (!mIsKeyBoardOpen) return;
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
         mIsKeyBoardOpen = false;

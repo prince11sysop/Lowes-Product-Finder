@@ -17,13 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:titleTextColor="@color/black"
-            app:titleTextAppearance="@style/bebasRegular"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            />
+            app:titleTextAppearance="@style/bebasRegular"
+            app:titleTextColor="@color/black"></androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
-
 
 
     <include layout="@layout/content_main" />
