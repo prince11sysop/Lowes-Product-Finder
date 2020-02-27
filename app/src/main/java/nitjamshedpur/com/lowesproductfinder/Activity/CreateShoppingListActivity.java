@@ -54,7 +54,7 @@ public class CreateShoppingListActivity extends Activity {
     private boolean firstTimeFlag = true;
 
     private ProgressDialog progressDialog;
-    private ImageView backButton, clearListButton;
+    private ImageView backButton, clearListButton, overFlowMenuButton;
 
     @Override
     protected void onResume() {
@@ -101,6 +101,7 @@ public class CreateShoppingListActivity extends Activity {
     }
 
     private void init() {
+        overFlowMenuButton=findViewById(R.id.overflow_menu_crl);
         backButton = findViewById(R.id.back_button_crl);
         clearListButton = findViewById(R.id.clear_my_list);
 
@@ -163,6 +164,27 @@ public class CreateShoppingListActivity extends Activity {
     }
 
     private void receiveClicks() {
+
+        overFlowMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final CharSequence[] options = {"Start Shopping", "Remind Me"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(CreateShoppingListActivity.this);
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options[item].equals("Start Shopping")) {
+                            startActivity(new Intent(CreateShoppingListActivity.this, StoreMapActivity.class));
+                        }
+                        else {
+                            Toast.makeText(CreateShoppingListActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.show();
+            }
+        });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,8 +229,8 @@ public class CreateShoppingListActivity extends Activity {
                 }
 
                 AlertDialog alertDialog = new AlertDialog.Builder(CreateShoppingListActivity.this).create();
-                alertDialog.setTitle("Clear List");
-                alertDialog.setMessage("Proceed to Clear ?");
+                alertDialog.setTitle("Clear Shopping List");
+                alertDialog.setMessage("Are you sure you want to clear your list?");
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

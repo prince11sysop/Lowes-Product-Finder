@@ -50,6 +50,12 @@ public class SearchResultsActivity extends Activity {
         setUpRecyclerView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppConstants.mSearchResultsActivity = SearchResultsActivity.this;
+    }
+
     private void setUpRecyclerView() {
         filterDataList();
         mAdapter = new SearchResultAdapter(this, currentList, SearchResultsActivity.this);

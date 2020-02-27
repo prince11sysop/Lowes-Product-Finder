@@ -27,6 +27,8 @@ import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
 import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
 
+import static nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity.itemList;
+
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.Lviewholder> {
 
     private Context context;
@@ -100,7 +102,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                         1, false
                 ));
                 Collections.reverse(myList);
-                myList=AppConstants.sortItemList(myList);
+                myList = AppConstants.sortItemList(myList);
+                itemList = myList;
 
                 Gson gson2 = new Gson();
                 String json = gson2.toJson(myList);
