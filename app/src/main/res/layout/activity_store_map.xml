@@ -23,7 +23,7 @@
         android:id="@+id/showShoppingList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show Sopping List"
+        android:text="Show Shopping List"
         android:layout_alignParentBottom="true"
         android:background="@color/blue"
         android:layout_above="@+id/map"
