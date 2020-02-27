@@ -1,19 +1,30 @@
 package nitjamshedpur.com.lowesproductfinder.utils;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -23,6 +34,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
+import nitjamshedpur.com.lowesproductfinder.Activity.MainActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.SearchProductActivity;
 import nitjamshedpur.com.lowesproductfinder.Adapter.MyShoppingListAdapter;
 import nitjamshedpur.com.lowesproductfinder.Modal.ItemModal;
@@ -36,6 +48,74 @@ public class AppConstants {
     public static boolean isCreateShoppingListActivityOpen = false;
     public static String searchKeyWord = "";
     public static String listFromScan = "";
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public static void fetchGoodsItemList(Context context) {
+
+        if(AppConstants.mItemList.size()==0){
+            if (!AppConstants.isNetworkAvailable(context)){
+                Toast.makeText(context, "Please make sure you have a secure internet connection.", Toast.LENGTH_LONG).show();
+                //progressDialog.dismiss();
+                return;
+            }
+        }
+
+        final DatabaseReference dref;
+        dref = FirebaseDatabase.getInstance().getReference("shopName").child("items");
+
+        final ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle("One moment, please.");
+        progressDialog.setMessage("Initialising App Data...");
+        progressDialog.setCancelable(false);
+
+        progressDialog.show();
+
+        if (AppConstants.mItemList.size() > 0) {
+            AppConstants.mItemList.clear();
+        }
+
+        dref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    ItemModal itemModal = new ItemModal(
+                            ds.child("category").getValue().toString(),
+                            ds.child("subCategory").getValue().toString(),
+                            ds.child("price").getValue().toString(),
+                            ds.child("floor").getValue().toString(),
+                            ds.child("shelf").getValue().toString(),
+                            ds.child("description").getValue().toString(),
+                            ds.child("name").getValue().toString(),
+                            ds.child("imageUrl").getValue().toString()
+                    );
+
+                    Log.e("onDataChange: ", ds.child("name").getValue().toString());
+
+                    AppConstants.mItemList.add(itemModal);
+                }
+                Log.e("onDataChange: ", ""+AppConstants.mItemList);
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                progressDialog.dismiss();
+            }
+        });
+        if (AppConstants.mItemList.size()>0){
+            for (ItemModal im:AppConstants.mItemList){
+                Log.e( "fetchGoodsItemList: ",im.getName()+" "+im.getSubCategory());
+            }
+        }
+    }
 
     public static ArrayList<ListItem> sortItemList(ArrayList<ListItem> dataList) {
         Collections.sort(dataList, new Comparator<ListItem>() {

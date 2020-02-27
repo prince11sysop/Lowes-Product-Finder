@@ -66,23 +66,23 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
 
         final ListItem listItem = myItemList.get(position);
 
-        if(!listItem.isStatus()){
+        if (!listItem.isStatus()) {
             myShoppingListViewHolder.checkBox.setButtonDrawable(R.drawable.ic_check_box_outline_blank_black_24dp);
         }
 
         myShoppingListViewHolder.mItemName.setText(listItem.getName());
 
-        myShoppingListViewHolder.itemPrice.setText("Rs."+listItem.getPrice());
+        myShoppingListViewHolder.itemPrice.setText("Rs." + listItem.getPrice());
 
-        myShoppingListViewHolder.itemLocation.setText("Floor-"+listItem.getFloor()+
-                ", Shelf-"+listItem.getShelf());
+        myShoppingListViewHolder.itemLocation.setText("Floor-" + listItem.getFloor() +
+                ", Shelf-" + listItem.getShelf());
 
         myShoppingListViewHolder.mItemCount.setText(listItem.getItemCount() + "");
 
         myShoppingListViewHolder.addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemList.get(position).setItemCount(listItem.getItemCount()+1);
+                itemList.get(position).setItemCount(listItem.getItemCount() + 1);
                 Gson gson = new Gson();
                 String json = gson.toJson(itemList);
 
@@ -99,10 +99,10 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
         myShoppingListViewHolder.removeItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listItem.getItemCount()==0){
+                if (listItem.getItemCount() == 0) {
                     return;
                 }
-                itemList.get(position).setItemCount(listItem.getItemCount()-1);
+                itemList.get(position).setItemCount(listItem.getItemCount() - 1);
                 Gson gson = new Gson();
                 String json = gson.toJson(itemList);
 
@@ -172,11 +172,11 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
             @Override
             public void onClick(View v) {
                 ListItem temp = myItemList.get(position);
-                ItemModal tempToOpen=AppConstants.mItemList.get(0);
-                for (ItemModal im:AppConstants.mItemList){
-                    if(im.getName().equals(temp.getName()) &&
-                            im.getDescription().equals(temp.getDescription())){
-                        tempToOpen=im;
+                ItemModal tempToOpen = AppConstants.mItemList.get(0);
+                for (ItemModal im : AppConstants.mItemList) {
+                    if (im.getName().equals(temp.getName()) &&
+                            im.getDescription().equals(temp.getDescription())) {
+                        tempToOpen = im;
                         break;
                     }
                 }
@@ -214,10 +214,10 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
             mItemCount = itemView.findViewById(R.id.count_text_cf);
             deleteItem = itemView.findViewById(R.id.deleteBtn);
             checkBox = itemView.findViewById(R.id.checkBox);
-            itemPrice=itemView.findViewById(R.id.item_price_cf);
-            itemLocation=itemView.findViewById(R.id.shelf_no_cf);
-            addItemButton=itemView.findViewById(R.id.add_item_cf);
-            removeItemButton=itemView.findViewById(R.id.remove_item_cf);
+            itemPrice = itemView.findViewById(R.id.item_price_cf);
+            itemLocation = itemView.findViewById(R.id.shelf_no_cf);
+            addItemButton = itemView.findViewById(R.id.add_item_cf);
+            removeItemButton = itemView.findViewById(R.id.remove_item_cf);
 
             itemView.setTag(getAdapterPosition());
         }

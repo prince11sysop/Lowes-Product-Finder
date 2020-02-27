@@ -38,6 +38,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.MLTextRecognition;
+import nitjamshedpur.com.lowesproductfinder.Activity.MainActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.SearchProductActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.StartShoppingActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.StartShoppingMapActivity;
@@ -45,6 +46,7 @@ import nitjamshedpur.com.lowesproductfinder.Activity.StoreMapActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.WebViewActivity;
 import nitjamshedpur.com.lowesproductfinder.Carousel.SliderAdapter;
 import nitjamshedpur.com.lowesproductfinder.R;
+import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
 
 public class HomeFragment extends Fragment {
 
@@ -107,6 +109,15 @@ public class HomeFragment extends Fragment {
         mItemFinder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (AppConstants.mItemList.size() == 0) {
+                    if (AppConstants.isNetworkAvailable(getActivity())) {
+                        AppConstants.fetchGoodsItemList(getActivity());
+                    } else {
+                        Toast.makeText(getActivity(), "Please make sure you have a secure internet connection.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
                 startActivity(new Intent(getContext(), SearchProductActivity.class));
             }
         });

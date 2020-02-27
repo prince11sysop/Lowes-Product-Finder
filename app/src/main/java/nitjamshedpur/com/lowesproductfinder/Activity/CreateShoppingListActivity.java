@@ -92,7 +92,7 @@ public class CreateShoppingListActivity extends Activity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        itemList=AppConstants.sortItemList(itemList);
+        itemList = AppConstants.sortItemList(itemList);
         adapter = new MyShoppingListAdapter(CreateShoppingListActivity.this, itemList);
         recyclerView.setAdapter(adapter);
         firstTimeFlag = false;
@@ -101,8 +101,8 @@ public class CreateShoppingListActivity extends Activity {
     }
 
     private void init() {
-        backButton=findViewById(R.id.back_button_crl);
-        clearListButton=findViewById(R.id.clear_my_list);
+        backButton = findViewById(R.id.back_button_crl);
+        clearListButton = findViewById(R.id.clear_my_list);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please Wait");
@@ -166,6 +166,16 @@ public class CreateShoppingListActivity extends Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (AppConstants.mItemList.size() == 0) {
+                    if (AppConstants.isNetworkAvailable(CreateShoppingListActivity.this)) {
+                        AppConstants.fetchGoodsItemList(CreateShoppingListActivity.this);
+                    } else {
+                        Toast.makeText(CreateShoppingListActivity.this, "Please make sure you have a secure internet connection.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
                 startActivity(new Intent(CreateShoppingListActivity.this, SearchProductActivity.class));
             }
         });
@@ -181,10 +191,20 @@ public class CreateShoppingListActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-//                if (itemList.size()==0){
-//                    Toast.makeText(CreateShoppingListActivity.this, "Item List is Empty...", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+
+                shref = getApplicationContext().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
+                Gson gson = new Gson();
+                String response = shref.getString(key, "");
+
+                if (gson.fromJson(response, new TypeToken<List<ListItem>>() {
+                }.getType()) != null)
+                    itemList = gson.fromJson(response, new TypeToken<List<ListItem>>() {
+                    }.getType());
+
+                if (itemList.size() == 0) {
+                    Toast.makeText(CreateShoppingListActivity.this, "Item List is Empty...", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 AlertDialog alertDialog = new AlertDialog.Builder(CreateShoppingListActivity.this).create();
                 alertDialog.setTitle("Clear List");
