@@ -36,14 +36,18 @@ import java.util.List;
 import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.MainActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.SearchProductActivity;
+import nitjamshedpur.com.lowesproductfinder.Activity.SearchResultsActivity;
 import nitjamshedpur.com.lowesproductfinder.Adapter.MyShoppingListAdapter;
 import nitjamshedpur.com.lowesproductfinder.Modal.ItemModal;
 import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
 
+import static nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity.itemList;
+
 public class AppConstants {
     public static ArrayList<ItemModal> mItemList = new ArrayList<>();
     public static SearchProductActivity mSearchProductActivity;
+    public static SearchResultsActivity mSearchResultsActivity;
     public static CreateShoppingListActivity mCreateShoppingListActivity;
     public static boolean isCreateShoppingListActivityOpen = false;
     public static String searchKeyWord = "";
@@ -58,8 +62,8 @@ public class AppConstants {
 
     public static void fetchGoodsItemList(Context context) {
 
-        if(AppConstants.mItemList.size()==0){
-            if (!AppConstants.isNetworkAvailable(context)){
+        if (AppConstants.mItemList.size() == 0) {
+            if (!AppConstants.isNetworkAvailable(context)) {
                 Toast.makeText(context, "Please make sure you have a secure internet connection.", Toast.LENGTH_LONG).show();
                 //progressDialog.dismiss();
                 return;
@@ -101,7 +105,7 @@ public class AppConstants {
 
                     AppConstants.mItemList.add(itemModal);
                 }
-                Log.e("onDataChange: ", ""+AppConstants.mItemList);
+                Log.e("onDataChange: ", "" + AppConstants.mItemList);
                 progressDialog.dismiss();
             }
 
@@ -110,9 +114,9 @@ public class AppConstants {
                 progressDialog.dismiss();
             }
         });
-        if (AppConstants.mItemList.size()>0){
-            for (ItemModal im:AppConstants.mItemList){
-                Log.e( "fetchGoodsItemList: ",im.getName()+" "+im.getSubCategory());
+        if (AppConstants.mItemList.size() > 0) {
+            for (ItemModal im : AppConstants.mItemList) {
+                Log.e("fetchGoodsItemList: ", im.getName() + " " + im.getSubCategory());
             }
         }
     }
@@ -131,7 +135,7 @@ public class AppConstants {
                 try {
                     if (o1.getFloor().equalsIgnoreCase(o2.getFloor())) {
                         return (int) o1.getShelf().toLowerCase().compareTo(o2.getShelf().toLowerCase());
-                    } else{
+                    } else {
                         return Integer.parseInt(o1.getFloor()) - Integer.parseInt(o2.getFloor());
                     }
                 } catch (Exception e) {
@@ -154,9 +158,9 @@ public class AppConstants {
         ViewGroup viewGroup;
 
         if (type == 1) {
-            Window window = AppConstants.mSearchProductActivity.getWindow();
+            Window window = AppConstants.mSearchResultsActivity.getWindow();
             window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
-            viewGroup = AppConstants.mSearchProductActivity.findViewById(android.R.id.content);
+            viewGroup = AppConstants.mSearchResultsActivity.findViewById(android.R.id.content);
         } else {
             Window window = AppConstants.mCreateShoppingListActivity.getWindow();
             window.getDecorView().getWindowVisibleDisplayFrame(displayRectangle);
@@ -208,7 +212,7 @@ public class AppConstants {
                     return;
                 }
 
-                SharedPreferences sharedPreferences = AppConstants.mSearchProductActivity
+                SharedPreferences sharedPreferences = AppConstants.mSearchResultsActivity
                         .getSharedPreferences("SharedPref", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -240,7 +244,8 @@ public class AppConstants {
                         1, false
                 ));
                 Collections.reverse(myList);
-                myList=AppConstants.sortItemList(myList);
+                myList = AppConstants.sortItemList(myList);
+                itemList = myList;
 
                 Gson gson2 = new Gson();
                 String json = gson2.toJson(myList);
@@ -252,7 +257,7 @@ public class AppConstants {
 
                 alertDialogOtp.dismiss();
 
-                mSearchProductActivity.finish();
+                mSearchResultsActivity.finish();
 
                 if (AppConstants.isCreateShoppingListActivityOpen) {
                     //AppConstants.mCreateShoppingListActivity.adapter.notifyDataSetChanged();

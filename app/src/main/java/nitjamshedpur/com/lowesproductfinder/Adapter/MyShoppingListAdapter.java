@@ -31,7 +31,7 @@ import static nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListAc
 public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAdapter.MyShoppingListViewHolder> {
 
     private Context myContext;
-    private List<ListItem> myItemList;
+    private ArrayList<ListItem> myItemList = new ArrayList<>();
 
     String key = "ItemList";
     private static final String SHARED_PREF = "SharedPref";
@@ -79,6 +79,10 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
 
         myShoppingListViewHolder.mItemCount.setText(listItem.getItemCount() + "");
 
+        if (listItem.getItemCount() == 1) {
+            myShoppingListViewHolder.removeItemButton.setAlpha(0.5f);
+        }
+
         myShoppingListViewHolder.addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,9 +91,9 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
                 String json = gson.toJson(itemList);
 
                 editor = shref.edit();
-                editor.remove(key).commit();
+                //editor.remove(key).apply();
                 editor.putString(key, json);
-                editor.commit();
+                editor.apply();
                 //adapter.notifyDataSetChanged();
                 MyShoppingListAdapter adapter = new MyShoppingListAdapter(myContext, itemList);
                 recyclerView.setAdapter(adapter);
@@ -99,7 +103,7 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
         myShoppingListViewHolder.removeItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listItem.getItemCount() == 0) {
+                if (listItem.getItemCount() == 1) {
                     return;
                 }
                 itemList.get(position).setItemCount(listItem.getItemCount() - 1);
