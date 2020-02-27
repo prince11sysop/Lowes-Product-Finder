@@ -12,6 +12,14 @@
     tools:context=".Activity.StoreMapActivity" />
 
     <Button
+        android:id="@+id/direction"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="8dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_directions_black"
+        android:backgroundTint="@color/bluishShadeColor"></Button>
+    <Button
         android:id="@+id/showShoppingList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

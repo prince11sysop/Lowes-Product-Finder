@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#dddddd"
     android:padding="8dp"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="0dp"
     app:cardElevation="@dimen/cardview_default_elevation">
 
     <RelativeLayout
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textStyle="bold"
-            android:background="@color/pshyGreen"
+            android:background="@color/bluishShadeColor"
             android:fontFamily="@font/notosans"
             android:gravity="center"
             android:text="Item Details"
@@ -159,13 +159,13 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="16dp"
-            app:cardCornerRadius="200dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="@dimen/cardview_default_elevation">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#00574B">
+                android:background="@color/bluishShadeColor">
 
                 <TextView
                     android:id="@+id/add_item_button"
@@ -177,7 +177,8 @@
                     android:padding="12dp"
                     android:text="Add to List"
                     android:textAllCaps="true"
-                    android:textColor="#fff"
+                    android:background="@color/bluishShadeColor"
+                    android:textColor="@color/white"
                     android:textSize="14sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

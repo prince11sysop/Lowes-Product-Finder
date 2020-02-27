@@ -8,8 +8,7 @@
     android:id="@+id/imgView"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:scaleType="fitXY"
-    android:src="@drawable/ic_launcher_foreground"/>
+    android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/textView"

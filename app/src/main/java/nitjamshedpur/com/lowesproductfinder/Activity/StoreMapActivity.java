@@ -13,9 +13,11 @@ import nitjamshedpur.com.lowesproductfinder.R;
 import nitjamshedpur.com.lowesproductfinder.utils.RecyclerItemTouchHelper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -52,22 +54,34 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
     String key = "ItemList";
     private static final String SHARED_PREF = "SharedPref";
     SharedPreferences shref;
-    SharedPreferences.Editor editor;
+    Button direction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_map);
         showShoppingList=(Button)findViewById(R.id.showShoppingList);
+        direction=findViewById(R.id.direction);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //Adding list in local storage
         shref = getApplicationContext().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String response = shref.getString(key, "");
+
+        direction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(StoreMapActivity.this, "Opening Google Maps", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr=22.772938,86.1444722&daddr=28.567892,77.323089"));
+                startActivity(intent);
+            }
+        });
+
+
 
         //getting data from local storage
         if (gson.fromJson(response, new TypeToken<List<ListItem>>() {
@@ -164,7 +178,7 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
 
         LatLng sydney = new LatLng(28.567892, 77.323089);
         mMap.addMarker(new MarkerOptions().position(sydney).title("NIT Jamshedpur")
-        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
 

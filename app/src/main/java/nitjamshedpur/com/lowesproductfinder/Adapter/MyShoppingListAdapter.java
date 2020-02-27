@@ -33,7 +33,7 @@ public class MyShoppingListAdapter extends RecyclerView.Adapter<MyShoppingListAd
     private Context myContext;
     private List<ListItem> myItemList;
 
-    String key = "Key";
+    String key = "ItemList";
     private static final String SHARED_PREF = "SharedPref";
     SharedPreferences shref;
     SharedPreferences.Editor editor;

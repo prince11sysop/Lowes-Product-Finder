@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C0DFFA"
+    android:background="#bfbfbf"
     tools:context=".Activity.CreateShoppingListActivity"
     android:orientation="vertical">
 
@@ -26,12 +26,14 @@
             <TextView
                 android:layout_toRightOf="@+id/back_button_crl"
                 android:layout_marginLeft="18dp"
+                android:id="@+id/toolbar_title"
                 android:textColor="@color/black"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Shopping List"
+                android:text="Shopping List"
                 android:textSize="16dp"
+                android:textAllCaps="true"
                 android:textAppearance="@style/bebasRegular"
                 android:textStyle="bold"/>
             <ImageView
@@ -44,28 +46,12 @@
                 android:src="@drawable/ic_clear_all_black_24dp"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        android:elevation="1dp"
-        tools:ignore="NotSibling">
-
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Shopping List"
-            android:textSize="16dp"
-            android:textAppearance="@style/bebasRegular"
-            android:textStyle="bold"/>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="65dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -82,4 +68,4 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_input_add" />
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
