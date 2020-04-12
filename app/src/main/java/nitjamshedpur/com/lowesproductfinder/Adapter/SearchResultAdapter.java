@@ -93,18 +93,29 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 else
                     myList = new ArrayList<>();
 
+                boolean ifAlreadyInList = false;
+                //check if this item is already in the list
+                for (ListItem li : myList) {
+                    if (li.getName().equalsIgnoreCase(itemModal.getName())
+                            && li.getDescription().equalsIgnoreCase(itemModal.getDescription())) {
+                        li.setItemCount(li.getItemCount() + 1);
+                        ifAlreadyInList = true;
+                    }
+                }
 
-                //change item list
-                myList.add(new ListItem(
-                        itemModal.getCategory(),
-                        itemModal.getSubCategory(),
-                        itemModal.getPrice(),
-                        itemModal.getFloor(),
-                        itemModal.getShelf(),
-                        itemModal.getDescription(),
-                        itemModal.getName(),
-                        1, false
-                ));
+                //add to item list
+                if (!ifAlreadyInList) {
+                    myList.add(new ListItem(
+                            itemModal.getCategory(),
+                            itemModal.getSubCategory(),
+                            itemModal.getPrice(),
+                            itemModal.getFloor(),
+                            itemModal.getShelf(),
+                            itemModal.getDescription(),
+                            itemModal.getName(),
+                            1, false
+                    ));
+                }
                 Collections.reverse(myList);
                 myList = AppConstants.sortItemList(myList);
                 itemList = myList;

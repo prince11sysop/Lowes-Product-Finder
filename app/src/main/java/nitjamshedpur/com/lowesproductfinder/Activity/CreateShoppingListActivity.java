@@ -103,7 +103,7 @@ public class CreateShoppingListActivity extends Activity {
     }
 
     private void init() {
-        overFlowMenuButton=findViewById(R.id.overflow_menu_crl);
+        overFlowMenuButton = findViewById(R.id.overflow_menu_crl);
         backButton = findViewById(R.id.back_button_crl);
         clearListButton = findViewById(R.id.clear_my_list);
 
@@ -131,10 +131,25 @@ public class CreateShoppingListActivity extends Activity {
                     boolean flag = false;
                     for (ItemModal im : AppConstants.mItemList) {
                         if (im.getName().toLowerCase().contains(oneWord.toLowerCase())) {
-                            itemList.add(new ListItem(im.getCategory(),
-                                    im.getSubCategory(), im.getPrice(), im.getFloor(),
-                                    im.getShelf(), im.getDescription(),
-                                    im.getName(), 1, false));
+
+                            boolean ifAlreadyInList = false;
+                            //check if this item is already in the list
+                            for (ListItem li : itemList) {
+                                if (li.getName().equalsIgnoreCase(im.getName())
+                                        && li.getDescription().equalsIgnoreCase(im.getDescription())) {
+                                    li.setItemCount(li.getItemCount() + 1);
+                                    ifAlreadyInList = true;
+                                }
+                            }
+
+                            //add to item list
+                            if (!ifAlreadyInList) {
+                                itemList.add(new ListItem(im.getCategory(),
+                                        im.getSubCategory(), im.getPrice(), im.getFloor(),
+                                        im.getShelf(), im.getDescription(),
+                                        im.getName(), 1, false));
+                            }
+
                             flag = true;
                             break;
                         }
@@ -170,7 +185,19 @@ public class CreateShoppingListActivity extends Activity {
         overFlowMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateShoppingListActivity.this, StoreMapActivity.class));
+                final CharSequence[] options = {"Start Shopping", "Remind Me"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(CreateShoppingListActivity.this);
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options[item].equals("Start Shopping")) {
+                            startActivity(new Intent(CreateShoppingListActivity.this, StoreMapActivity.class));
+                        } else {
+                            Toast.makeText(CreateShoppingListActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.show();
             }
         });
 

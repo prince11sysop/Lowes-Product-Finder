@@ -52,6 +52,7 @@ public class AppConstants {
     public static boolean isCreateShoppingListActivityOpen = false;
     public static String searchKeyWord = "";
     public static String listFromScan = "";
+    public static String curFloor = "0", curShelf = "0";
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
@@ -232,17 +233,29 @@ public class AppConstants {
                     myList = new ArrayList<>();
 
 
-                //change item list
-                myList.add(new ListItem(
-                        itemModal.getCategory(),
-                        itemModal.getSubCategory(),
-                        itemModal.getPrice(),
-                        itemModal.getFloor(),
-                        itemModal.getShelf(),
-                        itemModal.getDescription(),
-                        itemModal.getName(),
-                        1, false
-                ));
+                boolean ifAlreadyInList = false;
+                //check if this item is already in the list
+                for (ListItem li : myList) {
+                    if (li.getName().equalsIgnoreCase(itemModal.getName())
+                            && li.getDescription().equalsIgnoreCase(itemModal.getDescription())) {
+                        li.setItemCount(li.getItemCount() + 1);
+                        ifAlreadyInList = true;
+                    }
+                }
+
+                //add to item list
+                if (!ifAlreadyInList) {
+                    myList.add(new ListItem(
+                            itemModal.getCategory(),
+                            itemModal.getSubCategory(),
+                            itemModal.getPrice(),
+                            itemModal.getFloor(),
+                            itemModal.getShelf(),
+                            itemModal.getDescription(),
+                            itemModal.getName(),
+                            1, false
+                    ));
+                }
                 Collections.reverse(myList);
                 myList = AppConstants.sortItemList(myList);
                 itemList = myList;
