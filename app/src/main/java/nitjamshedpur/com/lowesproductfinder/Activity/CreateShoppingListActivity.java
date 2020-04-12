@@ -170,20 +170,7 @@ public class CreateShoppingListActivity extends Activity {
         overFlowMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final CharSequence[] options = {"Start Shopping", "Remind Me"};
-                AlertDialog.Builder builder = new AlertDialog.Builder(CreateShoppingListActivity.this);
-                builder.setItems(options, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int item) {
-                        if (options[item].equals("Start Shopping")) {
-                            startActivity(new Intent(CreateShoppingListActivity.this, StoreMapActivity.class));
-                        }
-                        else {
-                            Toast.makeText(CreateShoppingListActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                builder.show();
+                startActivity(new Intent(CreateShoppingListActivity.this, StoreMapActivity.class));
             }
         });
 
