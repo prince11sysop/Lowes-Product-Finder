@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import nitjamshedpur.com.lowesproductfinder.Adapter.ShoppingInStoreAdapter;
 import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
@@ -40,22 +41,22 @@ public class StartShoppingActivity extends AppCompatActivity implements Recycler
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         itemList = new ArrayList<>();
-        itemList.add(new ListItem("Abc","abc","abc","abc","abc","abc","abc",3,true));
-        itemList.add(new ListItem("Abc","abc","abc","abc","abc","abc","abc1",3,true));
-        itemList.add(new ListItem("Abc","abc","abc","abc","abc","abc","abc2",3,true));
+        itemList.add(new ListItem("Abc", "abc", "abc", "abc", "abc", "abc", "abc", 3, true));
+        itemList.add(new ListItem("Abc", "abc", "abc", "abc", "abc", "abc", "abc1", 3, true));
+        itemList.add(new ListItem("Abc", "abc", "abc", "abc", "abc", "abc", "abc2", 3, true));
 
         layoutManager = new GridLayoutManager(StartShoppingActivity.this, 1);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),layoutManager.getOrientation()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), layoutManager.getOrientation()));
 
-        adapter = new ShoppingInStoreAdapter(StartShoppingActivity.this, itemList);
+        //adapter = new ShoppingInStoreAdapter(StoreMapActivity.this,StartShoppingActivity.this, itemList);
         recyclerView.setAdapter(adapter);
 
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new
-                RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT, this);
+                RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
 
@@ -92,7 +93,7 @@ public class StartShoppingActivity extends AppCompatActivity implements Recycler
 //            snackbar.show();
                 Toast.makeText(this, name + "removed!", Toast.LENGTH_SHORT).show();
             }
-        }else if(direction==ItemTouchHelper.RIGHT){
+        } else if (direction == ItemTouchHelper.RIGHT) {
             Toast.makeText(this, "Right to left swipe", Toast.LENGTH_SHORT).show();
         }
     }

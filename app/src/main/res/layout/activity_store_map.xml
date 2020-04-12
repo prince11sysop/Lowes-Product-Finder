@@ -1,34 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activity.StoreMapActivity" />
+    android:layout_height="match_parent">
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activity.StoreMapActivity" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/sm_first_layer"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="18dp"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="18dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#009933">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/ic_directions_walk_black_24dp"
+                android:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/sm_direction_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:fontFamily="@font/notosans"
+                android:text="Go to floor 1"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/sm_volume_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/ic_volume_up_black_24dp"
+                android:tint="@color/white" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 
     <Button
         android:id="@+id/direction"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_margin="8dp"
+        android:layout_below="@+id/sm_first_layer"
         android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
         android:background="@drawable/ic_directions_black"
         android:backgroundTint="@color/bluishShadeColor"></Button>
+
     <Button
         android:id="@+id/showShoppingList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show Shopping List"
+        android:layout_above="@+id/map"
         android:layout_alignParentBottom="true"
         android:background="@color/blue"
-        android:layout_above="@+id/map"
+        android:text="Show Shopping List"
         android:textColor="@color/white"
-        android:textSize="15sp"
-        ></Button>
+        android:textSize="15sp"></Button>
 
 </RelativeLayout>

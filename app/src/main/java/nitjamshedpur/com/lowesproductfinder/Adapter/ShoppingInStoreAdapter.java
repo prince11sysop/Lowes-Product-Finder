@@ -21,6 +21,8 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import nitjamshedpur.com.lowesproductfinder.Activity.StoreMapActivity;
 import nitjamshedpur.com.lowesproductfinder.Modal.ListItem;
 import nitjamshedpur.com.lowesproductfinder.R;
 
@@ -36,28 +38,29 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
     SharedPreferences.Editor editor;
     Gson gson;
     String response;
+    StoreMapActivity parentActivity;
 
 
-
-    public ShoppingInStoreAdapter(Context myContext, ArrayList<ListItem> itemList){
+    public ShoppingInStoreAdapter(StoreMapActivity parentActivity, Context myContext, ArrayList<ListItem> itemList) {
         this.myContext = myContext;
         this.myItemList = itemList;
+        this.parentActivity = parentActivity;
 
         //Adding list in local storage
         shref = myContext.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
         gson = new Gson();
-        response=shref.getString(key , "");
+        response = shref.getString(key, "");
     }
 
     @NonNull
     @Override
     public ShoppingInStoreAdapter.MyShoppingListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-            LayoutInflater layoutInflater = LayoutInflater.from(myContext);
-            View view = layoutInflater.inflate(R.layout.shopping_card_format, null);
+        LayoutInflater layoutInflater = LayoutInflater.from(myContext);
+        View view = layoutInflater.inflate(R.layout.shopping_card_format, null);
 //            view.findViewById(R.id.view_background).setVisibility(View.GONE);
 
-            return new MyShoppingListViewHolder(view);
+        return new MyShoppingListViewHolder(view);
     }
 
     @Override
@@ -66,11 +69,11 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
         final ListItem listItem = myItemList.get(position);
 
         myShoppingListViewHolder.mItemName.setText(listItem.getName());
-        myShoppingListViewHolder.mItemCount.setText(listItem.getItemCount()+"");
-        myShoppingListViewHolder.mItemLocation.setText(listItem.getFloor()+"-"+listItem.getShelf());
+        myShoppingListViewHolder.mItemCount.setText(listItem.getItemCount() + "");
+        myShoppingListViewHolder.mItemLocation.setText(listItem.getFloor() + "-" + listItem.getShelf());
 
 
-        if(listItem.isStatus()){
+        if (listItem.isStatus()) {
             myShoppingListViewHolder.checkBox.setChecked(true);
         }
 
@@ -84,6 +87,7 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
                     myItemList.remove(position);
                     notifyItemRemoved(position);
                     myItemList.add(listItem1);
+                    parentActivity.setVoiceDirectionsAndText();
 
                 } else {
                     ListItem listItem1 = myItemList.get(position);
@@ -91,6 +95,7 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
                     myItemList.remove(position);
                     notifyItemRemoved(position);
                     myItemList.add(0, listItem1);
+                    parentActivity.setVoiceDirectionsAndText();
                 }
 
                 Gson gson = new Gson();
@@ -117,18 +122,20 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
         // to perform recycler view delete animations
         // NOTE: don't call notifyDataSetChanged()
         notifyItemRemoved(position);
+        parentActivity.setVoiceDirectionsAndText();
     }
 
     public void restoreItem(ListItem item, int position) {
         myItemList.add(position, item);
         // notify item added by position
         notifyItemInserted(position);
+        parentActivity.setVoiceDirectionsAndText();
     }
 
 
     public class MyShoppingListViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mItemName,mItemLocation,mItemCount;
+        TextView mItemName, mItemLocation, mItemCount;
         CheckBox checkBox;
         public RelativeLayout viewBackground;
         public LinearLayout viewForeground;
@@ -137,11 +144,11 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
         public MyShoppingListViewHolder(@NonNull final View itemView) {
             super(itemView);
             mItemName = itemView.findViewById(R.id.itemName);
-            mItemCount= itemView.findViewById(R.id.itemCount);
-            mItemLocation=itemView.findViewById(R.id.itemLocation);
-            checkBox=itemView.findViewById(R.id.checkBox);
-            viewBackground=itemView.findViewById(R.id.view_background);
-            viewForeground=itemView.findViewById(R.id.view_foreground);
+            mItemCount = itemView.findViewById(R.id.itemCount);
+            mItemLocation = itemView.findViewById(R.id.itemLocation);
+            checkBox = itemView.findViewById(R.id.checkBox);
+            viewBackground = itemView.findViewById(R.id.view_background);
+            viewForeground = itemView.findViewById(R.id.view_foreground);
 //            viewBackground1=itemView.findViewById(R.id.view_background_1);
 
         }
