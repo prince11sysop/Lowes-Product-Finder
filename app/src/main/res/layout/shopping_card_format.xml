@@ -57,6 +57,7 @@
                 android:id="@+id/itemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans"
                 android:text="Item Name"
                 android:textSize="20sp"
                 android:textColor="@color/black"></TextView>
@@ -66,6 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Floor: 1 Shelf-2"
+                android:fontFamily="@font/opensans"
+                android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/grey"></TextView>
 
@@ -77,6 +80,8 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:text="4"
+            android:fontFamily="@font/opensans"
+            android:textStyle="bold"
             android:layout_weight="1"
             android:layout_marginRight="8dp"
             android:textSize="20dp"

@@ -69,8 +69,8 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
         final ListItem listItem = myItemList.get(position);
 
         myShoppingListViewHolder.mItemName.setText(listItem.getName());
-        myShoppingListViewHolder.mItemCount.setText(listItem.getItemCount() + "");
-        myShoppingListViewHolder.mItemLocation.setText(listItem.getFloor() + "-" + listItem.getShelf());
+        myShoppingListViewHolder.mItemCount.setText("Qty: "+listItem.getItemCount() + "");
+        myShoppingListViewHolder.mItemLocation.setText(listItem.getShelf()+" Shelf, "+listItem.getFloor()+"Floor");
 
 
         if (listItem.isStatus()) {
@@ -83,28 +83,62 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
 
                 if (isChecked) {
                     ListItem listItem1 = myItemList.get(position);
+                    ListItem li2=listItem1;
                     listItem1.setStatus(true);
                     myItemList.remove(position);
-                    notifyItemRemoved(position);
-                    myItemList.add(listItem1);
+                    parentActivity.itemList.remove(li2);
+                    parentActivity.itemList.add(listItem1);
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(parentActivity.itemList);
+
+                    editor = shref.edit();
+                    editor.remove(key).commit();
+                    editor.putString(key, json);
+                    editor.commit();
+
+                    //notifyItemRemoved(position);
+                    parentActivity.recyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            parentActivity.adapter.notifyDataSetChanged();
+                        }
+                    });
                     parentActivity.setVoiceDirectionsAndText();
 
                 } else {
-                    ListItem listItem1 = myItemList.get(position);
+                    ListItem listItem1= myItemList.get(position);
+                    ListItem li2=listItem1;
                     listItem1.setStatus(false);
                     myItemList.remove(position);
-                    notifyItemRemoved(position);
-                    myItemList.add(0, listItem1);
+                    parentActivity.itemList.remove(li2);
+                    parentActivity.itemList.add(0, listItem1);
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(parentActivity.itemList);
+
+                    editor = shref.edit();
+                    editor.remove(key).commit();
+                    editor.putString(key, json);
+                    editor.commit();
+
+                    //notifyItemRemoved(position);
+                    parentActivity.recyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            parentActivity.adapter.notifyDataSetChanged();
+                        }
+                    });
                     parentActivity.setVoiceDirectionsAndText();
                 }
 
-                Gson gson = new Gson();
-                String json = gson.toJson(myItemList);
-
-                editor = shref.edit();
-                editor.remove(key).commit();
-                editor.putString(key, json);
-                editor.commit();
+//                Gson gson = new Gson();
+//                String json = gson.toJson(myItemList);
+//
+//                editor = shref.edit();
+//                editor.remove(key).commit();
+//                editor.putString(key, json);
+//                editor.commit();
             }
         });
     }
@@ -117,11 +151,26 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
 
 
     public void removeItem(int position) {
+//        myItemList.remove(position);
+//        // notify the item removed by position
+//        // to perform recycler view delete animations
+//        // NOTE: don't call notifyDataSetChanged()
+//        notifyItemRemoved(position);
+//        parentActivity.setVoiceDirectionsAndText();
+
+        ListItem listItem1 = myItemList.get(position);
+        ListItem li2=listItem1;
+        listItem1.setStatus(true);
         myItemList.remove(position);
-        // notify the item removed by position
-        // to perform recycler view delete animations
-        // NOTE: don't call notifyDataSetChanged()
-        notifyItemRemoved(position);
+        //notifyItemRemoved(position);
+        parentActivity.recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                parentActivity.adapter.notifyDataSetChanged();
+            }
+        });
+        parentActivity.itemList.remove(li2);
+        parentActivity.itemList.add(listItem1);
         parentActivity.setVoiceDirectionsAndText();
     }
 

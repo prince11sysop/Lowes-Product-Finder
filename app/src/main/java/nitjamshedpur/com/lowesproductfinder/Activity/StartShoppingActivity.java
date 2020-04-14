@@ -51,7 +51,7 @@ public class StartShoppingActivity extends AppCompatActivity implements Recycler
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), layoutManager.getOrientation()));
 
-        //adapter = new ShoppingInStoreAdapter(StoreMapActivity.this,StartShoppingActivity.this, itemList);
+        //adapter = new ShoppingInStoreAdapter(StartShoppingActivity.this, itemList);
         recyclerView.setAdapter(adapter);
 
 
