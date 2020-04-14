@@ -66,110 +66,110 @@
             android:background="@color/lightGrey" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="105dp"
-            android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/itemFinder"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:padding="10dp">
+        <LinearLayout
+            android:id="@+id/itemFinder"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_search"
-                    android:tint="@color/blue" />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_search"
+                android:tint="@color/blue" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/opensans"
-                    android:text="Find Product\nLocation"
-                    android:textAlignment="center"
-                    android:textColor="@color/blue"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="0.5dp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:background="@color/lightGrey" />
-
-            <LinearLayout
-                android:id="@+id/myShoppingList"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_list_black_24dp"
-                    android:tint="@color/blue" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/opensans"
-                    android:text="My Shopping\nList"
-                    android:textAlignment="center"
-                    android:textColor="@color/blue"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:background="@color/lightGrey" />
-
-            <LinearLayout
-                android:id="@+id/checkPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_shopping_cart_black_24dp"
-                    android:tint="@color/blue" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/opensans"
-                    android:text="Start Shopping"
-                    android:textAlignment="center"
-                    android:textColor="@color/blue"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/opensans"
+                android:text="Find Product\nLocation"
+                android:textAlignment="center"
+                android:textColor="@color/blue"
+                android:textSize="15sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/lightGrey" />
+
+        <LinearLayout
+            android:id="@+id/myShoppingList"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_list_black_24dp"
+                android:tint="@color/blue" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/opensans"
+                android:text="My Shopping\nList"
+                android:textAlignment="center"
+                android:textColor="@color/blue"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/lightGrey" />
+
+        <LinearLayout
+            android:id="@+id/checkPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_shopping_cart_black_24dp"
+                android:tint="@color/blue" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/opensans"
+                android:text="Start Shopping"
+                android:textAlignment="center"
+                android:textColor="@color/blue"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -200,7 +200,6 @@
                 android:layout_height="30dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_menu_camera"
-
                 android:tint="@color/blue" />
 
             <com.airbnb.lottie.LottieAnimationView
