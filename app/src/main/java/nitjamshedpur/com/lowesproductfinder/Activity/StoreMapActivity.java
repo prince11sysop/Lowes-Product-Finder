@@ -1,5 +1,6 @@
 package nitjamshedpur.com.lowesproductfinder.Activity;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -53,10 +54,10 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
     private GoogleMap mMap;
     Button showShoppingList;
 
-    RecyclerView recyclerView;
+    public RecyclerView recyclerView;
     GridLayoutManager layoutManager;
-    ArrayList<ListItem> itemList;
-    ShoppingInStoreAdapter adapter;
+    public ArrayList<ListItem> itemList;
+    public ShoppingInStoreAdapter adapter;
     ArrayList<ListItem> pendingItem;
     ArrayList<ListItem> completedItem;
     Button pending, completed;
@@ -70,17 +71,14 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
     private TextView directionTextView;
     private ImageView volumeButton;
     private Boolean isVolumeUp = true;
+    private CardView voice_card;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_map);
 
-        tts = new TextToSpeech(this, this);
-        showShoppingList = (Button) findViewById(R.id.showShoppingList);
-        direction = findViewById(R.id.direction);
-        directionTextView = findViewById(R.id.sm_direction_text);
-        volumeButton = findViewById(R.id.sm_volume_button);
+        init();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -90,6 +88,18 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
         Gson gson = new Gson();
         String response = shref.getString(key, "");
 
+        receiveClicks();
+
+        //getting data from local storage
+        if (gson.fromJson(response, new TypeToken<List<ListItem>>() {
+        }.getType()) != null)
+            itemList = gson.fromJson(response, new TypeToken<List<ListItem>>() {
+            }.getType());
+        else
+            itemList = new ArrayList<>();
+    }
+
+    private void receiveClicks() {
         direction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,15 +124,6 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
                 }
             }
         });
-
-
-        //getting data from local storage
-        if (gson.fromJson(response, new TypeToken<List<ListItem>>() {
-        }.getType()) != null)
-            itemList = gson.fromJson(response, new TypeToken<List<ListItem>>() {
-            }.getType());
-        else
-            itemList = new ArrayList<>();
 
         showShoppingList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,7 +194,22 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
         });
     }
 
+    private void init() {
+        tts = new TextToSpeech(this, this);
+        showShoppingList = (Button) findViewById(R.id.showShoppingList);
+        direction = findViewById(R.id.direction);
+        directionTextView = findViewById(R.id.sm_direction_text);
+        volumeButton = findViewById(R.id.sm_volume_button);
+        voice_card = findViewById(R.id.sm_first_layer);
+    }
+
     public void setVoiceDirectionsAndText() {
+        if (itemList.size() == 0) {
+            directionTextString = "Your shopping list is empty";
+            directionTextView.setText(directionTextString);
+            speakOut();
+            return;
+        }
         if (itemList.size() > 0) {
             ArrayList<ListItem> tempList = new ArrayList<>();
             for (ListItem li : itemList) {
@@ -211,11 +227,23 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
             ListItem tempItem = tempList.get(0);
 
             String noSuffix = "th";
-            int i = Integer.parseInt(tempItem.getFloor());
-            if (i == 1) noSuffix = "st";
-            else if (i == 2) noSuffix = "nd";
-            else if (i == 3) noSuffix = "rd";
-            else noSuffix = "th";
+            int i;
+            if (tempItem.getFloor().equalsIgnoreCase("gf") ||
+                    tempItem.getFloor().equalsIgnoreCase("ugf")) {
+                i = 0;
+                noSuffix = "";
+                tempItem.setFloor("Ground");
+            } else {
+                try {
+                    i = Integer.parseInt(tempItem.getFloor());
+                } catch (Exception e) {
+                    i = 0;
+                }
+                if (i == 1) noSuffix = "st";
+                else if (i == 2) noSuffix = "nd";
+                else if (i == 3) noSuffix = "rd";
+                else noSuffix = "th";
+            }
 
             directionTextString = "Move to shelf " + tempItem.getShelf() + " at " + tempItem.getFloor() + noSuffix + " floor";
             directionTextView.setText(directionTextString);

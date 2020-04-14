@@ -83,18 +83,34 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
 
                 if (isChecked) {
                     ListItem listItem1 = myItemList.get(position);
+                    ListItem li2=listItem1;
                     listItem1.setStatus(true);
                     myItemList.remove(position);
-                    notifyItemRemoved(position);
-                    myItemList.add(listItem1);
+                    //notifyItemRemoved(position);
+                    parentActivity.recyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            parentActivity.adapter.notifyDataSetChanged();
+                        }
+                    });
+                    parentActivity.itemList.remove(li2);
+                    parentActivity.itemList.add(listItem1);
                     parentActivity.setVoiceDirectionsAndText();
 
                 } else {
-                    ListItem listItem1 = myItemList.get(position);
+                    ListItem listItem1= myItemList.get(position);
+                    ListItem li2=listItem1;
                     listItem1.setStatus(false);
                     myItemList.remove(position);
-                    notifyItemRemoved(position);
-                    myItemList.add(0, listItem1);
+                    //notifyItemRemoved(position);
+                    parentActivity.recyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            parentActivity.adapter.notifyDataSetChanged();
+                        }
+                    });
+                    parentActivity.itemList.remove(li2);
+                    parentActivity.itemList.add(0, listItem1);
                     parentActivity.setVoiceDirectionsAndText();
                 }
 
