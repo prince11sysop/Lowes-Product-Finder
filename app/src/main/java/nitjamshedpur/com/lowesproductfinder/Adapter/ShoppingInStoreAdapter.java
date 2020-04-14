@@ -88,6 +88,15 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
                     myItemList.remove(position);
                     parentActivity.itemList.remove(li2);
                     parentActivity.itemList.add(listItem1);
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(parentActivity.itemList);
+
+                    editor = shref.edit();
+                    editor.remove(key).commit();
+                    editor.putString(key, json);
+                    editor.commit();
+
                     //notifyItemRemoved(position);
                     parentActivity.recyclerView.post(new Runnable() {
                         @Override
@@ -104,6 +113,15 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
                     myItemList.remove(position);
                     parentActivity.itemList.remove(li2);
                     parentActivity.itemList.add(0, listItem1);
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(parentActivity.itemList);
+
+                    editor = shref.edit();
+                    editor.remove(key).commit();
+                    editor.putString(key, json);
+                    editor.commit();
+
                     //notifyItemRemoved(position);
                     parentActivity.recyclerView.post(new Runnable() {
                         @Override
@@ -114,13 +132,13 @@ public class ShoppingInStoreAdapter extends RecyclerView.Adapter<ShoppingInStore
                     parentActivity.setVoiceDirectionsAndText();
                 }
 
-                Gson gson = new Gson();
-                String json = gson.toJson(myItemList);
-
-                editor = shref.edit();
-                editor.remove(key).commit();
-                editor.putString(key, json);
-                editor.commit();
+//                Gson gson = new Gson();
+//                String json = gson.toJson(myItemList);
+//
+//                editor = shref.edit();
+//                editor.remove(key).commit();
+//                editor.putString(key, json);
+//                editor.commit();
             }
         });
     }

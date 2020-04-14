@@ -222,7 +222,7 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
                 }
             }
             if (tempList.size() == 0 && itemList.size() > 0) {
-                directionTextString = "You have completed your shopping";
+                directionTextString = "You are done with your shopping list";
                 directionTextView.setText("Shopping completed");
                 speakOut();
                 return;
