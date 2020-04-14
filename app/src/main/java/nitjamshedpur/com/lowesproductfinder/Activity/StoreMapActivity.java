@@ -72,6 +72,7 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
     private ImageView volumeButton;
     private Boolean isVolumeUp = true;
     private CardView voice_card;
+    boolean isPendingRecyclerView=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +155,7 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
                     pending.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            isPendingRecyclerView=true;
                             pending.setAlpha((float) 1.0);
                             completed.setAlpha((float) 0.6);
 
@@ -164,12 +166,14 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
 
                             adapter = new ShoppingInStoreAdapter(StoreMapActivity.this, StoreMapActivity.this, pendingItem);
                             recyclerView.setAdapter(adapter);
+
                         }
                     });
 
                     completed.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            isPendingRecyclerView=false;
                             completed.setAlpha((float) 1.0);
                             pending.setAlpha((float) 0.6);
 
@@ -317,6 +321,17 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
     }
 
     @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (direction == ItemTouchHelper.RIGHT) {
+            if (viewHolder instanceof ShoppingInStoreAdapter.MyShoppingListViewHolder) {
+
+                adapter.removeItem(viewHolder.getAdapterPosition());
+            }
+
+        }
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         float zoomLevel = 19.6f; //This goes up to 21
@@ -353,18 +368,6 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
 
         LatLng shelf8 = new LatLng(28.568017, 77.322567);
         mMap.addMarker(new MarkerOptions().position(shelf8).title("Shelf: 8")).showInfoWindow();
-    }
-
-
-    @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (direction == ItemTouchHelper.RIGHT) {
-            if (viewHolder instanceof ShoppingInStoreAdapter.MyShoppingListViewHolder) {
-
-                adapter.removeItem(viewHolder.getAdapterPosition());
-            }
-
-        }
     }
 
     @Override
