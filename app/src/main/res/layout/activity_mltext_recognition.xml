@@ -31,6 +31,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".Activity.MLTextRecognition">
 
 
@@ -42,7 +43,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
-                app:cardElevation="25dp">
+                app:cardElevation="0dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:background="@color/lightGrey"
@@ -62,15 +63,15 @@
                         android:layout_alignParentBottom="true"
                         android:src="@drawable/ic_menu_camera"
                         android:id="@+id/capture_image"
-                        android:layout_width="40dp"
+                        android:layout_width="60dp"
                         android:tint="@color/bluishShadeColor"
-                        android:layout_height="40dp"/>
+                        android:layout_height="60dp"/>
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
             <Button
                 android:enabled="false"
-                android:alpha="0.4"
+                android:alpha="0.7"
                 android:id="@+id/detect_text_image"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/my_button_bg"
@@ -82,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="Fetch Available Items To List"
+                android:text="Extract Items"
                 android:textAllCaps="false"></Button>
 
             <TextView

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private Toolbar toolbar;
+    public  Toolbar toolbar;
 
 
     @Override

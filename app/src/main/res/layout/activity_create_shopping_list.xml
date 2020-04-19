@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#bfbfbf"
+    android:background="#FCF6F6"
     tools:context=".Activity.CreateShoppingListActivity"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        app:cardElevation="25dp"
+        app:cardElevation="2dp"
         android:layout_height="60dp">
         <RelativeLayout
             android:layout_width="match_parent"

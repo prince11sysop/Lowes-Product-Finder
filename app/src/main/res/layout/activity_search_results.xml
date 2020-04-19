@@ -7,11 +7,13 @@
     android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".Activity.SearchResultsActivity">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/temp_toolbar_sr"
         android:layout_width="match_parent"
-        app:cardElevation="25dp"
+        app:cardElevation="2dp"
         android:layout_height="50dp">
+
         <RelativeLayout
             android:id="@+id/open_search_sr"
             android:layout_width="match_parent"
@@ -45,6 +47,7 @@
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_results_list"
         android:layout_marginTop="5dp"

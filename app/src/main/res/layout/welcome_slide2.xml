@@ -3,52 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white">
+    android:background="#FCFAF9">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:id="@+id/captureShoppingList"
-            android:layout_width="match_parent"
-            android:layout_height="400dp">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottieScan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:padding="5dp"
+                android:layout_height="400dp"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
+                android:scaleType="fitXY"
                 app:lottie_speed="2.5"
                 app:lottie_rawRes="@raw/list_scan" />
-        </RelativeLayout>
+
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:text="Scan Shopping List"
             android:textColor="@android:color/black"
+            android:textAlignment="center"
             android:textSize="@dimen/slide_title"
+            android:layout_below="@id/lottieScan"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
             android:text="Simply scan or import your shopping list from the gallery. We'll handle the rest."
             android:textAlignment="center"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/slide_desc" />
+            android:textSize="@dimen/slide_desc"
+            android:layout_below="@id/title"/>
 
-    </LinearLayout>
 
 
 </RelativeLayout>

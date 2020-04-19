@@ -3,36 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white">
+    android:background="#FCFAF9">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:id="@+id/captureShoppingList"
-            android:layout_width="match_parent"
-            android:layout_height="400dp">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottieScan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:padding="5dp"
+                android:layout_height="400dp"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
+                android:background="@color/white"
                 app:lottie_speed="2"
                 app:lottie_rawRes="@raw/map" />
-        </RelativeLayout>
+
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Map"
+            android:textAlignment="center"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/lottieScan"
             android:textColor="@android:color/black"
             android:textSize="@dimen/slide_title"
             android:textStyle="bold" />
@@ -40,14 +32,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
+            android:layout_below="@id/title"
             android:text="Use the store's map to find shelf location in the store."
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="@dimen/slide_desc" />
 
-    </LinearLayout>
 
 </RelativeLayout>

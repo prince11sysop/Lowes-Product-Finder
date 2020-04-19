@@ -39,10 +39,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import nitjamshedpur.com.lowesproductfinder.Activity.CreateShoppingListActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.MLTextRecognition;
+import nitjamshedpur.com.lowesproductfinder.Activity.MainActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.SearchProductActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.StartShoppingActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.StartShoppingMapActivity;
@@ -50,6 +53,7 @@ import nitjamshedpur.com.lowesproductfinder.Activity.StoreMapActivity;
 import nitjamshedpur.com.lowesproductfinder.Activity.WebViewActivity;
 import nitjamshedpur.com.lowesproductfinder.Carousel.SliderAdapter;
 import nitjamshedpur.com.lowesproductfinder.R;
+import nitjamshedpur.com.lowesproductfinder.ui.gallery.GalleryFragment;
 import nitjamshedpur.com.lowesproductfinder.utils.AppConstants;
 
 public class HomeFragment extends Fragment {
@@ -67,15 +71,10 @@ public class HomeFragment extends Fragment {
     RelativeLayout mCaptureShoppingList;
 
     LinearLayout appliances, bath, lighting, tools, flooring, outdoor;
-    Button navigateBtn;
-    LottieAnimationView animationView;
+    Button navigateBtn, storeMap;
 
-
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
 
         mItemFinder = (LinearLayout) root.findViewById(R.id.itemFinder);
         mShoppingList = (LinearLayout) root.findViewById(R.id.myShoppingList);
@@ -88,6 +87,7 @@ public class HomeFragment extends Fragment {
         flooring = (LinearLayout) root.findViewById(R.id.flooring);
         outdoor = (LinearLayout) root.findViewById(R.id.outdoor);
         navigateBtn = (Button) root.findViewById(R.id.navigateBtn);
+        storeMap=(Button)root.findViewById(R.id.storeMap);
 
         //carousel
         viewPager = (ViewPager) root.findViewById(R.id.viewPager);
@@ -99,12 +99,25 @@ public class HomeFragment extends Fragment {
         navigateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
                         Uri.parse("http://maps.google.com/maps?saddr=22.772938,86.1444722&daddr=28.567892,77.323089"));
                 startActivity(intent);
-
             }
         });
+
+        storeMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new GalleryFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
 
         mItemFinder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,9 +236,9 @@ public class HomeFragment extends Fragment {
 
         sliderImages = new ArrayList<Integer>();
         sliderImages.add(R.drawable.image_1);
-        sliderImages.add(R.drawable.img2);
-        sliderImages.add(R.drawable.image_4);
-        sliderImages.add(R.drawable.img8);
+        sliderImages.add(R.drawable.paint);
+        sliderImages.add(R.drawable.image_5);
+        sliderImages.add(R.drawable.smart_home);
 
 
         viewPager.setAdapter(new SliderAdapter(getActivity(), sliderImages, sliderText));

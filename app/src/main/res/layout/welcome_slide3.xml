@@ -3,35 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white">
+    android:background="#FCFAF9">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/captureShoppingList"
-            android:layout_width="match_parent"
-            android:layout_height="400dp">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottieScan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:padding="5dp"
+                android:layout_height="400dp"
+                android:scaleType="fitXY"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
+                android:background="@color/white"
                 app:lottie_rawRes="@raw/search" />
-        </RelativeLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:text="@string/slide_3_title"
+            android:textAlignment="center"
+            android:layout_below="@id/lottieScan"
             android:textColor="@android:color/black"
             android:textSize="@dimen/slide_title"
             android:textStyle="bold" />
@@ -39,14 +32,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
             android:text="Search any item in search bar to find their shelf location, availablity or price."
             android:textAlignment="center"
             android:textColor="@android:color/black"
+            android:layout_below="@id/title"
             android:textSize="@dimen/slide_desc" />
 
-    </LinearLayout>
 
 </RelativeLayout>

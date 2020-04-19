@@ -87,7 +87,6 @@ public class MLTextRecognition extends Activity {
         captureImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 selectImage();
                 textView.setText("");
             }
@@ -181,7 +180,7 @@ public class MLTextRecognition extends Activity {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                     openCamera();
-                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
@@ -232,6 +231,7 @@ public class MLTextRecognition extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == RESULT_OK && requestCode == CAMERA_RESULT) {
             File out = new File(getFilesDir(), "newImage.jpg");
             if(!out.exists()) {
@@ -243,9 +243,11 @@ public class MLTextRecognition extends Activity {
             float degrees = 90;
             Matrix matrix = new Matrix();
             matrix.setRotate(degrees);
-            Bitmap output=Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), matrix, true);
+            Bitmap output=mBitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), matrix, true);
             imageView.setImageBitmap(output);
+            imageBitmap=output;
             ifImageAdded=true;
+
         } else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
             try {

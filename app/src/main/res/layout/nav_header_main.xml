@@ -11,14 +11,14 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/image_6" />
-    <TextView
-        android:layout_width="match_parent"
-        android:background="#80000000"
-        android:layout_height="match_parent"/>
+        app:srcCompat="@drawable/lowes" />
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:background="#80000000"-->
+<!--        android:layout_height="match_parent"/>-->
 
     <TextView
         android:layout_width="match_parent"
