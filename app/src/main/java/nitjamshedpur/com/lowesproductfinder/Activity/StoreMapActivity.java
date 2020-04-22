@@ -19,7 +19,9 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -30,6 +32,7 @@ import android.speech.tts.UtteranceProgressListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +55,7 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
         RecyclerItemTouchHelper.RecyclerItemTouchHelperListener, TextToSpeech.OnInitListener {
 
     private GoogleMap mMap;
-    Button showShoppingList;
+    private RelativeLayout showShoppingList;
 
     public RecyclerView recyclerView;
     GridLayoutManager layoutManager;
@@ -65,14 +68,15 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
     String key = "ItemList";
     private static final String SHARED_PREF = "SharedPref";
     SharedPreferences shref;
-    Button direction;
+    CardView direction;
     TextToSpeech tts;
     private String directionTextString = "";
-    private TextView directionTextView;
-    private ImageView volumeButton;
+    private TextView directionTextView, directionTextViewPrefix;
+    private CardView volumeButton;
+    private ImageView volumeButtonImage;
     private Boolean isVolumeUp = true;
     private CardView voice_card;
-    boolean isPendingRecyclerView=true;
+    boolean isPendingRecyclerView = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,11 +120,11 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
             public void onClick(View v) {
                 if (isVolumeUp) {
                     isVolumeUp = false;
-                    volumeButton.setImageResource(R.drawable.ic_volume_off_black_24dp);
+                    volumeButtonImage.setImageResource(R.drawable.ic_volume_off_black_24dp);
                     //tts.setPitch(0.0f);
                 } else {
                     isVolumeUp = true;
-                    volumeButton.setImageResource(R.drawable.ic_volume_up_black_24dp);
+                    volumeButtonImage.setImageResource(R.drawable.ic_volume_up_black_24dp);
                     //tts.setPitch(1.0f);
                 }
             }
@@ -155,7 +159,7 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
                     pending.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            isPendingRecyclerView=true;
+                            isPendingRecyclerView = true;
                             pending.setAlpha((float) 1.0);
                             completed.setAlpha((float) 0.6);
 
@@ -173,7 +177,7 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
                     completed.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            isPendingRecyclerView=false;
+                            isPendingRecyclerView = false;
                             completed.setAlpha((float) 1.0);
                             pending.setAlpha((float) 0.6);
 
@@ -200,11 +204,13 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
 
     private void init() {
         tts = new TextToSpeech(this, this);
-        showShoppingList = (Button) findViewById(R.id.showShoppingList);
+        showShoppingList = findViewById(R.id.showShoppingList);
         direction = findViewById(R.id.direction);
         directionTextView = findViewById(R.id.sm_direction_text);
+        directionTextViewPrefix = findViewById(R.id.sm_direction_text_temp);
         volumeButton = findViewById(R.id.sm_volume_button);
         voice_card = findViewById(R.id.sm_first_layer);
+        volumeButtonImage = findViewById(R.id.sm_volume_button_img);
     }
 
     public void setVoiceDirectionsAndText() {
@@ -222,6 +228,7 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
                 }
             }
             if (tempList.size() == 0 && itemList.size() > 0) {
+                directionTextViewPrefix.setVisibility(View.GONE);
                 directionTextString = "You are done with your shopping list";
                 directionTextView.setText("Shopping completed");
                 speakOut();
@@ -248,9 +255,10 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
                 else if (i == 3) noSuffix = "rd";
                 else noSuffix = "th";
             }
-
-            directionTextString = "Move to shelf " + tempItem.getShelf() + " at " + tempItem.getFloor() + noSuffix + " floor";
+            directionTextViewPrefix.setVisibility(View.VISIBLE);
+            directionTextString = "Shelf " + tempItem.getShelf() + ", " + tempItem.getFloor() + noSuffix + " floor";
             directionTextView.setText(directionTextString);
+            directionTextString = "Move to " + directionTextString;
             speakOut();
         }
     }
@@ -339,35 +347,74 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
         mMap.setTrafficEnabled(true);
         mMap.setBuildingsEnabled(true);
 
+        int height = 100;
+        int width = 100;
+        BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.store);
+        Bitmap b = bitmapdraw.getBitmap();
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+
         LatLng sydney = new LatLng(28.567892, 77.323089);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("NIT Jamshedpur")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Lowe's India")
+                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
 
+
+        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.bookcase);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+
         LatLng shelf1 = new LatLng(28.568010, 77.322767);
-        mMap.addMarker(new MarkerOptions().position(shelf1).title("Shelf: 1")).showInfoWindow();
+        mMap.addMarker(new MarkerOptions().position(shelf1).title("Shelf 1")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.shelf);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf2 = new LatLng(28.567813, 77.322782);
-        mMap.addMarker(new MarkerOptions().position(shelf2).title("Shelf: 2")).showInfoWindow();
+        mMap.addMarker(new MarkerOptions().position(shelf2).title("Shelf 2")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.shelves);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf3 = new LatLng(28.567573, 77.323008);
-        mMap.addMarker(new MarkerOptions().position(shelf3).title("Shelf: 3")).showInfoWindow();
+        mMap.addMarker(new MarkerOptions().position(shelf3).title("Shelf 3")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.bookcase);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf4 = new LatLng(28.568155, 77.322871);
-        mMap.addMarker(new MarkerOptions().position(shelf4).title("Shelf: 4")).showInfoWindow();
+        mMap.addMarker(new MarkerOptions().position(shelf4).title("Shelf 4")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.shelf);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf5 = new LatLng(28.568174, 77.323079);
-        mMap.addMarker(new MarkerOptions().position(shelf5).title("Shelf: 5")).showInfoWindow();
+        mMap.addMarker(new MarkerOptions().position(shelf5).title("Shelf 5")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.shelves);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf6 = new LatLng(28.568050, 77.323194);
-        mMap.addMarker(new MarkerOptions().position(shelf6).title("Shelf: 6")).showInfoWindow();
+        mMap.addMarker(new MarkerOptions().position(shelf6).title("Shelf 6")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.bookcase);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf7 = new LatLng(28.567674, 77.323212);
-        mMap.addMarker(new MarkerOptions().position(shelf7).title("Shelf: 7")).showInfoWindow();
+        mMap.addMarker(new MarkerOptions().position(shelf7).title("Shelf 7")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.shelf);
+        b = bitmapdraw.getBitmap();
+        smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf8 = new LatLng(28.568017, 77.322567);
-        mMap.addMarker(new MarkerOptions().position(shelf8).title("Shelf: 8")).showInfoWindow();
+        mMap.addMarker(new MarkerOptions().position(shelf8).title("Shelf 8")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
     }
 
     @Override

@@ -24,59 +24,136 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#009933">
+            android:background="#008000">
 
             <ImageView
+                android:id="@+id/sm_temp_image"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
                 android:src="@drawable/ic_directions_walk_black_24dp"
                 android:tint="@color/white" />
 
-            <TextView
-                android:id="@+id/sm_direction_text"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:fontFamily="@font/notosans"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tool:text="Move to shelf 25 at 2nd floor" />
+                android:layout_marginLeft="18dp"
+                android:layout_toRightOf="@+id/sm_temp_image">
 
-            <ImageView
-                android:id="@+id/sm_volume_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="12dp"
-                android:src="@drawable/ic_volume_up_black_24dp"
-                android:tint="@color/white" />
+                <TextView
+                    android:id="@+id/sm_direction_text_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/notosans"
+                    android:text="move to "
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sm_direction_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/sm_direction_text_temp"
+                    android:fontFamily="@font/notosans"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tool:text="Shelf 25, 2nd floor" />
+            </RelativeLayout>
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
-
-    <Button
-        android:id="@+id/direction"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/sm_volume_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/sm_first_layer"
         android:layout_alignParentRight="true"
-        android:layout_margin="8dp"
-        android:background="@drawable/ic_directions_black"
-        android:backgroundTint="@color/bluishShadeColor"></Button>
+        android:layout_marginRight="12dp"
+        app:cardCornerRadius="80dp"
+        app:cardElevation="40dp">
 
-    <Button
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/sm_volume_button_img"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_volume_up_black_24dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/direction"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/showShoppingList"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="32dp"
+        app:cardCornerRadius="80dp"
+        app:cardElevation="40dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/ic_directions_black" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
         android:id="@+id/showShoppingList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_above="@+id/map"
         android:layout_alignParentBottom="true"
-        android:background="@color/blue"
-        android:text="Show Shopping List"
-        android:textColor="@color/white"
-        android:textSize="15sp"></Button>
+        android:background="@drawable/gradient">
+
+        <View
+            android:layout_width="25dp"
+            android:layout_height="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
+            android:alpha="0.8"
+            android:fontFamily="@font/notosans"
+            android:text="See Shopping List"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"
+            android:alpha="0.8"
+            android:src="@drawable/chevron"
+            android:tint="@color/white" />
+    </RelativeLayout>
 
 </RelativeLayout>
