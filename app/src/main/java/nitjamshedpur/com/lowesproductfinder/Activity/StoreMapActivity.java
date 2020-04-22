@@ -349,7 +349,7 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
 
         int height = 100;
         int width = 100;
-        BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.store);
+        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.store);
         Bitmap b = bitmapdraw.getBitmap();
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
@@ -360,56 +360,56 @@ public class StoreMapActivity extends FragmentActivity implements OnMapReadyCall
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
 
 
-        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.bookcase);
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.bookcase);
         b = bitmapdraw.getBitmap();
         smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf1 = new LatLng(28.568010, 77.322767);
         mMap.addMarker(new MarkerOptions().position(shelf1).title("Shelf 1")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
-        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.shelf);
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.shelf);
         b = bitmapdraw.getBitmap();
         smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf2 = new LatLng(28.567813, 77.322782);
         mMap.addMarker(new MarkerOptions().position(shelf2).title("Shelf 2")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
-        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.shelves);
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.shelves);
         b = bitmapdraw.getBitmap();
         smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf3 = new LatLng(28.567573, 77.323008);
         mMap.addMarker(new MarkerOptions().position(shelf3).title("Shelf 3")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
-        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.bookcase);
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.bookcase);
         b = bitmapdraw.getBitmap();
         smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf4 = new LatLng(28.568155, 77.322871);
         mMap.addMarker(new MarkerOptions().position(shelf4).title("Shelf 4")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
-        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.shelf);
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.shelf);
         b = bitmapdraw.getBitmap();
         smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf5 = new LatLng(28.568174, 77.323079);
         mMap.addMarker(new MarkerOptions().position(shelf5).title("Shelf 5")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
-        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.shelves);
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.shelves);
         b = bitmapdraw.getBitmap();
         smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf6 = new LatLng(28.568050, 77.323194);
         mMap.addMarker(new MarkerOptions().position(shelf6).title("Shelf 6")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
-        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.bookcase);
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.bookcase);
         b = bitmapdraw.getBitmap();
         smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
         LatLng shelf7 = new LatLng(28.567674, 77.323212);
         mMap.addMarker(new MarkerOptions().position(shelf7).title("Shelf 7")).setIcon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
-        bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.shelf);
+        bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.shelf);
         b = bitmapdraw.getBitmap();
         smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
