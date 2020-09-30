@@ -18,7 +18,7 @@
 ### Using GitHub Repository:
   * Clone the repository in Android Studio.
   * Build the Gradle
-  * Click on the “Run” button to run the app on your device or on the emulator.
+  * Click on the “Run” button to run the app on your respective device or on the emulator.
 
   
 ## App Workflow
