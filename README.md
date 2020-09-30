@@ -10,8 +10,8 @@
 ## Installation Instructions
 
 ### Using APK (Preferred)
-  *  Download the apk file from [here](https://github.com/prince11sysop/Lowes-Product-Finder/releases/tag/v1.0).
-  * Copy the apk named “ Lowes.Product.Finder ” in your Android device
+  * Download the apk file from [here](https://github.com/prince11sysop/Lowes-Product-Finder/releases/tag/v1.0).
+  * Copy the apk file named “ Lowe.s-Product-Finder.apk ” in your Android device
   * Install the apk (Please allow if asked for any permission)
   * Open the app
 
