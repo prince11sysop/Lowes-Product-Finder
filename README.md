@@ -1,4 +1,4 @@
-# Lowes-Product-Finder
+# Lowes Product Finder
 ### This project attempts to solve one of the problem statements of the Lowe's India: Campus Challenge 2020.
 **Problem Statement:**\
 *Build a solution to help the customers find products in the store and help them navigate to the corresponding aisle/shelf. If there is a shopping list, provide the best shopping trip to complete the purchases.*
